@@ -1,0 +1,86 @@
+.navbar_client {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1A2C38;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid slategray;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* background-color:#0B2239; */
+    height: 5rem;
+    width: 100%;
+  }
+  
+  .logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 1.1rem;
+  }
+  
+  .logo a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .logo img {
+    height: 36px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .links button {
+    position: relative;
+    height: 100%;
+    cursor: pointer;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-family: Proxima Nova,Verdana,Avenir Next;
+  }
+
+  .links button > span {
+    font-size: 0.9rem;
+  }
+  
+  .navbar_loginBtn, .user__btn {
+    background: transparent;
+    color: white;
+    border: 1px solid transparent;
+    margin-right: 12px;
+  }
+
+  .navbar_loginBtn:hover, .user__btn:hover {
+    border: 1px solid whitesmoke;
+  }
+
+  .login_icon, .register_icon, .logout_icon, .person_icon {
+    width: 22px !important;
+    height: 22px !important;
+  }
+  
+  .navbar_registerBtn, .logout_btn {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+  }
+  
+  .navbar_registerBtn:hover, .logout_btn:hover {
+    background: hsla(0,0%,100%,.1);
+    color: whitesmoke;
+  }
+  
+  .links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .links > li > a {
+    text-decoration: none;
+  }

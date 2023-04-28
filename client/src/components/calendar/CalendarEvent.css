@@ -1,0 +1,73 @@
+
+.calendar__event {
+    padding: 12px;
+    width: 100%;
+    min-width: 175px;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    transition: all 0.2s ease-in;
+}
+
+.calendar__event:hover {
+    border-bottom: 1px solid #3E54AC;
+}
+
+.event__icon {
+    height: 22px !important;
+    width: 22px !important;
+    color: #865DFF !important;
+}
+
+.calendar__event__content {
+    text-align: start;
+}
+
+.calendar__event__content > h3 {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: #332C39;
+    line-height: 1.3;
+}
+
+.hour {
+    color: #191825;
+    border-bottom: 1px solid black;;
+}
+
+.calendar__event__btns {
+    display: flex;
+    margin-left: auto;
+    gap: 4px;
+}
+
+.calendar__event__btns > button {
+    cursor: pointer;
+    border: none;
+    padding: 0.3rem 0.45rem;
+    border-radius: 50%;
+    color: white;
+    transition: all 0.2s ease-in;
+}
+
+.calendar__event__btns > button:hover {
+    background-color: white;
+}
+
+.event__calendar__delete__btn {
+    background-color: transparent;
+}
+
+.event__calendar__update__btn {
+    background-color: transparent;
+}
+
+.delete__event {
+    color: #EA5455 !important;
+}
+
+.update__event {
+    color: #3E54AC !important;
+}

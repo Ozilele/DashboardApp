@@ -1,0 +1,38 @@
+
+.sidebar__link {
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.2s ease-in;
+}
+
+.sidebar__option {
+    width: 100%;
+    margin-left: 10px;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 10px;
+    color: rgba(20, 9, 9, 0.632) !important;
+    justify-content: flex-start;
+}
+
+.sidebar__option > svg {
+    /* color: #A31ACB !important; */
+    height: 18px !important;
+    width: 18px !important;
+}
+
+.sidebar__link:hover {
+    background-color: #ADA2FF;
+    color: #FFE5F1 !important;
+} 
+
+.sidebar__link:active {
+    background-color: #ADA2FF;
+} 
+
+.sidebar__link:hover > .sidebar__option {
+    color: whitesmoke !important;
+}
+

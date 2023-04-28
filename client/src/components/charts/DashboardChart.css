@@ -1,0 +1,25 @@
+
+.dashboard__chart {
+    flex: 4;
+    max-width: 660px;
+    min-width: 300px;
+    -webkit-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);;
+    -moz-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
+    box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
+    color: gray;
+    overflow: hidden;
+}
+
+.title {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.chartGrid {
+    stroke: rgb(222, 216, 216);
+}
+
+.chart__bookings {
+    display: flex;
+    align-items: center;
+}

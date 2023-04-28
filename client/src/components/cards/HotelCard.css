@@ -1,0 +1,37 @@
+
+.hotel-card-content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ant-card-body {
+    padding: 12px !important;
+}
+
+.hotel-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.hotel-card-top, .hotel-card-bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.hotel-price-badge {
+    padding: 3px 5px;
+    border-radius: 6px;
+    background-color: #ADA2FF;
+    color: whitesmoke;
+}
+
+.hotel-card-bottom {
+    gap: 3px;
+    line-height: 1.35;
+}

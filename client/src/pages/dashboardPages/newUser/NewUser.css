@@ -1,0 +1,113 @@
+.new__user__section {
+    width: 100%;
+    padding: 15px;
+}
+
+.new__user__top, .new__user__content {
+    -webkit-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);;
+    -moz-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
+    box-shadow: 2px 2px 15px -2px rgb(193, 192, 192);
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.new__user__top > h2 {
+    font-weight: 400;
+    font-size: 26px;
+    color: rgb(112, 107, 107);
+}
+
+.new__user__content {
+    display: flex;
+}
+
+.new__user__left {
+    flex: 1;
+    text-align: center;
+    height: 400px;
+}
+
+.new__user__left > img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.new__user__right {
+    flex: 2;
+    height: 400px;
+}
+
+.new__user__form {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.formInput {
+    width: 40%;
+}
+
+.formInput > label, .formInput__img > label {
+    color: #B7C4CF;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.formInput > input {
+    padding: 10px 6px;
+    width: 100%;
+    height: 40px;
+    border: none;
+    outline: none;
+    color:rgb(112, 107, 107);
+    border-bottom: 1px solid #BDCDD6;
+}
+
+.formInput__img {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.file__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file__label > svg {
+    cursor: pointer;
+    color:rgb(112, 107, 107);
+}
+
+.file__label > svg:hover {
+    color: #6096B4;
+}
+
+.send__section {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+.send__btn {
+    cursor: pointer;
+    width: 50%;
+    max-width: 210px;
+    border: 1px solid transparent;
+    padding: 1rem 1.2rem;
+    font-weight: bold;
+    border-radius: 10px;
+    color: whitesmoke;
+    background-color: #5D3891;
+    transition: all 0.2s ease-out;
+}
+
+.send__btn:hover {
+    border: 1px solid #5D3891;
+    background-color: transparent;
+    color: #5D3891;
+}

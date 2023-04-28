@@ -1,0 +1,114 @@
+.singleHotelPage {
+    margin-top: 3rem;
+    padding: 0 3.5rem;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+  }
+  
+  .imgContainer {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .contentContainer {
+    padding: 2.5rem;
+  }
+  
+  .contentContainer h2 {
+    text-align: center;
+  }
+  
+  .infoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .info h3 {
+    display: inline-block;
+    margin-right: 5px;
+    color:blue;
+  }
+  
+  .info span {
+    margin-left: 6px;
+  }
+  
+  .rating {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .rating span:last-child {
+    margin-left: 6px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .rating span:last-child img {
+    width: 18px;
+  }
+  
+  .desc {
+    margin-top: 10px;
+    text-align: justify;
+    line-height: 1.2rem;
+  }
+  
+  .options {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .options span {
+    font-size: 1.05rem;
+  }
+  
+  .rooms {
+    margin-top: 1.6rem;
+    padding: 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: #DDDDDD;
+    padding: 2rem 2.5rem;
+    border-radius: 10px;
+    /* justify-content: space-between; */
+  }
+  
+  .roomItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .roomInfo input {
+    margin-right: 5px;
+  }
+  
+  .roomInfo span {
+    margin-left: 8px;
+  }
+  
+  .bookBtn {
+    cursor: pointer;
+    padding: 1rem 1.6rem;
+    background: #1C82AD;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    color: white;
+    margin-top: 1rem;
+    align-self: end;
+    transition: all ease-in-out 0.3s;
+  }
+  
+  .bookBtn:hover {
+    background: #8DCBE6;
+    border: 1px solid #8DCBE6;
+    color: black;
+  }

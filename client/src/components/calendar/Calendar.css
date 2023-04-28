@@ -1,0 +1,89 @@
+
+.check__badge__icon {
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 2px;
+    height: 15px !important;
+    width: 15px !important;
+    background-color: rgb(36, 155, 36);
+}
+
+.first__calendar__sec {
+    flex: 0.5;
+    max-width: 500px;
+    position: relative;
+}
+
+.css-xelq0e-MuiPickerStaticWrapper-content {
+    min-width: 420px !important;
+}
+
+.css-u0soqy-MuiPickerStaticWrapper-root {
+    border-radius: 10px;
+    -webkit-box-shadow: -6px 11px 21px 0px rgba(169, 171, 185, 1);
+    -moz-box-shadow: -6px 11px 21px 0px rgba(169, 171, 185, 1);
+    box-shadow: 3px 2px 10px 5px rgba(169, 171, 185, 1);
+    background-color: #4E31AA !important;
+}
+
+.css-1eurbeq-MuiPickersToolbar-root-MuiDatePickerToolbar-root {
+    padding: 0 !important;
+}
+
+.css-jhsfre-MuiGrid-root-MuiPickersToolbar-content {
+    justify-content: center !important;
+    background-color: #3E54AC;
+    color: whitesmoke;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 1rem;
+}
+
+.css-1hbyad5-MuiTypography-root {
+    display: none !important;
+}
+
+.css-z3au5x-MuiButtonBase-root-MuiIconButton-root-MuiPickersToolbar-penIconButton {
+    display: none !important;
+}
+
+.css-hlj6pa-MuiDialogActions-root {
+    display: none !important;
+}
+
+.css-bkrceb-MuiButtonBase-root-MuiPickersDay-root.Mui-selected {
+    background-color: #3E54AC !important;
+}
+
+@media (max-width: 500px) {
+    .first__calendar__sec {
+        width: 95%;
+    }
+    .css-epd502 {
+        width: 100% !important;
+    }
+
+    .css-xelq0e-MuiPickerStaticWrapper-content {
+        min-width: 0 !important;
+    }
+    .css-epd502 {
+        max-height: 420px !important;
+    }
+    .css-169iwlq-MuiCalendarPicker-root {
+        max-height: 420px !important;
+    }
+
+    .css-1gly1z0-MuiSpeedDial-root {
+        right: 2px !important;
+        bottom: 4px !important;
+    }
+
+    .css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    .css-sf5t6v-PrivatePickersSlideTransition-root-MuiDayPicker-slideTransition {
+    }
+}
+

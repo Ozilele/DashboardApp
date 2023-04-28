@@ -1,0 +1,96 @@
+
+.user__section {
+    margin-top: 10px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 18px;
+    gap: 13px;
+    position: relative;
+}
+
+.user__profile {
+    flex: 0.35;
+    margin-top: 35px;
+    display: flex;
+    height: 30%;
+    gap: 10px;
+}
+
+.edit__usr__btn {
+    cursor: pointer;
+    display: block;
+    color: #810CA8;
+    position: absolute;
+    top: 0;
+    font-size: 0.95rem;
+    left: 50%;
+    border-radius: 10px;
+    padding: 0.45rem 0.6rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+.edit__usr__btn:hover {
+    /* border: 1px solid gray; */
+    background-color: #810CA8;
+    color: white;
+}
+
+.user__avatar {
+    height: 130px !important;
+    width: 130px !important;
+    object-fit: contain;
+}
+
+.user__info {
+    height: 140px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.user__info > h3 {
+    font-size: 1.3rem;
+    line-height: 1.4;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #404258;
+}
+
+.user__info > p {
+    color: #6B728E;
+    margin-top: 8px;
+}
+
+.user__info > p > span {
+    color: #1A120B;
+}
+
+.info.active {
+    color: green;
+}
+
+.info.inactive {
+    color: red;
+}
+
+.info.passive {
+    color: goldenrod;
+}
+
+.user__chart {
+    flex: 0.65;
+}
+
+.user__bottom__section {
+    padding: 12px 18px;
+    width: 100%;
+    margin-top: 25px;
+}
+
+.user__bottom__section > h4 {
+    color: #C69749;
+    font-size: 22px;
+    margin-bottom: 12px;
+}

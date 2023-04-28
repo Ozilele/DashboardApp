@@ -1,0 +1,160 @@
+.homeBanner {
+    background-image: url("../img/homePage.jpg");
+    /* background-size: contain; */
+    background-position: 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    color: #363636;
+  }
+  
+  .home_container {
+    width: 100%;
+    height: 100%;
+    background-color: hsla(0,0%,96%,.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+  }
+  
+  .homeContent {
+    padding-top: 20vh;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    line-height: 1.5;
+  }
+  
+  .filterBox {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    border: 2px solid #feba10;
+    border-radius: 6px;
+    padding: 10px 0px;
+    width: 85%; 
+    position: relative;
+    max-width: 1024px;
+  }
+  
+  .filterSearchItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .searchInput {
+    border: none;
+    outline: none;
+    width: 160px;
+  }
+  
+  .filterSearchItem img {
+    height: 18px;
+  }
+  
+  .searchtxt {
+    color: lightgray;
+    cursor: pointer;
+  }
+  
+  .datePicker {
+    position: absolute;
+    top: 68px;
+  }
+
+  .searchBtn_home {
+    cursor: pointer;
+    padding: 0.5rem 1.3rem;
+    background: #5BC0F8;
+    border-radius: 6px;
+    color:#FAF8F1;
+    font-size: 1.05rem;
+    font-weight: 400;
+    border: none;
+  }
+  
+  .searchBtn:hover {
+    animation: pulse 0.4s linear;
+  }
+  
+  @keyframes pulse {
+    20% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+    }
+    75% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    }
+  }
+  
+  .options {
+    position: absolute;
+    top: 68px;
+    background-color: #ECECEC;
+    color: #2B3A55;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    /* padding: 10px 0px; */
+  }
+  
+  .optionItem {
+    width: 220px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .optionContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 14px;
+  }
+  
+  .optionContainer button {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0.2rem 0.8rem;
+    border: none;
+  }
+
+  .filterSearchItem > a {
+    text-decoration: none;
+  }
+  
+  .decreaseBtn {
+    background-color:#DC3535;
+    color: white;
+  }
+  
+  .decreaseBtn:disabled {
+    cursor: not-allowed;
+  }
+  
+  .increaseBtn {
+    background-color: #B6E2A1;
+    color:#363636;
+  }
+  
+  .hotels {
+    margin-top: 1.5rem;
+  }
+  
+  /* font-family: Proxima Nova,Verdana,Avenir Next; */

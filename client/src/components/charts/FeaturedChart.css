@@ -1,0 +1,89 @@
+
+.featured__chart {
+    flex: 2;
+    max-width: 450px;
+    min-width: 240px;
+    -webkit-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);;
+    -moz-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
+    box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
+    padding: 10px;
+}
+
+.featured__chart__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: gray !important;
+}
+
+.featured__chart__top > h3 {
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+.featured__chart__top > svg {
+    cursor: pointer;
+}
+
+.chart__bottom {
+    display: flex;
+    padding: 20px;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress__bar {
+    height: 150px;
+    width: 150px;
+}
+
+.title {
+    color:rgba(160, 160, 170, 1);
+}
+
+.amount {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.desc {
+    text-align: center;
+    font-size: 13px;
+    color: gray;
+}
+
+.summary {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.summary__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.summary__item {
+    text-align: center;
+}
+
+.item__title {
+    font-size: 15px;
+    color: gray;
+}
+
+.item__btm {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.item__btm > svg {
+    cursor: pointer;
+}

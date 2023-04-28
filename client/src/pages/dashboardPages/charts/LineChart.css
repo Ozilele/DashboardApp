@@ -1,0 +1,37 @@
+
+.chart__sec {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    flex-wrap: wrap;
+}
+
+.line__chart, .area__chart, .pie__chart, .bar__chart, .scatter__chart, .polar__chart {
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    padding: 40px 15px; 
+    max-width: 700px;
+    min-width: 350px;
+}
+
+.pie__chart, .polar__chart {
+    max-width: 640px;
+}
+
+.polar__chart > h2 {
+    margin-bottom: 12px;
+    color: #7d7676;
+    font-weight: 400;
+}
+
+.area__chart {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 3.5rem;
+}

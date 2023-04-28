@@ -1,0 +1,153 @@
+@keyframes pan {
+    100% {
+      background-position: 20% 40%;
+    }
+  }
+  
+  .registerContainer {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('../img/stacked-peaks-haikei.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: pan 5s infinite alternate linear;
+  }
+
+  .register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .register h2 {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  
+  .register span {
+    width: 100%;
+  }
+
+  .register_content {
+    width: 50rem;
+    /* height: 60vh; */
+    background-color: #F9F5F3;
+    border-radius: 12px;
+    display: flex;
+    padding: 1rem 1.5rem;
+    box-shadow: 2px 5px 24px 0px rgba(122, 122, 126, 1);
+  }
+
+  .register_layout {
+    width: 30rem;
+    flex: 1;
+  }
+  
+  .registerForm {
+    margin-top: 1rem;
+  }
+  
+  .register_input {
+    margin-top: 0.8rem;
+  }
+  
+  .register_input span {
+    font-size: 0.9rem;
+    color: rgba(1, 1, 1, 0.8);
+  }
+    
+  .register_input > input {
+    display: block;
+    background: transparent;
+    border:none;
+    border-bottom: 1px solid gray;
+    padding: 10px;
+    font-size: 1.05rem;
+    width: 80%;
+  }
+  
+  .register_input > input:focus {
+    outline: none;
+  }
+  
+  .register_formBtns {
+    width: 80%;
+    margin-top: 2.2rem;
+    display: block;
+  }
+  
+  .register_btn {
+    padding: 0.8rem 2.2rem;
+    border-radius: 8px;
+    width: 100%;
+    transition: all 0.4s ease-in-out;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    cursor: pointer;
+    background-color: #CB1C8D;
+    color: #F1F6F5;
+    border: 1px solid transparent;
+    margin-bottom: 8px;
+  }
+  
+  .register_btn:hover {
+    border: 1px solid #CB1C8D;
+    background: transparent;
+    color:#CB1C8D;
+  }
+  
+  .register_formBtns span {
+    font-size: 1.1rem;
+  }
+  
+  .register_formBtns span a {
+    text-decoration: none;
+    color: #CB1C8D;
+    font-weight: 600;
+  }
+
+  .registerImg {
+    flex: 1;
+  }
+
+  .img_reg_Hotel {
+    width: 100%;
+    height: 100%;
+  }
+  
+  @media (max-width: 800px) {
+    .register_content {
+      width: 30rem;
+    }
+    .register_layout {
+      width: 100%;
+      flex: 2;
+    }
+    .registerImg {
+      flex: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .register_content {
+      width: 100%;
+    }
+
+    .register_input > input {
+      width: 100%;
+    }
+
+    .register_formBtns {
+      width: 100%;
+    }
+
+    .registerHeader {
+      text-align: center;
+    }
+
+    .register_formBtns {
+      text-align: center;
+    }
+  }
+  

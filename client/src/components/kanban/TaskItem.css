@@ -1,0 +1,52 @@
+
+.task-item {
+    position: relative;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 13px;
+    /* width: 200px; */
+    padding: 8px;
+    /* cursor: grab; */
+    background-color: blueviolet;
+}
+
+.task-item:hover > .delete-task-btn {
+    opacity: 1;
+}
+
+.delete-task-btn {
+    cursor: pointer !important;
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    z-index: 100;
+    opacity: 0;
+    background-color: transparent;   
+}
+
+.delete-task-icon {
+    color: #E8E2E2 !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.task-input {
+    background-color: transparent;
+    /* cursor: inherit; */
+    font-size: 14px;
+    word-break: break-all;
+    border: none;
+    resize: none;
+    min-height: 70px;
+    max-width: 100%;
+    max-height: 200px;
+    overflow: auto;
+    padding: 0;
+    padding-right: 4px;
+    color: #E8E2E2;
+}
+
+.task-input:focus-visible {
+    border: none;
+    outline: none;
+}

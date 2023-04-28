@@ -1,0 +1,252 @@
+
+@keyframes pan {
+    100% {
+      background-position: 20% 40%;
+    }
+  }
+  
+  .container {
+    height: 100vh;
+    width: 100vw;
+    background-image: url('../img/low-poly-grid-haikei.svg');
+    /* background-image: linear-gradient(#4ca1af, #c4e0e5); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    animation: pan 5s infinite alternate linear;
+  }
+  
+  .login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login h2 {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    margin-bottom: 12px;
+  }
+  
+  .login span {
+    width: 100%;
+  }
+  
+  .content {
+    width: 50rem;
+    height: 60vh;
+    background-color: #F9F5F3;
+    border-radius: 12px;
+    display: flex;
+    padding: 1rem 1.5rem;
+    box-shadow: 2px 5px 24px 0px rgba(122, 122, 126, 1);
+  }
+  
+  .layout {
+    width: 30rem;
+    flex: 1;
+  }
+  
+  .loginImg {
+    flex: 1;
+  }
+  
+  .loginForm {
+    margin-top: 1.5rem;
+    flex: 1 1;
+  }
+  
+  .input span {
+    font-size: 0.9rem;
+    color: rgba(1, 1, 1, 0.8);
+  }
+  
+  .input:first-child {
+    margin-bottom: 1.6rem;
+  }
+  
+  .input input {
+    margin-top: 6px;
+    display: block;
+    background: transparent;
+    border:none;
+    border-bottom: 1px solid gray;
+    padding: 10px;
+    font-size: 1.05rem;
+    width: 80%;
+  }
+  
+  .input input:focus {
+    outline: none;
+  }
+  
+  .imgLoginHotel {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .formBtns {
+    margin-top: 3.5rem;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    /* justify-content: space-between; */
+  }
+  
+  .formBtns button {
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.4s ease-in-out;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  .loginBtn {
+    padding: 0.8rem 2.5rem;
+    background-color: #CB1C8D;
+    color: #F1F6F5;
+    border: 1px solid transparent;
+  }
+  
+  .registerBtn {
+    position: relative;
+    width: 100%;
+    padding: 0.8rem 1.8rem;
+    background: transparent;
+    border: 1px solid #CB1C8D;
+    color:#CB1C8D;
+  }
+  
+  .loginBtn:hover {
+    border: 1px solid #CB1C8D;
+    background: transparent;
+    color:#CB1C8D;
+  }
+  
+  .registerBtn:hover {
+    background-color: #CB1C8D;
+    color: #F1F6F5;
+    border: 1px solid transparent;
+  }
+
+  .errorMsg {
+    color: #ED2B2A;
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .newAccountLink {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  
+  @media (max-width: 800px) {
+    .content {
+      width: 30rem;
+      height: fit-content;
+    }
+
+    .layout {
+      width: 100%;
+      flex: 2;
+    }
+
+    .loginImg {
+      flex: 0;
+    }
+
+    .formBtns {
+      width: 100%;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+
+    .input > input {
+      width: 90%;
+    }
+
+    .loginBtn {
+      /* margin: 0 auto; */
+      width: 90%;
+    }
+
+    .registerBtn {
+      width: 90%;
+    }
+
+  }
+  
+  @media (max-width: 480px) {
+    .content {
+      width: 100%;
+      /* padding: 0.75rem 1.2rem; */
+    }
+    
+    .input {
+      width: 90%;
+    }
+
+    .input > input {
+      width: 100%;
+    }
+
+    .loginForm {
+      width: 100%;
+    }
+
+    .formBtns {
+      margin-top: 2.75rem;
+      width: 100%;
+      justify-content: center;
+    }
+    
+    .loginBtn, .input, .registerBtn {
+      margin: 0 auto;
+    }
+    
+    .registerBtn {
+      margin-left: auto;
+    }
+
+    .loginHeader {
+      text-align: center;
+    }
+  
+    .loginForm {
+      display: flex;
+      flex-direction: column;
+    }
+    .login h2 {
+      line-height: 1.6;
+    }
+  }
+  
+  @media (max-width: 330px) {
+    .content {
+      padding: 0.7rem 1.1rem;
+    }
+    .formBtns {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .loginBtn {
+      width: 100%;
+    }
+
+    .registerBtn {
+      width: 100%;
+    }
+  
+    .input > input {
+      width: 100%;
+    }
+  
+  }

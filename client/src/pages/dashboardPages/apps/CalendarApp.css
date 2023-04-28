@@ -1,0 +1,135 @@
+
+.calendar__app {
+    width: 100%;
+    flex: 1;
+    overflow: scroll;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    padding: 12px;
+}
+
+.calendar__header {
+    color:aliceblue;
+    text-align: center;
+    max-width: 300px;
+    font-size: 1.25rem;
+    background-color: white;
+    padding: 12px;
+    width: 250px;
+    border-radius: 10px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #3E54AC;
+    /* -webkit-box-shadow: -5px 8px 22px -1px rgba(118, 131, 136, 1);
+-moz-box-shadow: -5px 8px 22px -1px rgba(118, 131, 136, 1);
+box-shadow: -5px 8px 22px -1px rgba(118, 131, 136, 1); */
+    line-height: 1.25;
+}
+
+.calendar__section, .calendar__section__blurred {
+    margin-top: 1.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.calendar__section__blurred {
+    filter: blur(1px);
+    /* backdrop-filter: blur(10px); */
+    z-index: 1;
+}
+
+.calendar__content__header {
+    position: relative;
+    background-color: #3E54AC;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 8px;
+}
+
+.calendar__content__header > h2 {
+    color: #F5F5F5;
+    font-size: 1.35rem;
+    line-height: 1.45;
+}
+
+.calendar__content__header > span {
+    font-size: 1.15rem;
+    color:#ECF2FF;
+}
+
+.loader-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    color: #3E54AC;
+    transform: translate(-50%, -50%);
+}
+
+.loader-img > svg {
+    color: #3E54AC;
+}
+
+.calendar__content {
+    flex: 0.5;
+    text-align: center;
+    overflow: auto;
+    height: 400px;
+    min-width: 420px;
+    max-width: 760px;
+    position: relative;
+    padding: 0;
+    background-color: #ECF2FF;
+    -webkit-box-shadow: 8px 10px 10px -6px rgba(148, 148, 158, 1);
+    -moz-box-shadow: 8px 10px 10px -6px rgba(148, 148, 158, 1);
+    box-shadow: 2px 7px 7px -5px rgb(18, 18, 19);
+    border-radius: 10px;
+}
+
+.calendarSortBtn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2rem 0.35rem;
+    width: 85px;
+    background-color: #865DFF;
+    color: whitesmoke !important;
+    border: none;
+    margin-left: auto;
+}
+
+.sortArrowDown {
+    color: whitesmoke !important;
+}
+
+.sort__popup {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 75px;
+    background-color: black;
+}
+
+@media (max-width: 500px) {
+    .calendar__app {
+        padding: 0.3rem;
+    }
+    
+    .calendar__section {
+        width: 100%;
+        gap: 2.2rem;
+    }
+
+    .calendar__content {
+        display: block;
+        /* width: 95%; */
+        min-width: 90%;
+    }
+}
