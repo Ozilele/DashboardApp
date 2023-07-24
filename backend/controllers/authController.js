@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcryptjs";
+import { signJWT } from '../config/jwt.js';
 import { mongoose_model as User } from "../model/userModel.js";
+
 // @desc Register new user
 // @route POST /auth/
 // @access PUBLIC
@@ -56,30 +58,39 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   // Check for email
-  const user = await User.findOne({email});
+  const user = await User.findOne({ email });
 
   if(!user) {
-    return res.status(400).json({
+    return res.status(401).json({
       message: "Invalid credentials"
     });
   }
   // Compare passwords
-  const arePasswordMatched = await bcrypt.compareSync(password, user.password);
+  const arePasswordMatched = bcrypt.compareSync(password, user.password);
 
   if(user && arePasswordMatched) {
+    const accessToken = signJWT({ userId: user._id, email: user.email }, {
+      expiresIn: 900000,
+    });
+    const accessTokenCookieOptions = { // access token options (stands for 15 minutes)
+      maxAge: 90000000,
+      domain: "localhost",
+      httpOnly: false,
+      secure: true,
+      sameSite: "strict",
+    }
+    res.cookie("accessToken", accessToken, accessTokenCookieOptions);
     res.status(201).json({
-      _id: user.id,
+      _id: user._id,
       firstName: user.firstName,
       secondName: user.secondName,
       email: user.email,
       role: user.role,
-      token: generateToken(user._id),
     });
   } else {
     res.status(400).json({
       message: "Invalid credentials"
     });
-    // throw new Error("Invalid credentials");
   }
 };
 
@@ -95,10 +106,3 @@ export const getUserData = async (req, res) => {
     role,
   });
 };
-
-// Generate JWT
-const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: '7d',
-  });
-}

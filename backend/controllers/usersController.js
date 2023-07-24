@@ -25,17 +25,7 @@ export const addUser = async (req, res) => {
   return res.status(200).json({ message: "User added" });
 }
 
-// Delete a user
-// @route DELETE /users/_id
-export const deleteUser = async (req, res) => {
-  const user = await User.findById(req.params.id);
-  if(!user) {
-    res.status(400);
-    throw new Error("User not found");
-  }
-  await user.remove();
-  return res.status(200).json({ id: req.params.id });
-}
+
 
 // Update user
 // @route PUT /users/_id

@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { mongoose_model as User } from "../model/userModel.js";
+import { verifyJWT } from '../config/jwt.js';
 
 export const protect = async (req, res, next) => {
   let token;
@@ -15,45 +16,49 @@ export const protect = async (req, res, next) => {
       next();
     } catch(error) {
       console.log(error);
-      res.status(401);
-      throw new Error('Not authorized');
+      return res.status(401).json({
+        message: "Not authorized"
+      });
     }
   }
 
   if(!token) {
-    res.status(401);
-    throw new Error('Not authorized, no token');
+    res.status(401).json({
+      message: "Not authorized"
+    });
   }
 }
 
 export const protectAdminRoute = async (req, res, next) => {
-  let token;
-  if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+  console.log(req?.headers?.authorization);
+  const token = req?.headers?.authorization?.replace('Bearer ', "");
+  if(req.headers.authorization && req.headers.authorization?.startsWith('Bearer')) {
     try {
       // Getting token from header
-      token = req.headers.authorization.split(' ')[1];
       // Verify the token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const verification = verifyJWT(token);
       // Check for admin user
-      req.user = await User.findOne(decoded.id).select('-password');
-      if(req.user.role !== "admin") {
-        res.status(401);
-        throw new Error("Not authorized as an admin");
-      } else {
-        next();
+      if(verification.valid) {
+        const userID = verification.decoded.userId;
+        req.user = await User.findOne({ _id: userID }).select('-password');
+        console.log(req.user.role);
+        if(req.user.role !== "admin") {
+          return res.status(401).json({
+            message: "Not authorized as an admin",
+          });
+        } else {
+          next(); // User authorized as an admin
+        }
       }
-    } catch(error) {
-      console.log(error);
-      res.status(401);
-      throw new Error("Not authorized as an admin");
+    } 
+    catch(error) {
+      return res.status(401).json({
+        message: "Not authorized as an admin",
+      });
     }
-  }
-
-  if(!token) {
-    res.status(401);
-    throw new Error("Not authorized as an admin, no token");
+  } else {
+    return res.status(401).json({
+      message: "Error getting the token"
+    });
   }
 }
-
-
-// Token is sent like Bearer _token_
