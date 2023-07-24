@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './Sidebar.css';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import { IconButton } from '@mui/material';
@@ -15,25 +15,62 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import { TbColorPicker } from 'react-icons/tb';
 import PollIcon from '@mui/icons-material/Poll';
 import { BiNetworkChart } from 'react-icons/bi';
+import { AnimatePresence, motion } from 'framer-motion';
 import { AiOutlineLineChart, AiOutlineAreaChart } from 'react-icons/ai';
 import ScatterPlotIcon from '@mui/icons-material/ScatterPlot';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectSidebar, toggleSidebar } from '../features/appSlice';
 
+const variants = {
+  open: {
+    width: '300px',
+    transform: 'translateX(0%)',
+    transition: { staggerChildren: 0.02, delayChildren: 0.03 }
+  },
+  closed: { // stagger from bottom to top when closed
+    transform: 'translateX(-100%)',
+    transition: { staggerChildren: 0.04, staggerDirection: -1 }
+  }
+}
+
+const logoVariants = {
+  open: {
+    x: 0,
+    transition: { ease: [0.17, 0.67, 0.83, 0.67] }
+  },
+  closed: {
+    x: '-100%',
+    transition: { ease: [0.17, 0.67, 0.83, 0.67] }
+  },
+}
+
 const Sidebar = () => {
 
   const sidebarRolled = useSelector(selectSidebar);
   const dispatch = useDispatch();
-  const sidebarClass = sidebarRolled ? 'sidebar__section__rolled' : 'sidebar__section';
+  const sidebarRef = useRef();
 
   return (
-    <div className={sidebarClass}>
-      <div className="sidebar__logo">
+    <motion.div 
+      ref={sidebarRef}
+      // initial={{ opacity: 0, x: '-100%' }}
+      // animate={{ opacity: 1, x: 0 }}
+      // exit={{ opacity: 0, x: '-100%' }}
+      // transition={{ ease: [0.17, 0.67, 0.83, 0.67] }}
+      initial={"closed"}
+      animate={sidebarRolled ? "closed" : "open"} 
+      className={sidebarRolled ? 'sidebar__section hidden' : 'sidebar__section'}>
+      <motion.div
+        variants={logoVariants} 
+        initial="closed" 
+        animate="open" 
+        transition={{ ease: [0.17, 0.67, 0.83, 0.67] }} 
+        className="sidebar__logo">
         <IconButton onClick={() => dispatch(toggleSidebar())}>
           <ApartmentIcon/>
         </IconButton>
         <h2>BookNow</h2>
-      </div>
+      </motion.div>
       <div className="dashboard__section">
         <h3>Dashboard</h3>
         <SidebarOption name="Booking" Icon={DashboardIcon} path="/dashboard"/>
@@ -61,7 +98,7 @@ const Sidebar = () => {
         <SidebarOption name="Polar" Icon={PollIcon} path="/dashboard/charts/polar"/>
         <SidebarOption name="Financial" Icon={BiNetworkChart} path="/dashboard/charts/financial"/>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

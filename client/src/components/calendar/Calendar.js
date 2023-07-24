@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import TextField from '@mui/material/TextField';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -102,4 +102,4 @@ const Calendar = ({ date, setDate }) => {
   )
 }
 
-export default Calendar;
+export default memo(Calendar); // Calendar comp gets rerendered when its props have changed

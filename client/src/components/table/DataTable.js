@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './DataTable.css';
+import axios from 'axios';
 import { userRows, userColumns } from '../../utils/datatablesrc';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
@@ -8,8 +9,35 @@ import { getUserInfo } from '../../features/userSlice';
 
 const DataTable = () => {
 
-  const [rows, setRows] = useState(userRows);
+  const [rows, setRows] = useState([]);
+  const [error, setError] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const API_URL = `/admin/users`;
+    axios.get(API_URL)
+      .then((res) => {
+        if(res?.data?.message === "Users found") {
+          const rowsData = res?.data?.users.map(user => {
+            return {
+              id: user._id,
+              firstName: user.firstName,
+              secondName: user.secondName,
+              email: user.email,
+              avatarUrl: user?.imageFile ? user?.imageFile : null,
+            }
+          });
+          setRows(rowsData);
+        } else if(res.data.message === "No users found") {
+          setRows([]);
+        } else {
+          setError(true);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   const handleViewUser = (e) => {
     const viewedUserId = e.target.parentNode.parentNode.getAttribute("id");
@@ -24,10 +52,18 @@ const DataTable = () => {
     }));
   }
 
-  const handleDeleteUser = (e) => {
-    const deletedItemId = e.target.parentNode.getAttribute("id");
-    const newRowsData = rows.filter(row => row.id !== parseFloat(deletedItemId));
-    setRows(newRowsData);
+  const handleDeleteUser = (e, userId) => {
+    const API_URL = `/admin/users/${userId}`;
+    axios.delete(API_URL)
+      .then((res) => {
+        if(res.data.message === "User deleted successfully") {
+          const updatedUsers = rows.filter(row => row.id !== userId);
+          setRows(updatedUsers);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   } 
 
   const actionColumn = [{
@@ -35,13 +71,13 @@ const DataTable = () => {
     headerName: "Action",
     width: 160,
     renderCell: (params) => {
-      const url = `/user/${params.row.id}`;
+      const url = `/user/${params.row?.id}`;
       return (
         <div className="action__btns" id={params.row?.id}>
           <Link to={url}>
             <button onClick={handleViewUser} className="view__user__btn">View</button>
           </Link>
-          <button onClick={handleDeleteUser} className="delete__user__btn">Delete</button>
+          <button onClick={(e) => handleDeleteUser(e, params.row?.id)} className="delete__user__btn">Delete</button>
         </div>
       )
     }

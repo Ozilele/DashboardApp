@@ -1,0 +1,124 @@
+
+.new-hotel-form {
+    margin-top: 2.35rem;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+    margin: auto auto;
+    height: fit-content;
+    padding: 1.75rem 1.2rem;
+    border: 1px solid lightgray;
+    -webkit-box-shadow: -1px 0px 6px 0px rgba(154, 155, 163, 1);
+    -moz-box-shadow: -1px 0px 6px 0px rgba(154, 155, 163, 1);
+    box-shadow: -1px 0px 6px 0px rgba(154, 155, 163, 1);
+}
+
+.upload-hotel-form {
+    margin-top: 1.65rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-input {
+    margin-top: 1rem;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form-input > label {
+    width: 10%;
+}
+
+.form-input > input {
+    padding: 10px 6px;
+    width: 60%;
+    max-width: 400px;
+    border: none;
+    outline: none;
+    height: 50px;
+    border-radius: 6px;
+    border: 1px solid #212A3E;
+    font-size: 1.15rem;
+    color:rgb(112, 107, 107);
+    border-bottom: 1px solid #6f7578;
+}
+
+.form-input-checkbox {
+    margin-top: 1rem;
+    width: calc(70% + 1rem);
+    display: flex; 
+    justify-content: space-between;
+}
+
+.form-input-checkbox > input {
+    width: 22px;
+    height: 25px;
+}
+
+.submit-newHotel-btn {
+    cursor: pointer;
+    width: calc(70% + 1rem);
+    padding: 1rem 0.75rem;
+    border: none;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    background-color: #6C9BCF;
+    color: whitesmoke;
+}
+
+.submit-newHotel-btn:hover {
+    background-color: #6f8eb2;
+}
+
+@media (max-width: 970px) {
+    .new-hotel-form {
+        width: 70vw;
+    }
+    .form-input {
+        gap: 2.2rem;
+    }
+    .submit-newHotel-btn {
+        width: calc(70% + 2.2rem);
+    }
+    .form-input-checkbox {
+        margin-top: 1.5rem;
+        width: calc(70% + 2.2rem);
+    }
+}
+
+@media (max-width: 650px) {
+    .new-hotel-form {
+        width: 90vw;
+        padding: 1.35rem 0.8rem;
+    }
+    .form-input {
+        gap: 2.5rem;
+    }
+    .form-input > input {
+        width: 70%;
+        height: 42px;
+    }
+    .form-input > label {
+        width: 15%;
+    }
+    .submit-newHotel-btn {
+        width: calc(85% + 2.5rem);
+    }
+    .form-input-checkbox {
+        width: calc(85% + 2.5rem);
+    }
+    .form-input-checkbox > input {
+        width: 28px;
+        height: 28px;
+    }
+}

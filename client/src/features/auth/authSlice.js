@@ -41,7 +41,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: { // these are not going to be asynchronous
-    reset: (state) => { // function used when the user register
+    reset: (state) => { // function used when the user registers
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = false;
@@ -66,6 +66,9 @@ export const authSlice = createSlice({
       })
       .addCase(login.pending, (state, action) => {
         state.isLoading = true;
+        state.isError = false;
+        state.message = "";
+        state.isSuccess = false;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -74,6 +77,7 @@ export const authSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
+        state.isSuccess = false;
         state.isError = true;
         state.message = action.payload;
         state.user = null;

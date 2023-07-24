@@ -1,3 +1,4 @@
+import Avatar from '@mui/material/Avatar';
 
 export const userRows = [
   { id: 1242, imgSrc: "https://szotam.pl/wp-content/uploads/2017/03/pazdzioch2.jpg", fullName: "Marian Paździoch", email: "paździoch123@gmail.com", age: 72, status: "active" },
@@ -8,37 +9,38 @@ export const userRows = [
 ]
 
 export const userColumns = [
-  { field: "id", headerName: "ID",  width: 70, },
+  { field: "id", headerName: "ID",  width: 100, },
   { 
     field: 'user', 
     headerName: 'User', 
     width: 250,
     renderCell: (params) => {
       return (
-        <div className="user__row">
-          <img className="row__img" src={params.row?.imgSrc} alt="img"></img>
-          <h3>{params.row?.fullName}</h3>
+        <div style={{ display: 'flex', gap: '4px' }} className="user__row">
+          {/* <img className="row__img" src={params.row?.imgSrc} alt="img"></img> */}
+          <Avatar alt={Date.now()} src={params.row?.avatarUrl ? `http://localhost:8000/uploads/users/${params.row?.avatarUrl}` : null} style={{ width: '28px', height: '28px', cursor: 'pointer' }}/>
+          <h3>{params.row?.firstName}{" "}{params.row?.secondName}</h3>
         </div>
       )
     } 
   },
-  { field: 'email', headerName: 'Email', width: 220 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 60,
-  },
-  {
-    field: 'status',
-    headerName: "Status",
-    width: 100,
-    renderCell: (params) => {
-      return (
-        <div className={`cell__status ${params.row.status}`}>{params.row.status}</div>
-      )
-    }
-  },
+  { field: 'email', headerName: 'Email', width: 200 },
+  // {
+  //   field: 'age',
+  //   headerName: 'Age',
+  //   type: 'number',
+  //   width: 60,
+  // },
+  // {
+  //   field: 'status',
+  //   headerName: "Status",
+  //   width: 100,
+  //   renderCell: (params) => {
+  //     return (
+  //       <div className={`cell__status ${params.row.status}`}>{params.row.status}</div>
+  //     )
+  //   }
+  // },
 ]
 
 export const lineChartOptions = {

@@ -21,6 +21,21 @@
     align-items: center;
     height: 100vh;
   }
+
+  .loader-sec {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: whitesmoke;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
   
   .login h2 {
     font-size: 1.5rem;
@@ -34,11 +49,11 @@
   
   .content {
     width: 50rem;
-    height: 60vh;
+    position: relative;
     background-color: #F9F5F3;
     border-radius: 12px;
     display: flex;
-    padding: 1rem 1.5rem;
+    padding: 1.35rem 1.5rem;
     box-shadow: 2px 5px 24px 0px rgba(122, 122, 126, 1);
   }
   
@@ -131,8 +146,9 @@
 
   .errorMsg {
     color: #ED2B2A;
+    margin-top: 0.8rem;
     font-size: 1rem;
-    text-align: center;
+    text-align: left;
   }
 
   .newAccountLink {

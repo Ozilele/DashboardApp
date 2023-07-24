@@ -10,4 +10,4 @@ export const addSomeEvent = async(event) => {
 
 export const getEventsForDate = async () => {
 
-}
+};

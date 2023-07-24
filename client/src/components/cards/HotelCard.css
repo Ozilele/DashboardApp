@@ -6,26 +6,45 @@
     justify-content: space-between;
 }
 
-.ant-card-body {
-    padding: 12px !important;
-}
-
 .hotel-card-content {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
 }
 
-.hotel-card-top, .hotel-card-bottom {
+.hotel-card-top {
     width: 100%;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
+.hotel-intro {
+    display: flex;
+    align-items: center;
+}
+
+.css-ryrseu-MuiRating-root {
+    font-size: 1.15rem;
+}
+
+.hotel-card-bottom {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: flex-start;
+}
+
 .hotel-price-badge {
-    padding: 3px 5px;
+    position: absolute;
+    z-index: 15000;
+    top: -32px;
+    right: -8px;
+    padding: 5px 6px;
     border-radius: 6px;
     background-color: #ADA2FF;
     color: whitesmoke;
@@ -34,4 +53,22 @@
 .hotel-card-bottom {
     gap: 3px;
     line-height: 1.35;
+}
+
+.location-area {
+    margin-top: 0.6rem;
+    display: flex;
+    align-items: center;
+}
+
+.hotel-card {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    .hotel-card {
+        height: 460px;
+    }
 }

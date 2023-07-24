@@ -25,8 +25,8 @@ import Home from './pages/Home';
 import Navbar from './components/client/Navbar';
 import UserSettings from './pages/visitorPages/UserSettings';
 import SingleHotel from './pages/hotelPages/SingleHotel';
-import { useSelector } from 'react-redux';
-import { selectSidebar } from './features/appSlice';
+import NewHotel from './pages/dashboardPages/hotels/NewHotel';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const AdminRouteLayout = () => {
   
@@ -54,11 +54,15 @@ const Layout = () => {
 const router = createBrowserRouter([
   {
     path: "dashboard",
-    element: <AdminRouteLayout/>,
+    element: 
+    <ProtectedRoute>
+      <AdminRouteLayout/>
+      </ProtectedRoute>,
     children: [
       {
         index: true,
-        element: <Dashboard/>
+        element: 
+        <Dashboard/>
       },
       {
         path: "users",
@@ -74,7 +78,11 @@ const router = createBrowserRouter([
       },
       {
         path: "hotels",
-        element: <Hotels/>
+        element: <Hotels/>,
+      },
+      {
+        path: "hotels/newHotel",
+        element: <NewHotel/>
       },
       {
         path: "calendar",

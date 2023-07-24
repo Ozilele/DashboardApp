@@ -4,10 +4,10 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, reset, selectUser } from '../features/auth/authSlice';
 import './Login.css';
+import loader from '../img/loader.svg';
 import loginImg from '../img/loginImg.jpg';
 
 const Login = () => {
-  const [err, setError] = useState(null);
   const [inputs, setInputs] = useState(
     {
       email: "",
@@ -35,8 +35,6 @@ const Login = () => {
     if((isSuccess || user) && user.role == "admin") {
       navigate("/dashboard");
     }
-
-    dispatch(reset());
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
   const handleChange = (e) => {
@@ -86,10 +84,14 @@ const Login = () => {
           <div className="loginImg">
             <img src={loginImg} alt="loginImg" className="imgLoginHotel"></img>
           </div>
+          {isLoading && <div className='loader-sec'>
+              <img src={loader}/>
+            </div>
+          }
         </div>
       </div>
     </div>
   )
 }
 
-export default Login
+export default Login;

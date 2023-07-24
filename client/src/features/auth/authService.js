@@ -15,6 +15,7 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (loginData) => {
   const response = await axios.post(`${API_URL}/login`, loginData);
+  console.log(response);
   if(response.data) {
     localStorage.setItem('user', JSON.stringify(response.data));
   }
@@ -23,6 +24,9 @@ export const loginUser = async (loginData) => {
 
 export const logoutUser = async () => {
   localStorage.removeItem("user");
+  axios.get(`${API_URL}/logout`).then(res => {
+    console.log(res);
+  }).catch(err => console.log(err));
 }
 
 

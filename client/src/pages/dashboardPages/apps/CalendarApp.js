@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import './CalendarApp.css';
-// import Calendar from '../../components/calendar/Calendar';
 import CalendarEvent from '../../../components/calendar/CalendarEvent';
 import Calendar from '../../../components/calendar/Calendar';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -30,7 +29,6 @@ const CalendarApp = () => {
   const getEvents = async() => {
     try {
       const response = await axios.get(API_URL);
-      console.log(response.data.events);
       setEventsData(response.data.events);
       setIsLoading(false); // stop loading
     } catch(err) {
@@ -59,8 +57,10 @@ const CalendarApp = () => {
 
   return (
     <div className="calendar__app">
-      <div className="calendar__header">
-        <h2>Calendar</h2>
+      <div className="calendar_header_container">
+        <div className="calendar__header">
+          <h2>Calendar</h2>
+        </div>
       </div>
       <div className={calendarClassName}>
         <Calendar date={date} setDate={setDate} />
@@ -73,7 +73,6 @@ const CalendarApp = () => {
               <KeyboardArrowDownIcon className="sortArrowDown"/>
             </button>
           </div>
-          {/* <img src={loader} alt="Loader"/> */}
           {isLoading &&  <img className='loader-img' src={loader} alt="Loader"/>}
           {eventsData.map((event) => {
             return (

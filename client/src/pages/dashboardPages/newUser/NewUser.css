@@ -35,11 +35,12 @@
 }
 
 .new__user__right {
-    flex: 2;
+    flex: 3;
     height: 400px;
 }
 
 .new__user__form {
+    height: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -88,7 +89,8 @@
 }
 
 .send__section {
-    width: 80%;
+    width: 70%;
+    height: 60px;
     display: flex;
     justify-content: center;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Dashboard.css';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import BookOnlineIcon from '@mui/icons-material/BookOnline';
@@ -10,6 +10,7 @@ import DashboardChart from '../../../components/charts/DashboardChart';
 import Widget from '../../../components/widgets/Widget';
 import DashboardTable from '../../../components/table/DashboardTable';
 import { Box } from '@mui/material';
+import Cookies from 'js-cookie';
 
 const Dashboard = () => {
 
@@ -42,9 +43,3 @@ const Dashboard = () => {
 }
 
 export default Dashboard;
-
-// width: 100%;
-// flex: 1 1;
-// position: relative;
-// margin-top: 10px;
-// padding: 12px;

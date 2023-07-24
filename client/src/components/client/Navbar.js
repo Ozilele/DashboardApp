@@ -17,7 +17,6 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const onLogout = (e) => {
-    console.log("Logging out...");
     dispatch(logout());
     dispatch(reset());
     navigate("/");
@@ -73,12 +72,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
-
-// : <div className={classes.userLinks}>
-//         <a className={classes.userLink}>{currUser}</a>
-//         <Link className={classes.userLink} to={`/user/:${currUser.id}`}>
-//           Settings</Link>
-//         <a className={classes.userLink} onClick={logout}>Logout</a>
-//         <button className={classes.userBtn}>Followed</button>
-//       </div>}
+export default Navbar;

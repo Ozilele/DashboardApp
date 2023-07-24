@@ -7,10 +7,9 @@
     min-width: 170px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 1rem;
     gap: 12px;
     border-radius: 8px;
-    /* background-image: url('../../img/dashboard__banner.jpg'); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
