@@ -2,37 +2,92 @@ import * as fs from 'fs';
 import { hotel_model as Hotel } from '../../model/hotelModel.js';
 import { uploadFile } from '../../utils/helpers.js';
 
+const allCities = [
+  "Warsaw",
+  "Krakow",
+  "Bangkok",
+  "London",
+  'Olsztyn',
+  "Mediolan",
+  "Wroclaw"
+]
+
 export const getHotels = async (req, res) => {
-  const hotels = await Hotel.find();
-  if(hotels) {
-    return res.status(201).json({
-      hotels: hotels,
-      message: "Hotels data"
-    });
-  } else {
-    return res.status(401).json({
-      message: "Error occurred :("
-    });
-  }
-}
+  try { 
+    const page = parseInt(req?.query?.page) - 1 || 0;
+    const limit = parseInt(req.query.limit) || 6;
+    const searchTxt = req.query.search || "";
+    let queriedCity = req.query.city || ""; 
+    let sort = req.query.sort || "stars";
+    const closeToSee = (req.query?.closeToSee?.toLowerCase() === 'true');
+    const closeToMountains = (req.query?.closeToMountains?.toLowerCase() === 'true');
+    const hasParking = (req.query?.hasParking?.toLowerCase() === 'true');
 
-export const getHotelsForCity = async (req, res) => {
-  const city = req.query.city.toString().trim()
-  if(!city) {
-    return res.status(401).json({
-      message: "Invalid city"
-    });
-  }
-  const hotels = await Hotel.find({ 'localization.city' : city })
+    if(queriedCity === "") {
+      queriedCity = [...allCities];
+    }
+    req.query.sort ? (sort = req.query.sort.split(",")) : (sort = [sort]);
+    // Sorting 
+    let sortBy = {};
+    if(sort[1]) { // user has specified the order(asc || desc)
+      sortBy[sort[0]] = sort[1] // sortBy = { stars: 'desc' } itp.
+    } else {
+      sortBy[sort[0]] = "asc"; // Default sort is ascending
+    }
+    // Features filters
+    const features = {
+      'features.closeToSee': closeToSee,
+      'features.closeToMountains': closeToMountains,
+      'features.hasParking': hasParking,
+    }
+    for(const key in features) { // Usunięcie wszystkich kluczy ustawionych na false
+      if(!features[key]) {
+        delete features[key];
+      }
+    }
+    let hotels;
+    let totalDocuments;
 
-  if(hotels) {
-    return res.status(201).json({
+    if(Object.keys(features).length === 0) {
+      hotels = await Hotel.find({ 
+        name: { $regex: searchTxt, $options: "i"}, 
+        "localization.city": { $in: queriedCity },
+      })
+      .sort(sortBy)
+      .skip(page * limit) // skipping 0 docs for first page, 5 docs for second etc.
+      .limit(limit);
+      totalDocuments = await Hotel.countDocuments({
+        name: { $regex: searchTxt, $options: "i" },
+        "localization.city":  { $in: queriedCity }
+      });
+    } else {
+      hotels = await Hotel.find({ 
+        name: { $regex: searchTxt, $options: "i"}, 
+        "localization.city": { $in: queriedCity },
+        ...features,
+      })
+      .sort(sortBy)
+      .skip(page * limit) // skipping 0 docs for first page, 5 docs for second etc.
+      .limit(limit);
+      totalDocuments = await Hotel.countDocuments({
+        name: { $regex: searchTxt, $options: "i" },
+        "localization.city":  { $in: queriedCity },
+        ...features,
+      });
+    }
+
+    return res.status(200).json({
+      message: "Hotels data",
       hotels: hotels,
-      message: "Hotels found for city"
+      allDocuments: totalDocuments,
+      limit,
+      page: page + 1,
     });
-  } else { 
-    return res.status(201).json({
-      message: "No hotels for city found"
+
+  } catch(err) {
+    console.log(err);
+    return res.status(500).json({
+      message: 'Network error'
     });
   }
 }
@@ -68,38 +123,50 @@ export const postNewHotel = async (req, res) => {
   }
 }
 
-export const addNewHotel = async (req, res) => {
-  console.log(req.file);
-  const { hotelName, hotelCountry, hotelCity, hotelAddress, stars, features_see, features_mountains, features_parking } = req.body;
-  const savedImg = {
-    name: req.file.originalname,
-    img: {
-      data: fs.readFileSync('./backend/uploads/' + req.file.filename),
-      contentType: "image/jpg",
-    }
-  }
-  const newHotel = await Hotel.create({
-    name: hotelName,
-    country: hotelCountry,
-    localization: {
-      city: hotelCity,
-      address: hotelAddress,
-    },
-    image: savedImg,
-    features: {
-      closeToSee: features_see ? true : false,
-      closeToMountains: features_mountains ? true : false,
-      hasParking: features_parking ? true : false,
-    },
-    stars: stars,
-  });
-  if(newHotel) {
-    return res.status(201).json({
-      message: "Successfully added new hotel"
-    });
-  } else {
+export const deleteHotel = async (req, res) => {
+  console.log(req.params.id);
+  const deletedHotel = await Hotel.deleteOne({ _id: req.params.id });
+  if(!deletedHotel) {
     return res.status(401).json({
-      message: "Error occurred :("
-    })
+      message: "Hotel to be deleted not found"
+    });
   }
-};
+  return res.status(200).json({ 
+    message: "Hotel deleted successfully",
+  });
+}
+
+// export const addNewHotel = async (req, res) => {
+//   const { hotelName, hotelCountry, hotelCity, hotelAddress, stars, features_see, features_mountains, features_parking } = req.body;
+//   const savedImg = {
+//     name: req.file.originalname,
+//     img: {
+//       data: fs.readFileSync('./backend/uploads/' + req.file.filename),
+//       contentType: "image/jpg",
+//     }
+//   }
+//   const newHotel = await Hotel.create({
+//     name: hotelName,
+//     country: hotelCountry,
+//     localization: {
+//       city: hotelCity,
+//       address: hotelAddress,
+//     },
+//     image: savedImg,
+//     features: {
+//       closeToSee: features_see ? true : false,
+//       closeToMountains: features_mountains ? true : false,
+//       hasParking: features_parking ? true : false,
+//     },
+//     stars: stars,
+//   });
+//   if(newHotel) {
+//     return res.status(201).json({
+//       message: "Successfully added new hotel"
+//     });
+//   } else {
+//     return res.status(401).json({
+//       message: "Error occurred :("
+//     })
+//   }
+// };
