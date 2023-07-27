@@ -44,7 +44,7 @@ const NewHotel = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     setInputs(initialInputs);
-    const API_URL = `/dashboard/hotels`;
+    const API_URL = `/admin/hotels`;
     try {
       let fileData;
       if(file) {

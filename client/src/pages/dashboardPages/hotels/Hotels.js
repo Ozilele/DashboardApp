@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import './Hotels.css';
 import HotelCard from '../../../components/cards/HotelCard';
 import AddIcon from '@mui/icons-material/Add';
@@ -15,8 +15,12 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import WaterIcon from '@mui/icons-material/Water';
 import HikingIcon from '@mui/icons-material/Hiking';
 import ClearIcon from '@mui/icons-material/Clear';
+import Sort from "../../../components/sort/index.js";
+import { motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
 import { IconButton, Menu, NativeSelect } from '@mui/material';
+import Pagination from '../../../components/pagination/Pagination';
 
 const allCities = [
   "Krakow",
@@ -29,62 +33,85 @@ const allCities = [
 
 const Hotels = () => {
 
-  let [searchParams, setSearchParams] = useSearchParams();
-  const [allHotels, setAllHotels] = useState([])
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [page, setPage] = useState(1);
+  const [limitPages, setLimitPages] = useState(1);
   const [hotelsData, setHotelsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [city, setCity] = useState("");
   const [filterNameToggled, setFilterNameToggled] = useState(false);
-  const [nameValInput, setNameValInput] = useState("");
+  const [city, setCity] = useState(""); // state for selecting city
+  const [nameValInput, setNameValInput] = useState(""); // state for selecting name of hotel
+  const [sortObj, setSortObj] = useState({ // state for sorting hotels by rating, stars, price
+    sort: "stars",
+    order: "desc"
+  });
+  const [appliedFeatures, setAppliedFeatures] = useState({});
 
   useEffect(() => {
-    if(searchParams.get("city") != null) { // if check for urls like hotels?city=Bangkok
-      sendRequest(searchParams.get("city"));
-    }
-    else {
-      setIsLoading(true);
-      const API_URL = `/dashboard/hotels`;
-      axios.get(API_URL)
-        .then((res) => {
-          console.log(res.data);
-          setAllHotels(res.data.hotels);
-          setHotelsData(res.data.hotels);
-          setIsLoading(false);
-        })
-        .catch(err => console.log(err));
-    }
-  }, [searchParams]);
+    makeRequest();
+  }, [page, nameValInput, city, sortObj, appliedFeatures]);
 
-  const filterToggle = (e) => {
-    setFilterNameToggled(!filterNameToggled)
-  }
+  const filterToggle = useCallback((e) => {
+    setFilterNameToggled(!filterNameToggled);
+  }, [filterNameToggled]);
 
-  const handleCityChange = (e) => {
-    setSearchParams({ city: e.target.value }) // change the search url like ?city=Bangkok
-    setCity(e.target.value);
-    sendRequest(e.target.value);
-  }
-
-  const sendRequest = (city) => {
-    setIsLoading(true)
-    const API_URL = `/dashboard/hotels/city?city=${city}`;
+  const makeRequest = () => {
+    setIsLoading(true);
+    const API_URL = `/admin/hotels?page=${page}&search=${nameValInput}&city=${city}&closeToSee=${appliedFeatures["closeToSee"]}&closeToMountains=${appliedFeatures["closeToMountains"]}&hasParking=${appliedFeatures["hasParking"]}&sort=${sortObj.sort},${sortObj.order}`;
     axios.get(API_URL)
       .then((res) => {
-        setAllHotels(res.data.hotels)
-        setHotelsData(res.data.hotels)
-        setIsLoading(false)
+        console.log(res.data);
+        setHotelsData(res.data.hotels);
+        setLimitPages(Math.ceil((res.data.allDocuments / res.data.limit)));
+        setIsLoading(false);
       })
-      .catch(err => console.error(err));
-  }
+      .catch(err => console.log(err));
+  };
 
-  const handleNameChange = (e) => {
-    setNameValInput(e.target.value)
-    const val = e.target.value.toLowerCase().trim().replace(/\s+/g, '')
-    console.log(val);
-    const queriedHotels = allHotels.filter(hotel => hotel.name.toLowerCase().includes(e.target.value.toLowerCase().trim().replace(/\s+/g, '')))
-    console.log(queriedHotels);
-    setHotelsData(queriedHotels)
-  }
+  const handleCityChange = useCallback((e) => { // prevent this function from rerendering unless city has changed
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      params.set("city", e.target.value);
+      return params;
+    });
+    setCity(e.target.value);
+  }, [city]);
+
+  const handleNameChange = useCallback((e) => {
+    setSearchParams((prev) => {
+      const params = new URLSearchParams(prev);
+      params.set("search", e.target.value);
+      return params;
+    });
+    setNameValInput(e.target.value);
+  }, [nameValInput]);
+
+  const onFeatureClick = useCallback((appliedFeature) => {
+    setAppliedFeatures((prev) => {
+      let newObj = { ...prev };
+      if(Object.keys(prev).includes(appliedFeature)) {
+        setSearchParams((prevParams) => {
+          const params = new URLSearchParams(prevParams);
+          params.delete(appliedFeature);
+          return params;
+        });
+        delete newObj[appliedFeature];
+      } else {
+        setSearchParams((prevParams) => {
+          const params = new URLSearchParams(prevParams);
+          params.set(appliedFeature, "true");
+          return params;
+        });
+        newObj[appliedFeature] = true;
+      }
+      return newObj;
+    });
+  }, [appliedFeatures]);
+
+  useEffect(() => {
+    // When some function is recreated(changing city, name, applying feature page is 1 in default)
+    setPage(1);
+  }, [handleCityChange, handleNameChange, onFeatureClick]);
 
   return (
     <div className="hotels__section">
@@ -97,11 +124,11 @@ const Hotels = () => {
           </button>
         </Link>
       </div>
+      <div onClick={filterToggle} className={filterNameToggled ? "hotels_name_filter_wide" : "hotels_name_filter"}>
+        <SearchOutlinedIcon className='search_icon'/>
+        <input value={nameValInput} onChange={handleNameChange} placeholder={filterNameToggled ? "Hotel name" : ""} className="hotels_name_input" type="text"></input>
+      </div>
       <div className="hotels_filters">
-        <div onClick={filterToggle} className={filterNameToggled ? "hotels_name_filter_wide" : "hotels_name_filter"}>
-          <SearchOutlinedIcon className='search_icon'/>
-          <input value={nameValInput} onChange={handleNameChange} placeholder={filterNameToggled ? "Hotel name" : ""} className="hotels_name_input" type="text"></input>
-        </div>
         <div className="location_filter">
           <Box sx={{ minWidth: 160 }}>
             <FormControl fullWidth>
@@ -126,36 +153,50 @@ const Hotels = () => {
             </FormControl>
           </Box>
         </div>
+        <Sort sort={sortObj} setSort={setSortObj}/>
         <div className='icons_filter'>
-          <IconButton onClick={(e) => {
-            setSearchParams((prevParams) => {
-              const params = new URLSearchParams(prevParams);
-              params.set("see", "true");
-              return params;
-            })
-          }} name="see" className='see-btn-feature'><WaterIcon/></IconButton>
-          <IconButton name="mountains"><HikingIcon/></IconButton>
-          <IconButton name="parking"><LocalParkingIcon/></IconButton>
+          <IconButton style={{backgroundColor: Object.keys(appliedFeatures).includes("closeToSee") ? "cornflowerblue" : "white" }} onClick={(e) => onFeatureClick("closeToSee")} name="see" className='see-btn-feature'><WaterIcon/></IconButton>
+          <IconButton style={{backgroundColor: Object.keys(appliedFeatures).includes("closeToMountains") ? "cornflowerblue" : "white" }} onClick={(e) => onFeatureClick("closeToMountains")} name="mountains"><HikingIcon/></IconButton>
+          <IconButton style={{backgroundColor: Object.keys(appliedFeatures).includes("hasParking") ? "cornflowerblue" : "white" }} onClick={(e) => onFeatureClick("hasParking")} name="parking"><LocalParkingIcon/></IconButton>
         </div>
         <button onClick={(e) => { 
-          searchParams.delete("city")
-          setCity("")
-          setSearchParams(searchParams)
+          setCity("");
+          setNameValInput("");
+          setSortObj({ sort: "stars", order: "desc"});
+          setAppliedFeatures({});
+          setSearchParams({});
          }} className="clear__filter-btn">
           <ClearIcon className='clear-icon'/>
           <span>Clear Filters</span>
         </button>
       </div>
       {isLoading && <img className='loader_img' src={loader} alt="Loader_hotel"/>}
-      {!isLoading && <Grid container rowSpacing={{xl: 2, lg: 2, md: 2, sm: 4, xs: 8}} columnSpacing={{xl: 1, lg: 2, md: 3, sm: 2}}>
+      {!isLoading && <Grid style={{ marginBottom: '2.5rem'}} container rowSpacing={{xl: 2, lg: 2, md: 2, sm: 4, xs: 8}} columnSpacing={{xl: 1, lg: 2, md: 3, sm: 2}}>
         {hotelsData.map((hotel => {
           return (
-            <Grid item key={hotel._id} className="hotels_grid-item" xl={3} lg={3} md={4} sm={6} xs={12}>
-              <HotelCard key={hotel._id} name={hotel.name} localization={hotel.localization} stars={hotel.stars} imgSrc={hotel?.hotelImage} base64String={hotel?.image?.img?.data?.data} />
-            </Grid>
+            <AnimatePresence key={hotel._id}>
+              <Grid 
+                initial={{ y: "20px", opacity: 0.5 }} 
+                animate={{ y: '0px', opacity: 1 }} 
+                exit={{ y: "-20px", opacity: 0 }}
+                transition={{ type: 'tween', stiffness: 100 }} 
+                component={motion.div} 
+                item key={hotel._id} 
+                whileHover={{ scale: 1.05, transition: { duration: 0.3 } }} 
+                whileTap={{ scale: 0.95 }} 
+                className="hotels_grid-item" 
+                xl={3} lg={3} md={4} sm={6} xs={12}>
+                  <HotelCard id={hotel._id} name={hotel.name} localization={hotel.localization} stars={hotel.stars} imgSrc={hotel?.hotelImage} base64String={hotel?.image?.img?.data?.data} makeRequest={makeRequest}/>
+              </Grid>
+            </AnimatePresence>
           )
         }))}
       </Grid>}
+      {!isLoading && <Pagination 
+        totalPages={limitPages}
+        page={page}
+        setPage={setPage}
+      />}
     </div>
   )  
 }
