@@ -1,0 +1,29 @@
+
+.pagination-section {
+    margin: 0 10px;
+    margin-bottom: 1rem;
+    width: calc(100% - 20px);
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+    justify-content: center;
+}
+
+.curr_page-button, .pagination-button {
+    cursor: pointer;
+    border-radius: 50%;
+    font-weight: 600;
+    padding: 0.7rem 1rem;
+    transition: all 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.pagination-button {
+    border: 1px solid black;
+    background-color: white;
+}
+
+.pagination-section > button:hover, .curr_page-button {
+    border: 1px solid transparent;
+    background-color: cornflowerblue;
+    color: white;
+}

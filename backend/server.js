@@ -7,11 +7,11 @@ import pagesRoutes from './routes/pagesRoute.js';
 import cors from "cors";
 import path from 'path';
 import authRoutes from './routes/auth.js';
+import hotelRoutes from './routes/adminRoutes/hotelRoute.js'
 import adminEventsRoutes from './routes/adminRoutes/calendarRoute.js';
 import { connectToDB } from './config/db.js';
 import adminUserRoutes from './routes/adminRoutes/usersRoutes.js';
 import { fileURLToPath } from 'url';
-import { con } from './config/db.js';
 import { errorHandler } from './middleware/errorMiddleware.js';
 
 const port = process.env.PORT || 5000;
@@ -23,7 +23,7 @@ const app = express();
 app.use("/uploads/users", express.static(path.dirname(__filename) + '/uploads/users'));
 app.use("/uploads/hotels", express.static(path.dirname(__filename) + '/uploads/hotels'));
 app.use(cors()); // using cors for making requests from the client (localhost:3000) to another different origin (localhost:8000)
-app.use(express.json({ limit: '25mb' })); // parser for requests with the content type of json
+app.use(express.json({ limit: '30mb' })); // parser for requests with the content type of json
 app.use(express.urlencoded({ extended: false}));
 
 // const storage = multer.diskStorage({
@@ -85,6 +85,7 @@ app.use(express.urlencoded({ extended: false}));
 
 app.use('/auth', authRoutes);
 app.use("/admin/calendar", adminEventsRoutes);
+app.use("/admin/hotels", hotelRoutes);
 app.use("/admin/users", adminUserRoutes);
 app.use('/dashboard', pagesRoutes);
 app.use(errorHandler);

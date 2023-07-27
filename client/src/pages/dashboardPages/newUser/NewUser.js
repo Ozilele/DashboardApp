@@ -23,7 +23,6 @@ const NewUser = () => {
   const navigate = useNavigate();
 
   const addNewUser = async (e) => {
-    console.log(file);
     e.preventDefault();
     setError(false);
     if(inputs.password !== inputs.passwordRepeat) {

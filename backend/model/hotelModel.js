@@ -14,7 +14,7 @@ const imgSchema = new mongoose.Schema({
   }
 });
 
-const hotelModel = mongoose.Schema({
+const hotelModel = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please add a name"]

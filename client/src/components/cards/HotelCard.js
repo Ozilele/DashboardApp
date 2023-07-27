@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react';
 import './HotelCard.css';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
@@ -10,16 +10,24 @@ import Typography from '@mui/material/Typography';
 import MoreVertOutlinedIcon from '@mui/icons-material/MoreVertOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import { CardActions, IconButton } from '@mui/material';
+import axios from 'axios';
 
-const HotelCard = ({ name, localization, stars, imgSrc, base64String }) => {
+const HotelCard = ({ id, name, localization, stars, imgSrc, base64String, makeRequest }) => {
 
   const base_64_string = btoa(
-    // String.fromCharCode(...new Uint8Array(base64String))
     new Uint8Array(base64String).reduce((data, byte) => data + String.fromCharCode(byte), '')
   );  
 
   const stars_ = Array.from({ length: stars }, (_, index) => index);
-  
+    
+  const deleteHotel = async (e) => {
+    const API_URL = `/admin/hotels/${id}`;
+    const response = await axios.delete(API_URL);
+    if(response.data.message === "Hotel deleted successfully") {
+      makeRequest();
+    }
+  }
+
   return (
     <Card className='hotel-card'>
       <CardMedia
@@ -46,7 +54,7 @@ const HotelCard = ({ name, localization, stars, imgSrc, base64String }) => {
         <IconButton aria-label='edit'>
           <EditOutlinedIcon/>
         </IconButton>
-        <IconButton style={{ color: 'red' }} aria-label="delete">
+        <IconButton onClick={deleteHotel} style={{ color: 'red' }} aria-label="delete">
           <DeleteOutlineOutlinedIcon/>
         </IconButton>
         <IconButton aria-label='view-more'>
@@ -57,4 +65,4 @@ const HotelCard = ({ name, localization, stars, imgSrc, base64String }) => {
   )
 }
 
-export default HotelCard;
+export default memo(HotelCard);

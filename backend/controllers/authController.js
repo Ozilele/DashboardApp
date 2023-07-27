@@ -72,7 +72,7 @@ export const loginUser = async (req, res) => {
     const accessToken = signJWT({ userId: user._id, email: user.email }, {
       expiresIn: 900000,
     });
-    const accessTokenCookieOptions = { // access token options (stands for 15 minutes)
+    const accessTokenCookieOptions = { 
       maxAge: 90000000,
       domain: "localhost",
       httpOnly: false,

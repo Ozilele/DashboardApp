@@ -1,0 +1,35 @@
+.sort-container {
+    height: 60px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.sort-by {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.sort-select {
+    width: 80px;
+    height: 30px;
+    cursor: pointer;
+    padding: 5px;
+    outline: none;
+    border: 1px solid black;
+    margin-left: 4px;
+}
+
+.sort-btn-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    outline: none;
+    border: 1px solid black;
+    margin-left: 5px;
+}
