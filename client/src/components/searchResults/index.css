@@ -1,0 +1,116 @@
+
+.client-row-hotel {
+    display: flex;
+    gap: 0.9rem;
+    border: 1px solid grey;
+    border-radius: 8px;
+    padding: 1rem;
+    max-width: 820px;
+    height: 260px;
+    margin: 0 auto 1.5rem auto;
+}
+
+.client-row-hotel-image {
+    flex: 0.45;
+}
+
+@media(max-width: 760px) {
+    .client-row-hotel {
+        gap: 0.65rem;
+        height: 275px;
+    }
+    .client-row-hotel-image {
+        flex: 0.58;
+    }
+}
+
+@media(max-width: 650px) {
+    .client-row-hotel {
+        padding: 0.65rem;
+    }
+    .client-row-hotel-image {
+        flex: 0.63;
+    }
+}
+
+.client-row-hotel-image > img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    border-radius: 8px;
+}
+
+.client-row-hotel-data {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.row-hotel-localization {
+    display: flex;
+    padding: 0 0.55rem;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.row-hotel-localization > h5 {
+    font-size: 1rem;
+}
+
+.row-hotel-features {
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+}
+
+.row-hotel-features > svg {
+    cursor: pointer;
+}
+
+.feature-mountains-icon, .feature-water-icon, .feature-parking-icon {
+    width: 26px !important;
+    height: 26px !important;
+}
+
+.feature-water-icon {
+    color: blue !important;
+}
+
+.feature-mountains-icon {
+    color: brown !important;
+}
+
+.feature-parking-icon {
+    color: gray !important;
+}
+
+.client-first-row {
+    width: 100%;
+    padding: 0 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.client-row-rating {
+    background-color: #437AA5;
+    padding: 0.7rem;
+    border-radius: 8px;
+    font-weight: 600;
+    color: whitesmoke;
+}
+
+.hotel-feature-btn {
+    cursor: pointer;
+    background-color: rgb(50, 50, 174);
+    color: whitesmoke;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem;
+}
+
+.hotel-feature-btn:hover {
+    background-color: rgb(50, 50, 174, 0.85);
+}
+
+

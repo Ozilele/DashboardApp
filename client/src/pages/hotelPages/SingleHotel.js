@@ -3,37 +3,35 @@ import someHotel from '../../img/someHotel.jpg';
 import { useParams } from 'react-router-dom';
 import star from '../../img/star.png';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const SingleHotel = () => {
   const [hotel, setHotel] = useState([]);
   const [rooms, setRooms] = useState([]);
   let { id } = useParams();
 
-  // useEffect(() => {
-  //   const fetchHotel = async ()=> {
-  //     try {
-  //       const obj = {
-  //         identifier: id,
-  //       }
-  //       const res = await axios.post(`http://localhost:8000/server/hotels/querySingleHotel/${id}`, obj);
-  //       console.log(res);
-  //       setHotel(res.data);
+  const handlePaymentCheckout = async (e) => {
+    const { accessToken } = Cookies.get();
 
-  //       const res_rooms = await axios.get("http://localhost:8000/server/hotels/queryRooms");
-  //       setRooms(res_rooms.data);
-  //     }
-  //     catch(err) {
-  //       console.log(err);
-  //     }
-  //   }
-  //   fetchHotel();
-  // }, []);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    }
+    const response = await axios.post(`/api/client/checkout?price=price_1NZ0tnJ1TgaWBK1fzlqTSrWD`, {
+      data: 'Test data'
+    }, config);
+    if(response.data.url) {
+      window.location.assign(response.data.url); // Forward user to the Stripe Checkout
+    }
+  }
 
   return (
     <div className="singleHotelPage">
       <div className="imgContainer">
         <img src={someHotel} alt="hotel"></img>
       </div>
+      <button onClick={handlePaymentCheckout}>Checkout</button>
       {hotel.map(hotel => {
         return (
           <div className="contentContainer">

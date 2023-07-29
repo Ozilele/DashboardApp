@@ -4,7 +4,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import { useSearchParams } from 'react-router-dom';
 import './Sort.css';
 
-const Sort = ({ sort, setSort }) => {
+const Sort = ({ isClient, sort, setSort }) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const onSelectChange = (e) => {
@@ -28,9 +28,9 @@ const Sort = ({ sort, setSort }) => {
       setSort({ sort: sort.sort, order: "asc" });
     }
   }
-
+  
   return (
-    <div className='sort-container'>
+    <div className={isClient ? 'sort-container-client' : 'sort-container'}>
       <p className='sort-by'>Sort By:</p>
       <select
         className='sort-select'
@@ -39,7 +39,8 @@ const Sort = ({ sort, setSort }) => {
       >
         <option value="stars">Stars</option>
         <option value="price">Price</option>
-        <option value="stars">Rating</option>
+        <option value="rating">Rating</option>
+        <option value="popularity">Popularity</option>
       </select>
       <button onClick={onBtnChange} className='sort-btn-arrow'>
         {sort.order === "asc" && <ArrowUpwardIcon/>}

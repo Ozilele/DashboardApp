@@ -1,0 +1,133 @@
+
+.search-hotel-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 25%;
+    min-width: 245px;
+    max-width: 375px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 10;
+    transform: translateX(0%);
+    border-right: 1px solid white;
+    background-color: #1A2C38;
+    /* transition: transform 0.27ms ease-in; */
+}
+
+.delete-search-sidebar-btn {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+}
+
+.delete-search-sidebar-btn > svg {
+    width: 28px !important;
+    height: 28px !important;
+    color: whitesmoke !important;
+}
+
+.features {
+    width: 100%;
+    color: whitesmoke;
+    border-bottom: 1px solid rgb(145, 149, 153);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.features > label {
+    padding: 0.4rem 0.6rem;
+}
+
+.features h3 {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 1.6rem;
+    font-size: 1.4rem;
+    margin-left: 12px;
+    margin-bottom: 1.2rem;
+}
+
+.accomodation-sidebar {
+    border-bottom: 1px solid rgb(145, 149, 153);
+    color: whitesmoke;
+    padding-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.accomodation-sidebar > h3 {
+    margin-top: 1.2rem;
+    margin-bottom: 0.7rem;
+    margin-left: 10px;
+    font-size: 1.25rem;
+}
+
+.search-sidebar-price {
+    padding: 1rem 1.25rem;
+}
+
+.search-sidebar-stars {
+    padding: 0.85rem 1.25rem;
+}
+
+.search-sidebar-stars > h3 {
+    margin-bottom: 0.85rem;
+}
+
+.search-sidebar-price > h3 {
+    margin-bottom: 1.55rem;
+}
+
+.search-sidebar-price > h3, .search-sidebar-stars > h3 {
+    color: whitesmoke;
+}
+
+.MuiSlider-markLabel {
+    color: whitesmoke !important;
+    font-size: 0.78rem !important;
+}
+
+.css-nnid7-MuiSlider-valueLabel {
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.5rem !important;
+}
+
+.search-sidebar-rating {
+    color: whitesmoke;
+    padding: 1.2rem;
+    flex-grow: 1;
+}
+
+.search-sidebar-rating > h3 {
+    margin-bottom: 0.75rem;
+}
+
+.sidebar-search-btn {
+    padding: 0 0.9rem;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.sidebar-search-btn > button {
+    cursor: pointer;
+    width: 100%;
+    padding: 1rem 1.7rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #1976d2;
+    color:whitesmoke;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.sidebar-search-btn > button:hover {
+    background-color: rgb(25, 118, 210, 0.8);
+}
+
+

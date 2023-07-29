@@ -45,17 +45,17 @@
     margin-bottom: 8px !important;
 }
 
-.css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+/* .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
     color: lightgray !important;
-}
+} */
 
 .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root.Mui-error {
     color: #BDCDD6 !important;
 }
 
-.css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+/* .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
     color: whitesmoke !important;
-}
+} */
 
 .MuiOutlinedInput-notchedOutline {
     border-color: white !important;

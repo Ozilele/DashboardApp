@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUser, reset, logout } from '../../features/auth/authSlice';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { Link, useNavigate } from 'react-router-dom';

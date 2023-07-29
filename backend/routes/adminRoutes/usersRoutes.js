@@ -1,10 +1,11 @@
 import express from "express";
 import { getUsers, addUser, deleteUser } from "../../controllers/admin/usersController.js";
+import { protectAdminRoute } from "../../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", getUsers);
-router.post("/", addUser);
-router.delete("/:id", deleteUser);
+router.get("/", protectAdminRoute, getUsers);
+router.post("/", protectAdminRoute, addUser);
+router.delete("/:id", protectAdminRoute, deleteUser);
 
 export default router;

@@ -10,7 +10,6 @@ import Users from './pages/dashboardPages/users/Users';
 import User from './pages/dashboardPages/user/User';
 import NewUser from './pages/dashboardPages/newUser/NewUser';
 import Hotels from './pages/dashboardPages/hotels/Hotels';
-import ClientHotels from './pages/hotelPages/ClientHotels';
 import CalendarApp from './pages/dashboardPages/apps/CalendarApp';
 import LineChart from './pages/dashboardPages/charts/LineChart';
 import AreaChart from './pages/dashboardPages/charts/AreaChart';
@@ -21,9 +20,10 @@ import PolarChart from './pages/dashboardPages/charts/PolarChart';
 import Kanban from './pages/dashboardPages/apps/Kanban';
 import Register from './pages/Register';
 import Login from './pages/Login';
-import Home from './pages/Home';
+import Home from './pages/clientPages/landingPage/Home';
+import ClientSearchPage from './pages/clientPages/searchPage/index';
 import Navbar from './components/client/Navbar';
-import UserSettings from './pages/visitorPages/UserSettings';
+import UserSettings from './pages/clientPages/userPages/UserSettings';
 import SingleHotel from './pages/hotelPages/SingleHotel';
 import NewHotel from './pages/dashboardPages/hotels/NewHotel';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -128,7 +128,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/hotels",
-        element: <ClientHotels/>
+        element: <ClientSearchPage/>
       },
       {
         path: "/user/:id",
