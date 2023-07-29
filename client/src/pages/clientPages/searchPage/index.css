@@ -1,0 +1,142 @@
+.client-search-page {
+    width: 100%;
+    height: 100%;
+    margin-top: 3.5rem;
+}
+
+.client-page-input {
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    margin: 0 auto;
+    max-width: 700px;
+    border: 3px solid black;
+}
+
+.client-page-search-icon {
+    margin-left: 0.4rem;
+    width: 25px !important;
+    height: 25px !important;
+}
+
+.client-page-input > input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 8px;
+    height: 50px;
+    font-size: 1.25rem;
+}
+
+.filters-row {
+    padding: 1rem 1.3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.moreFilters-btn {
+    background-color: #256295 !important;
+    /* background-color: #1A2C38; */
+    border-radius: 7px !important;
+    display: flex !important;
+    gap: 3px !important;
+    align-items: center !important;
+    font-size: 1.1rem !important;
+    color: whitesmoke !important;
+}
+
+.moreFilters-btn:hover {
+    background-color: rgb(37, 98, 149, 0.85) !important;
+}
+
+.moreFilters-btn > svg {
+    width: 22px !important;
+    height: 22px !important;
+}
+
+.css-on777r-MuiAutocomplete-root, .css-l3ln04-MuiAutocomplete-root {
+    width: 280px !important;
+    height: 55px !important;
+    box-shadow: -2px 4px 17px 1px rgba(85, 85, 93, 1) !important;
+    -webkit-box-shadow: -2px 4px 17px 1px rgba(85, 85, 93, 1);
+    -moz-box-shadow: -2px 4px 17px 1px rgba(85, 85, 93, 1);
+}
+
+.client-page-results {
+    display: flex;
+    max-width: 1200px;
+    gap: 0.6rem;
+    margin: 1.2rem auto;
+}
+
+.filters-client {
+    flex: 0.2;
+    height: fit-content;
+    min-width: 260px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 1rem 1.5rem;
+}
+
+.popular-filters-sm {
+    display: none;
+    visibility: hidden;
+}
+
+
+@media(max-width: 800px) {
+    .client-page-results {
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1.2rem 0.8rem;
+    } 
+
+    .filters-client {
+        visibility: hidden;
+        display: none;
+    }
+    .popular-filters-sm {
+        width: 100%;
+        display: flex;
+        visibility: visible;
+        justify-content: center;
+    }
+}
+
+.filters-client > h4 {
+    margin-bottom: 8px;
+}
+
+.client-current-filters {
+    margin-bottom: 0.8rem;
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.client-current-filters > button {
+    cursor: pointer;
+}
+
+.client-popular-filters {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.client-popular-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.client-hotels-results {
+    flex: 1;
+    max-width: 900px;
+    margin-bottom: 3.75rem;
+}
