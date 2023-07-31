@@ -14,11 +14,13 @@
     "stripe": "^12.16.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "@types/mongodb": "^4.0.7",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1"
   },
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js",
+    "server": "nodemon backend/dist/server.js",
+    "dev": "tsc -p backend -w | nodemon backend/dist/server.js",
     "client": "npm start --prefix client"
   },
   "name": "backend",
