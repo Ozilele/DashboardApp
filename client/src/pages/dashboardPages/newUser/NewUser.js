@@ -3,7 +3,8 @@ import './NewUser.css';
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { convertToBase64 } from '../../../utils/helpers.js'
+import { convertToBase64 } from '../../../utils/helpers.js';
+import Cookies from 'js-cookie';
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 
 const initialInputs = {
@@ -23,6 +24,7 @@ const NewUser = () => {
   const navigate = useNavigate();
 
   const addNewUser = async (e) => {
+    const { accessToken } = Cookies.get();
     e.preventDefault();
     setError(false);
     if(inputs.password !== inputs.passwordRepeat) {
@@ -43,6 +45,10 @@ const NewUser = () => {
         password: inputs.password,
         imageData: fileData.data,
         imageName: fileData.name,
+      }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
       }).then(res => {
         console.log(res);
         setInputs(initialInputs);

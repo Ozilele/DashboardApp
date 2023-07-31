@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './NewHotel.css';
+import Cookies from 'js-cookie';
 import { convertToBase64 } from '../../../utils/helpers.js';
 
 const initialInputs = {
@@ -42,6 +43,7 @@ const NewHotel = () => {
   }
 
   const handleFormSubmit = async (e) => {
+    const { accessToken } = Cookies.get();
     e.preventDefault();
     setInputs(initialInputs);
     const API_URL = `/admin/hotels`;
@@ -49,6 +51,11 @@ const NewHotel = () => {
       let fileData;
       if(file) {
         fileData = await convertToBase64(file);
+      }
+      const options = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
       }
       const hotelsResponse = await axios.post(API_URL, {
         name: inputs.hotelName,
@@ -64,7 +71,7 @@ const NewHotel = () => {
           hasParking: checkboxInputs.features_parking, 
         },
         hotelImage: fileData ? fileData : null,
-      });
+      }, options);
       if(hotelsResponse.status === 201) {
         navigate('/dashboard/hotels');
       }
@@ -73,7 +80,6 @@ const NewHotel = () => {
     }
   }
 
-  // action='http://localhost:8000/dashboard/hotels/upload' enctype="multipart/form-data" method='POST'
   return (
     <div className='new-hotel-form'>
       <h2>Add New Hotel</h2>

@@ -6,6 +6,7 @@ import { login, reset, selectUser } from '../features/auth/authSlice';
 import './Login.css';
 import loader from '../img/loader.svg';
 import loginImg from '../img/loginImg.jpg';
+import Cookies from 'js-cookie';
 
 const Login = () => {
   const [inputs, setInputs] = useState(
@@ -20,6 +21,10 @@ const Login = () => {
   const { user, isError, isSuccess, isLoading, message } = useSelector(selectUser);
 
   useEffect(() => {
+    const { accessToken } = Cookies.get();
+    if(!accessToken) {
+      return;
+    }
     if(isError) {
       toast.error(message, {
         position: "top-center",

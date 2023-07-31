@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { addSomeEvent } from "./appService";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export const addNewEvent = createAsyncThunk("app/addNewEvent", async(event, thunkAPI) => {
   try {
-    return await addSomeEvent(event);
+    const { accessToken } = Cookies.get();
+    return await addSomeEvent(event, accessToken);
   }
   catch(err) {
     const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString(); 
@@ -14,8 +16,13 @@ export const addNewEvent = createAsyncThunk("app/addNewEvent", async(event, thun
 
 export const deleteEvent = createAsyncThunk("app/deleteEvent", async(id, thunkAPI) => {
   try {
+    const { accessToken } = Cookies.get();
     const URL = `/admin/calendar/${id}`;
-    return await axios.delete(URL);
+    return await axios.delete(URL, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
   }
   catch(err) {
     const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();

@@ -18,7 +18,7 @@ export const userColumns = [
       return (
         <div style={{ display: 'flex', gap: '4px' }} className="user__row">
           {/* <img className="row__img" src={params.row?.imgSrc} alt="img"></img> */}
-          <Avatar alt={Date.now()} src={params.row?.avatarUrl ? `http://localhost:8000/uploads/users/${params.row?.avatarUrl}` : null} style={{ width: '28px', height: '28px', cursor: 'pointer' }}/>
+          <Avatar alt={Date.now().toString()} src={params.row?.avatarUrl ? `http://localhost:8000/uploads/users/${params.row?.avatarUrl}` : null} style={{ width: '28px', height: '28px', cursor: 'pointer' }}/>
           <h3>{params.row?.firstName}{" "}{params.row?.secondName}</h3>
         </div>
       )

@@ -9,7 +9,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import MeetingRoomOutlinedIcon from '@mui/icons-material/MeetingRoomOutlined';
 import { setModalData, toggleModalWindow } from '../../features/appSlice';
 import './CalendarEvent.css';
-import axios from 'axios';
 
 const CalendarEvent = ({ id ,Icon ,date, time, meetingName, loc, desc }) => {
 

@@ -57,6 +57,10 @@
     color: whitesmoke !important;
 } */
 
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+    color: whitesmoke !important;
+}
+
 .MuiOutlinedInput-notchedOutline {
     border-color: white !important;
 }

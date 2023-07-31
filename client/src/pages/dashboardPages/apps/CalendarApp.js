@@ -9,6 +9,7 @@ import ModalWindow from '../../../components/windows/ModalWindow';
 import { resetSuccess, selectApp, selectModal, selectModalData } from '../../../features/appSlice';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 
 const CalendarApp = () => {
   const dispatch = useDispatch();
@@ -27,8 +28,13 @@ const CalendarApp = () => {
   const API_URL = `/admin/calendar/date?currDate=${validDate}`;
 
   const getEvents = async() => {
+    const { accessToken } = Cookies.get();
     try {
-      const response = await axios.get(API_URL);
+      const response = await axios.get(API_URL, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
       setEventsData(response.data.events);
       setIsLoading(false); // stop loading
     } catch(err) {
@@ -101,5 +107,4 @@ const CalendarApp = () => {
     </div>
   )
 }
-// setEventsData={setCalendarEventsData}
 export default CalendarApp;

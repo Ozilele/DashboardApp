@@ -22,7 +22,6 @@ const ProtectedRoute = ({ children }) => {
       axios
         .get("/auth/admin_user", config)
         .then(res => {
-          console.log(res);
           if(res.data.message === "authorized") {
             setIsAuthorized(true);
           } else {

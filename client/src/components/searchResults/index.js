@@ -18,8 +18,8 @@ const SearchRow = ({ id, name, features, country, localization, stars, imgSrc, b
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: '20px', filter: 'blur(2px)' }}
-      whileInView={{ opacity: 1, y: '0px', filter: 'blur(0)' }}
+      initial={{ opacity: 0, y: '25px' }}
+      whileInView={{ opacity: 1, y: '0px' }}
       margin="150px"
       viewport={{ once: true }}
       transition={{ type: 'spring', duration: 1.3, bounce: 0.25 }}
