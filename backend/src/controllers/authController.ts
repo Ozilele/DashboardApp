@@ -79,7 +79,7 @@ export const loginUser = async (req: Request, res : Response) => {
       sameSite: "strict",
     }
     res.cookie("accessToken", accessToken, accessTokenCookieOptions);
-    res.status(201).json({
+    res.status(200).json({
       _id: user._id,
       firstName: user.firstName,
       secondName: user.secondName,
