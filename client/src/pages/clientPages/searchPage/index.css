@@ -32,6 +32,8 @@
 .filters-row {
     padding: 1rem 1.3rem;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -75,7 +77,7 @@
 .filters-client {
     flex: 0.2;
     height: fit-content;
-    min-width: 260px;
+    min-width: 250px;
     border: 1px solid black;
     border-radius: 5px;
     padding: 1rem 1.5rem;
@@ -85,7 +87,6 @@
     display: none;
     visibility: hidden;
 }
-
 
 @media(max-width: 800px) {
     .client-page-results {
@@ -103,6 +104,26 @@
         display: flex;
         visibility: visible;
         justify-content: center;
+    }
+    .filters-row {
+        padding: 0.65rem;
+    }
+    .more-filters-span-btn {
+        display: none;   
+        visibility: hidden;
+    }
+
+    .css-on777r-MuiAutocomplete-root, .css-l3ln04-MuiAutocomplete-root {
+        width: 185px !important;
+        height: 55px !important;
+    }
+
+    .client-page-input {
+        margin: 1.25rem 1.5rem;
+    }
+    .moreFilters-btn {
+        gap: 0 !important;
+        padding: 0.65rem 0.4rem !important;
     }
 }
 
@@ -136,7 +157,17 @@
 }
 
 .client-hotels-results {
+    position: relative;
     flex: 1;
     max-width: 900px;
     margin-bottom: 3.75rem;
+}
+
+.client_hotels-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 45px;
+    width: 45px;
 }

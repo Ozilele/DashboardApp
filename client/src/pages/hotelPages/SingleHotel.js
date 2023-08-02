@@ -8,7 +8,6 @@ import Cookies from 'js-cookie';
 const SingleHotel = () => {
   const [hotel, setHotel] = useState([]);
   const [rooms, setRooms] = useState([]);
-  let { id } = useParams();
 
   const handlePaymentCheckout = async (e) => {
     const { accessToken } = Cookies.get();

@@ -1,31 +1,32 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState } from 'react';
 import './ClientHotels.css';
-import axios from 'axios';
 import './index.css';
+import Pagination from '../../../components/pagination/Pagination';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Autocomplete from '@mui/material/Autocomplete';
 import TuneIcon from '@mui/icons-material/Tune';
 import SearchRow from '../../../components/searchResults/index.js';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import loader from "../../../img/loader.svg";
-import hotelImg from '../../../img/someHotel.jpg';
-import { Link } from 'react-router-dom';
+import loader from "../../../img/hotels_client.svg";
 import { countriesOptions } from '../../../utils/helpers';
 import Sort from '../../../components/sort';
-import { Box, Icon, IconButton, TextField } from '@mui/material';
-import SearchHotelSidebar from '../../../components/client/SearchHotelSidebar';
+import { Box, IconButton, TextField } from '@mui/material';
+import SearchHotelSidebar from '../../../components/client/searchPage/SearchHotelSidebar';
+import useHotelsRequest from '../../../hooks/useHotelsRequest';
 
 const initialSortObj = {
   sort: "stars",
   order: "asc"
 }
 
+const popularFilters = ["Beautiful views", "Restaurant", "Free Wifi", "Room service", "Air conditioning", "Balcony", "Gym access"];
+
 const ClientSearchPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSidebarShown, setSidebarShown] = useState(false);
+  const [country, setCountry] = useState("");
   const [page, setPage] = useState(1);
-  const [hotels, setHotels] = useState([]);
   const [inputs, setInputs] = useState({
     hotel_name: "",
     destination: "",
@@ -43,22 +44,7 @@ const ClientSearchPage = () => {
     "hasParking": false,
   });
   const [sortObj, setSortObj] = useState(initialSortObj);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const API_URL = `/api/client/hotels?limit=${15}&page=${page}&search=${inputs.hotel_name}&closeToSee=${features["closeToSee"]}&closeToMountains=${features["closeToMountains"]}&hasParking=${features["hasParking"]}&sort=${sortObj.sort},${sortObj.order}`;
-    axios.get(API_URL)
-      .then(res => {
-        setIsLoading(false);
-        console.log(res);
-        if(res.status === 200) {
-          setHotels(res.data.hotels);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, [page, inputs.hotel_name, features, sortObj]);
+  const { hotelsData, limitPages } = useHotelsRequest('/api/client', setIsLoading, 10, page, inputs.hotel_name, "", features, sortObj);
 
   const handleInputChange = (e) => {
     setInputs(prev=> ({
@@ -83,7 +69,7 @@ const ClientSearchPage = () => {
           <div className='moreFilters-section'>
             <IconButton onClick={(e) => setSidebarShown(!isSidebarShown)} className='moreFilters-btn'>
               <TuneIcon/>
-              <span>More Filters</span>
+              <span className='more-filters-span-btn'>More Filters</span>
               <KeyboardArrowLeftIcon/>
             </IconButton>
           </div>
@@ -92,18 +78,21 @@ const ClientSearchPage = () => {
             options={countriesOptions}
             autoHighlight
             getOptionLabel={(option) => option.label}
-            renderOption={(props, option) => (
-              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                <img
-                  loading="lazy"
-                  width="20"
-                  src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                  srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-                  alt=""
-                />
-                {option.label} ({option.code}) +{option.phone}
-              </Box>
-            )}
+            renderOption={(props, option) => {
+              setCountry(option.label);
+              return (
+                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                  <img
+                    loading="lazy"
+                    width="20"
+                    src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                    srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                    alt=""
+                  />
+                  {option.label} ({option.code}) +{option.phone}
+                </Box>
+              );
+            }}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -136,39 +125,17 @@ const ClientSearchPage = () => {
           </div>
           <div className='client-popular-filters'>
             <h4>Popular filters</h4>
-            <div className='client-popular-filter'>
-              <label htmlFor="">Beautiful views</label>
-              <input type="checkbox"/>
-            </div>
-            <div className='client-popular-filter'>
-              <label htmlFor="">Restaurant</label>
-              <input type="checkbox"/>
-            </div>
-            <div className='client-popular-filter'>
-              <label htmlFor="">Free Wifi </label>
-              <input type="checkbox"/>
-            </div>
-            <div className='client-popular-filter'>
-              <label htmlFor="">Room service</label>
-              <input type="checkbox"/>
-            </div>
-            <div className='client-popular-filter'>
-              <label htmlFor="">Air conditioning</label>
-              <input type="checkbox"/>
-            </div>
-            <div className='client-popular-filter'>
-              <label htmlFor="">Balcony</label>
-              <input type="checkbox"/>
-            </div>
-            <div className='client-popular-filter'>
-              <label htmlFor="">Gym access</label>
-              <input type="checkbox"/>
-            </div>
+            {popularFilters.map(filter => (
+              <div className='client-popular-filter'>
+                <label htmlFor="">{filter}</label>
+                <input type="checkbox"/>
+              </div>
+            ))}
           </div>
         </div>
         <div className='client-hotels-results'>
-          {isLoading && <img className='loader_img' src={loader} alt="Loader_hotel"/>}
-          {!isLoading && hotels.map((hotel) => {
+          {isLoading && <img className='client_hotels-loader' src={loader} alt="Loader_hotel"/>}
+          {!isLoading && hotelsData.map((hotel) => {
             return (
               <SearchRow
                 key={hotel._id}
@@ -183,6 +150,7 @@ const ClientSearchPage = () => {
               />
             )
           })}
+          {!isLoading && <Pagination totalPages={limitPages} page={page} setPage={setPage} />}
         </div>
       </div>
       <SearchHotelSidebar 

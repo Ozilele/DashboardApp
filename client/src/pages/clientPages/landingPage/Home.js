@@ -2,11 +2,15 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { DateRange } from 'react-date-range'; // external component for selecting the date
 import './Home.css';
+import SearchIcon from '@mui/icons-material/Search';
 import accomodationIcon from '../../../img/search_1_icon.png';
 import calendar from '../../../img/calendar.png';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { Link } from 'react-router-dom';
+import { IconButton } from '@mui/material';
+import TopOffers from '../../../components/client/home/TopOffers';
+import FilterBoxOptions from '../../../components/client/home/FilterBoxOptions';
 
 const Home = () => {
 
@@ -28,20 +32,6 @@ const Home = () => {
     }
   ]);
   
-  // useEffect(() => {
-  //   const fetchAllHotels = async function() {
-  //     try {
-  //       const req = await axios.get("http://localhost:8000/server/hotels/");
-  //       setHotels(req.data);
-  //     }
-  //     catch(err) {
-  //       console.log(err);
-  //     }
-  //   }
-
-  //   fetchAllHotels();
-  // }, []);
-
   const formatDate = (date) => {
     let year = date.getFullYear();
     let month = (1 + date.getMonth()).toString().padStart(2, '0');
@@ -93,39 +83,17 @@ const Home = () => {
           <div className="filterSearchItem">
             <img src={calendar} alt="options"></img>
             <span onClick={()=>setOpenOptions(!openOptions)} className="searchtxt">{`${options.adult} adult • ${options.children} children • ${options.room} room`}</span>
-              {openOptions && <div className="options">
-                <div className="optionItem">
-                  <span className="optionTxt">Adult</span>
-                  <div className="optionContainer">
-                    <button disabled={options.adult <= 1} className="decreaseBtn" onClick={()=> handleBtn("adult", "d")}>-</button>
-                    <span className="optionCounter">{options.adult}</span>
-                    <button className="increaseBtn" onClick={()=> handleBtn("adult", "i")}>+</button>
-                  </div>
-                </div>
-                <div className="optionItem">
-                  <span className="optionTxt">Children</span>
-                  <div className="optionContainer">
-                    <button disabled={options.children <= 0} className="decreaseBtn" onClick={()=> handleBtn("children", "d")}>-</button>
-                    <span className="optionCounter">{options.children}</span>
-                    <button className="increaseBtn" onClick={()=> handleBtn("children", "i")}>+</button>
-                  </div>
-                </div>
-                <div className="optionItem">
-                  <span className="optionTxt">Room</span>
-                  <div className="optionContainer">
-                    <button disabled={options.room <= 1} className="decreaseBtn" onClick={()=> handleBtn("room", "d")}>-</button>
-                    <span className="optionCounter">{options.room}</span>
-                    <button className="increaseBtn" onClick={()=> handleBtn("room", "i")}>+</button>
-                  </div>
-                </div>
-              </div>}
+              {openOptions && <FilterBoxOptions options={options} handleBtn={handleBtn}/>}
           </div>
-          <div className="filterSearchItem">
+          <div className="filterSearchItem filterSearchItemBtn">
             <Link to="/hotels">
-              <button className="searchBtn_home">Search</button>
+              <IconButton style={{ background: "#0D1282" }}>
+                <SearchIcon style={{ width: '22px', height: '22px', color: "whitesmoke" }}/>
+              </IconButton>
             </Link>
           </div>
         </div>
+        <TopOffers />
       </div>
     </div>
   )

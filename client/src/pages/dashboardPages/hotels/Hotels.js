@@ -4,7 +4,6 @@ import HotelCard from '../../../components/cards/HotelCard';
 import AddIcon from '@mui/icons-material/Add';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import Grid from '@mui/material/Grid';
-import axios from 'axios';
 import loader from '../../../img/loader.svg';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -19,8 +18,9 @@ import Sort from "../../../components/sort/index.js";
 import { motion } from 'framer-motion';
 import { AnimatePresence } from 'framer-motion';
 import { Link, useSearchParams } from 'react-router-dom';
-import { IconButton, Menu, NativeSelect } from '@mui/material';
+import { IconButton } from '@mui/material';
 import Pagination from '../../../components/pagination/Pagination';
+import useHotelsRequest from '../../../hooks/useHotelsRequest';
 
 const allCities = [
   "Krakow",
@@ -35,8 +35,6 @@ const Hotels = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState(1);
-  const [limitPages, setLimitPages] = useState(1);
-  const [hotelsData, setHotelsData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filterNameToggled, setFilterNameToggled] = useState(false);
   const [city, setCity] = useState(""); // state for selecting city
@@ -46,27 +44,11 @@ const Hotels = () => {
     order: "desc"
   });
   const [appliedFeatures, setAppliedFeatures] = useState({});
-
-  useEffect(() => {
-    makeRequest();
-  }, [page, nameValInput, city, sortObj, appliedFeatures]);
+  const { hotelsData, limitPages } = useHotelsRequest('/admin', setIsLoading, 6, page, nameValInput, city, appliedFeatures, sortObj);
 
   const filterToggle = useCallback((e) => {
     setFilterNameToggled(!filterNameToggled);
   }, [filterNameToggled]);
-
-  const makeRequest = () => {
-    setIsLoading(true);
-    const API_URL = `/admin/hotels?page=${page}&search=${nameValInput}&city=${city}&closeToSee=${appliedFeatures["closeToSee"]}&closeToMountains=${appliedFeatures["closeToMountains"]}&hasParking=${appliedFeatures["hasParking"]}&sort=${sortObj.sort},${sortObj.order}`;
-    axios.get(API_URL)
-      .then((res) => {
-        console.log(res.data);
-        setHotelsData(res.data.hotels);
-        setLimitPages(Math.ceil((res.data.allDocuments / res.data.limit)));
-        setIsLoading(false);
-      })
-      .catch(err => console.log(err));
-  };
 
   const handleCityChange = useCallback((e) => { // prevent this function from rerendering unless city has changed
     setSearchParams((prev) => {
@@ -186,7 +168,8 @@ const Hotels = () => {
                 whileTap={{ scale: 0.95 }} 
                 className="hotels_grid-item" 
                 xl={3} lg={3} md={4} sm={6} xs={12}>
-                  <HotelCard id={hotel._id} name={hotel.name} localization={hotel.localization} stars={hotel.stars} imgSrc={hotel?.hotelImage} base64String={hotel?.image?.img?.data?.data} makeRequest={makeRequest}/>
+                  <HotelCard id={hotel._id} name={hotel.name} localization={hotel.localization} stars={hotel.stars} imgSrc={hotel?.hotelImage} base64String={hotel?.image?.img?.data?.data}/>
+                  {/* makeRequest={makeRequest} */}
               </Grid>
             </AnimatePresence>
           )

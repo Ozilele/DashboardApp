@@ -9,12 +9,10 @@ import loginImg from '../img/loginImg.jpg';
 import Cookies from 'js-cookie';
 
 const Login = () => {
-  const [inputs, setInputs] = useState(
-    {
-      email: "",
-      password: "",
-    }
-  );
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,7 +23,7 @@ const Login = () => {
     if(!accessToken) {
       return;
     }
-    if(isError) {
+    if(isError) { // error message
       toast.error(message, {
         position: "top-center",
         theme: "colored",
@@ -34,10 +32,10 @@ const Login = () => {
         autoClose: 1000
       });
     }
-    if((isSuccess || user) && !user.role) {
+    if((isSuccess || user) && !user.role) { // normal user
       navigate("/");
     }
-    if((isSuccess || user) && user.role == "admin") {
+    if((isSuccess || user) && user.role == "admin") { // admin user
       navigate("/dashboard");
     }
   }, [user, isError, isSuccess, message, navigate, dispatch]);
@@ -55,7 +53,7 @@ const Login = () => {
       email: inputs.email,
       password: inputs.password,
     }
-    dispatch(login(data));
+    dispatch(login(data)); // try to log in - redux authSlice
   }
 
   return (
