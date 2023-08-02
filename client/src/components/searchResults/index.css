@@ -7,30 +7,11 @@
     padding: 1rem;
     max-width: 820px;
     height: 260px;
-    margin: 0 auto 1.5rem auto;
+    margin: 0 auto 1.75rem auto;
 }
 
 .client-row-hotel-image {
     flex: 0.45;
-}
-
-@media(max-width: 760px) {
-    .client-row-hotel {
-        gap: 0.65rem;
-        height: 275px;
-    }
-    .client-row-hotel-image {
-        flex: 0.58;
-    }
-}
-
-@media(max-width: 650px) {
-    .client-row-hotel {
-        padding: 0.65rem;
-    }
-    .client-row-hotel-image {
-        flex: 0.63;
-    }
 }
 
 .client-row-hotel-image > img {
@@ -59,6 +40,7 @@
 
 .row-hotel-features {
     display: flex;
+    align-items: center;
     gap: 10px;
     margin: 10px;
 }
@@ -70,6 +52,10 @@
 .feature-mountains-icon, .feature-water-icon, .feature-parking-icon {
     width: 26px !important;
     height: 26px !important;
+}
+
+.client-hotel-name {
+    font-size: 1.55rem;
 }
 
 .feature-water-icon {
@@ -113,4 +99,38 @@
     background-color: rgb(50, 50, 174, 0.85);
 }
 
+@media(max-width: 800px) {
+    .client-row-hotel {
+        gap: 0.65rem;
+        height: 280px;
+    }
+    .client-row-hotel-image {
+        flex: 0.58;
+    }
+}
 
+@media(max-width: 650px) {
+    .client-row-hotel {
+        gap: 0.45rem;
+        padding: 0.55rem;
+        height: 235px;
+    }
+    .client-first-row {
+        padding: 0 0.45rem;
+    }
+
+    .client-row-hotel-image {
+        flex: 0.7;
+    }
+    .client-row-rating {
+        padding: 0.35rem;
+    }
+
+    .client-hotel-name {
+        font-size: 1.3rem;
+    }
+    .row-hotel-features {
+        margin: 2px;
+        gap: 5px;
+    }   
+}

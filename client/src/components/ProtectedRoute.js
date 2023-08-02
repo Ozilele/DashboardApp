@@ -1,48 +1,15 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
-import Cookies from 'js-cookie';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const ProtectedRoute = ({ children }) => {
 
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  
-  useEffect(() => {
-    const { accessToken } = Cookies.get();
-    if(!accessToken) {
-      setIsAuthorized(false);
-      setIsLoading(false);
-    } else {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      }
-      axios
-        .get("/auth/admin_user", config)
-        .then(res => {
-          if(res.data.message === "authorized") {
-            setIsAuthorized(true);
-          } else {
-            setIsAuthorized(false);
-          }
-          setIsLoading(false);
-        })
-        .catch(err => {
-          console.log(err);
-          setIsAuthorized(false);
-          setIsLoading(false);
-      });
-    }
-  }, []);
+  const { isAuthorized, isLoading } = useAuth("admin");
+  const location = useLocation();
 
-  if(isLoading) {
-    return <div>Loading...</div>
-  }
-  else if(!isAuthorized) {
-    return <Navigate to='/'/>;
-  } else {
+  if(!isAuthorized && !isLoading) {
+    return <Navigate to='/' state={{ from: location }} replace />;
+  } else if(isAuthorized && !isLoading) {
     return children ? children : <Outlet/>;
   }
 }

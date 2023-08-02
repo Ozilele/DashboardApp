@@ -10,7 +10,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slider from '@mui/material/Slider';
 import Rating from '@mui/material/Rating';
 import { motion } from 'framer-motion';
-import AccomodationInput from '../inputs/AccomodationInput';
+import AccomodationInput from '../../inputs/AccomodationInput';
 
 const icons = [WaterIcon, TerrainIcon, LocalParkingIcon];
 

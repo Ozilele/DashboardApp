@@ -32,7 +32,7 @@ const SearchRow = ({ id, name, features, country, localization, stars, imgSrc, b
         <div className='client-first-row'>
           <div>
             <Link style={{ textDecoration: 'none', color: 'inherit' }} to={`/hotel/${id}`}>
-              <h2 style={{ fontSize: '1.55rem' }}>{name}</h2>
+              <h2 className='client-hotel-name'>{name}</h2>
             </Link>
             <Typography style={{ marginBottom: '10px' }}>
               {stars_.map(i => {

@@ -55,14 +55,13 @@ const router = createBrowserRouter([
   {
     path: "dashboard",
     element: 
-    <ProtectedRoute>
-      <AdminRouteLayout/>
+      <ProtectedRoute>
+        <AdminRouteLayout/>
       </ProtectedRoute>,
     children: [
       {
         index: true,
-        element: 
-        <Dashboard/>
+        element: <Dashboard/>
       },
       {
         path: "users",

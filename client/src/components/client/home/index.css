@@ -1,0 +1,67 @@
+.filter-box-options {
+    position: absolute;
+    top: 68px;
+    background-color: #ECECEC;
+    color: #2B3A55;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    /* padding: 10px 0px; */
+}
+
+.optionItem {
+    width: 220px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+
+.optionContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 14px;
+  }
+  
+.optionContainer button {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0.2rem 0.8rem;
+    border: none;
+}
+
+.increaseBtn {
+    background-color: #B6E2A1;
+    color:#363636;
+}
+
+.decreaseBtn {
+    background-color:#DC3535;
+    color: white;
+  }
+  
+.decreaseBtn:disabled {
+    cursor: not-allowed;
+}
+
+@media(max-width: 800px) {
+    .filter-box-options {
+        top: 52px;
+        left: 0;
+        z-index: 10;
+        border: 1px solid black;
+    }
+    .optionItem {
+        height: 40px;
+        width: 300px;
+    }
+
+    .optionContainer button {
+        padding: 1rem;
+    }
+}

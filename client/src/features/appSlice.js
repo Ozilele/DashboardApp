@@ -1,12 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addSomeEvent } from "./appService";
 import axios from "axios";
 import Cookies from "js-cookie";
 
 export const addNewEvent = createAsyncThunk("app/addNewEvent", async(event, thunkAPI) => {
   try {
     const { accessToken } = Cookies.get();
-    return await addSomeEvent(event, accessToken);
+    const response = await axios.post("/admin/calendar", event, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+    console.log(response.data);
+    return response.data;
   }
   catch(err) {
     const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString(); 
@@ -83,5 +88,4 @@ export const selectModalData = (state) => state.app.modalData;
 export const selectSidebar = (state) => state.app.isSidebarRolled;
 
 export const selectApp = (state) => state.app;
-
 export default appSlice.reducer;

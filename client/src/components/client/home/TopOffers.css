@@ -1,0 +1,38 @@
+.top-offers {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 2.5rem auto 0 auto;
+    margin-bottom: 4rem;
+}
+
+.top-offers > h3 {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 2.15rem;
+    color: #272525;
+    margin-bottom: 4.5rem;
+    padding-left: 1.2rem;
+    font-weight: 600;
+}
+
+.top-offers-content {
+    display: flex;
+    align-items: center;
+}
+
+.top-offers-right > button, .top-offers-left > button {
+    background-color: #fff;
+}
+
+.top-offers-right {
+    margin-left: 1.2rem;
+}
+
+.top-offers-left {
+    margin-right: 1.2rem;
+}
+
+.top-offers-results {
+    display: flex;
+    gap: 2rem;
+}
