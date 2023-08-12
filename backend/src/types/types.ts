@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { HydratedDocument, Types } from 'mongoose';
 
 export interface User {
   firstName: string,
@@ -24,15 +25,21 @@ export interface Event {
   }
 }
 
-interface Feature {
-  _id: string,
-  closeToSee: boolean,
-  closeToMountains: boolean,
-  hasParking: boolean,
+export type UserInfo = {
+  profilePicture?: string,
+  username: string,
+}
+
+export interface Review {
+  rating: number,
+  content?: string,
+  hotel: Types.ObjectId,
+  author: Types.ObjectId,
+  userInfo?: UserInfo
 }
 
 export interface Req extends Request {
-  user?: User
+  user?: HydratedDocument<User>
 }
 
 export type Verification = {
@@ -40,3 +47,4 @@ export type Verification = {
   expired?: boolean,
   decoded: UserToken | null,
 }
+

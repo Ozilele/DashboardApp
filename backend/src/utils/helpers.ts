@@ -18,3 +18,4 @@ export const uploadFile = (imageData : string, imageName : string, folder : stri
   });
   return filename;
 }
+
