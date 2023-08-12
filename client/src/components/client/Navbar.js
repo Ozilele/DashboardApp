@@ -8,9 +8,11 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { Link, useNavigate } from 'react-router-dom';
 import logoIcon from '../../img/iconLogo.png';
+import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
 
+  // const { isAuthorized, isLoading } = useAuth("client");
   const { user } = useSelector(selectUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -1,12 +1,20 @@
 .top-offer {
     flex-basis: 33.33%;
-    background-color: white;
+    /* width: 33.33%; */
+    min-width: 275px;
+    pointer-events: none;
+    /* background-color: #F4F2DE; */
+    background-color: #FCE9F1;
+    border: 1px solid rgb(30, 26, 26);
+    /* background-color: grey; */
     border-radius: 6px;
-    height: fit-content;
     display: flex;
-    padding: 0.75rem;
     flex-direction: column;
+    padding: 0.75rem;
     gap: 10px;
+    -webkit-box-shadow: 8px 9px 19px -12px rgba(40, 40, 45, 1);
+    -moz-box-shadow: 8px 9px 19px -12px rgba(40, 40, 45, 1);
+    box-shadow: 8px 9px 19px -12px rgba(40, 40, 45, 1);
 }
 
 .top-offer-img {
@@ -22,4 +30,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.top-offer-rating {
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 4px;
 }

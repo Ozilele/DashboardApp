@@ -2,37 +2,51 @@
     position: relative;
     width: 100%;
     max-width: 1200px;
-    margin: 2.5rem auto 0 auto;
-    margin-bottom: 4rem;
+    margin: 2.5rem auto 4rem auto;
 }
 
 .top-offers > h3 {
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 2.15rem;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 2.05rem;
     color: #272525;
-    margin-bottom: 4.5rem;
+    margin-bottom: 4.2rem;
     padding-left: 1.2rem;
     font-weight: 600;
 }
 
-.top-offers-content {
+.top-offers-carousel {
     display: flex;
     align-items: center;
+    position: relative;
+    cursor: grab;
+    overflow: hidden;
+    padding: 0 0.6rem;
 }
 
 .top-offers-right > button, .top-offers-left > button {
-    background-color: #fff;
+    background-color: rgb(141, 139, 139);
+    color: #fff;
 }
 
 .top-offers-right {
-    margin-left: 1.2rem;
+    margin-left: 0.8rem;
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    z-index: 10;
 }
 
 .top-offers-left {
-    margin-right: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    z-index: 10;
+    margin-right: 0.8rem;
 }
 
 .top-offers-results {
     display: flex;
-    gap: 2rem;
+    gap: 1.8rem;
 }

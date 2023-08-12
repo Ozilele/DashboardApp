@@ -24,7 +24,7 @@ import Home from './pages/clientPages/landingPage/Home';
 import ClientSearchPage from './pages/clientPages/searchPage/index';
 import Navbar from './components/client/Navbar';
 import UserSettings from './pages/clientPages/userPages/UserSettings';
-import SingleHotel from './pages/hotelPages/SingleHotel';
+import SingleHotel from './pages/clientPages/singleHotelPage/SingleHotel';
 import NewHotel from './pages/dashboardPages/hotels/NewHotel';
 import ProtectedRoute from './components/ProtectedRoute';
 

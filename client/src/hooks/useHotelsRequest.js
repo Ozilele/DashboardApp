@@ -6,8 +6,6 @@ const useHotelsRequest = (endpoint, setIsLoading, limit, page, search, city = ""
   const [hotelsData, setHotelsData] = useState([]); // hotels data for admin and user
   const [limitPages, setLimitPages] = useState(1); // limit pages(max number of pages)
 
-  console.log(features);
-
   useEffect(() => {
     setIsLoading(true);
     const API_URL = `${endpoint}/hotels?limit=${limit}&page=${page}&search=${search}&city=${city}&closeToSee=${features["closeToSee"]}&closeToMountains=${features["closeToMountains"]}&hasParking=${features["hasParking"]}&sort=${sortObj.sort},${sortObj.order}`;

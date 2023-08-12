@@ -1,5 +1,4 @@
 import React, { memo, useState } from 'react';
-import './ClientHotels.css';
 import './index.css';
 import Pagination from '../../../components/pagination/Pagination';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -13,7 +12,7 @@ import { countriesOptions } from '../../../utils/helpers';
 import Sort from '../../../components/sort';
 import { Box, IconButton, TextField } from '@mui/material';
 import SearchHotelSidebar from '../../../components/client/searchPage/SearchHotelSidebar';
-import useHotelsRequest from '../../../hooks/useHotelsRequest';
+import useHotelsRequest from "../../../hooks/useHotelsRequest.js";
 
 const initialSortObj = {
   sort: "stars",
@@ -125,8 +124,8 @@ const ClientSearchPage = () => {
           </div>
           <div className='client-popular-filters'>
             <h4>Popular filters</h4>
-            {popularFilters.map(filter => (
-              <div className='client-popular-filter'>
+            {popularFilters.map((filter, i) => (
+              <div key={i} className='client-popular-filter'>
                 <label htmlFor="">{filter}</label>
                 <input type="checkbox"/>
               </div>
