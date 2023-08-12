@@ -1,0 +1,19 @@
+.review-window-item {
+    padding: 1.05rem 0.55rem;
+    border-top: 2px solid #b0bcc1;
+}
+
+.review-window-item-top {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.review-window-item-content {
+    margin-top: 0.35rem;
+    padding: 0.2rem 0rem 0.2rem 1.55rem;
+}
+
+.review-window-item-content > span {
+    font-size: 0.85rem;
+}

@@ -1,0 +1,38 @@
+.landingPage-feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.landingPage-feature-icon {
+    cursor: pointer;
+    margin-bottom: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgb(210, 145, 24);
+    color: rgb(224, 218, 218);
+}
+
+.landingPage-feature-icon > svg {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.landingPage-feature-item > h4 {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1.2rem;
+    color: #272829;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+}
+
+.landingPage-feature-item > p {
+    text-indent: 0;
+    margin-left: 0.8rem;
+    color: rgb(128, 125, 125);
+    max-width: 330px;
+}
