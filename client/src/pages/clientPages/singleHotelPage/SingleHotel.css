@@ -1,0 +1,120 @@
+  .singleHotelPage {
+    padding: 1.85rem 2.2rem;
+    display: flex;
+    max-width: 1280px;
+    margin: 4.5rem auto 2.5rem auto;
+    flex-direction: column;
+  }
+
+  .singleHotelPageImg {
+    min-width: 350px;
+    max-width: 770px;
+    margin: 0 auto;
+  }
+
+  .singleHotelPageImg > img {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    -webkit-box-shadow: 1px -1px 24px 3px rgba(153, 163, 163, 0.82);
+    -moz-box-shadow: 1px -1px 24px 3px rgba(153, 163, 163, 0.82);
+    box-shadow: 1px -1px 24px 3px rgba(153, 163, 163, 0.82);
+    object-fit: contain;
+  }
+
+  .singleHotel-firstSec {
+    display: flex;
+    margin-bottom: 0.7rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 1.25rem;
+  }
+
+  .singleHotel-firstSec > h2 {
+    text-align: center;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 2.1rem;
+  }
+
+  .singleHotelContainer {
+    padding: 1.2rem 1.55rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+    
+  .singleHotelTop {
+    margin-bottom: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .singleHotelRow {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .singleHotelRowEnd {
+    display: flex;
+    gap: 0.4rem;
+  }
+  
+  .book-hotel-now-btn {
+    cursor: pointer;
+    border: none;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    color: #D6E1E9;
+    background-color: #1771C2;
+    padding: 1.2rem 1.45rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    border-radius: 3px;
+  } 
+
+  .book-hotel-now-btn:hover {
+    background-color: rgb(23, 113, 194, 0.85);
+  }
+
+  .single-Hotel-Features {
+    display: flex;
+    gap: 1.1rem;
+    padding: 0.7rem;
+  }
+
+  .single-Hotel-Features > div {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .single-Hotel-Features > div > svg {
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    color: white;
+    border-radius: 50%;
+  }
+
+  .single-Hotel-Desc {
+    margin-top: 1.35rem;
+    font-size: 1.08rem;
+  }
+
+  .single-Hotel-Bottom {
+    margin-top: 2.2rem;
+  }
+
+  .single-Hotel-Bottom > button {
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 6px;
+    background-color: #139fe4;
+    color: rgb(229, 223, 223);
+    padding: 1.2rem 1.35rem;
+  }
