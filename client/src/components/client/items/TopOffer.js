@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
-import image from '../../../img/some_1.png';
 import { motion } from 'framer-motion';
 import "./TopOffer.css";
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
+import useImageLoaded from '../../../hooks/useImageLoaded';
 
 const variant = {
   hidden: { opacity: 0, transform: "translateX(-100%)" },
@@ -10,13 +10,22 @@ const variant = {
 }
 
 const TopOffer = ({ styleTransform, hotelName, localization, rating, features }) => {
-  
+
+  const { ref, onLoad, loaded } = useImageLoaded();
+
   return (
     <motion.div 
       variants={variant}
       className='top-offer'>
       <div className='top-offer-img'>
-        <img src={image} alt="xxxx"/>
+        <img 
+          ref={ref}
+          style={{ opacity: loaded ? 1 : 0 }}
+          onLoad={onLoad}
+          src={require('../../../img/some_1.png')} 
+          loading='lazy'
+          alt="xxxx"
+        />
       </div>
       <div className='top-offer-content'> 
         <div>

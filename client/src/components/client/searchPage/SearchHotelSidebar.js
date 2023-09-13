@@ -2,7 +2,7 @@ import React, { memo, useState} from 'react';
 import './sidebar_index.css';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { Icon, IconButton, Slide } from '@mui/material';
+import { Icon, IconButton } from '@mui/material';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import WaterIcon from '@mui/icons-material/Water';
 import TerrainIcon from '@mui/icons-material/Terrain';
@@ -11,6 +11,8 @@ import Slider from '@mui/material/Slider';
 import Rating from '@mui/material/Rating';
 import { motion } from 'framer-motion';
 import AccomodationInput from '../../inputs/AccomodationInput';
+import { useDispatch, useSelector } from 'react-redux';
+import { applyFilter, deleteFilter, selectSidebar, toggleSidebar } from '../../../features/appSlice';
 
 const icons = [WaterIcon, TerrainIcon, LocalParkingIcon];
 
@@ -50,8 +52,9 @@ const marks = [
   }
 ]
 
-const SearchHotelSidebar = ({ features, isSidebarShown, setSidebar, setFeatures }) => {
-
+const SearchHotelSidebar = ({ features, setFeatures }) => {
+  const isSidebarShown = useSelector(selectSidebar);
+  const dispatch = useDispatch();
   const [stars, setStars] = useState(5);
   const [priceSliderValue, setPriceSlider] = useState(1000);
   const [ratingSliderValue, setRatingSlider] = useState([0.0, 10.0]);
@@ -63,6 +66,11 @@ const SearchHotelSidebar = ({ features, isSidebarShown, setSidebar, setFeatures 
   });
 
   const handleChange = (e, feature) => {
+    if(!features[feature]) {
+      dispatch(applyFilter(feature));
+    } else {
+      dispatch(deleteFilter(feature));
+    }
     setFeatures((prev) => {
       return {
         ...prev,
@@ -96,18 +104,18 @@ const SearchHotelSidebar = ({ features, isSidebarShown, setSidebar, setFeatures 
       initial="hidden"
       animate={isSidebarShown ? "show" : ""}  
       className='search-hotel-sidebar'>
-      <IconButton onClick={() => setSidebar(false)} className='delete-search-sidebar-btn' aria-label='close'>
+      <IconButton onClick={() => dispatch(toggleSidebar())} className='delete-search-sidebar-btn' aria-label='close'>
         <CloseIcon/>
       </IconButton>
       <div className='features'>
         <h3>Features</h3>
         {Object.keys(features).map((feature, i) => (
-            <FormControlLabel
-              key={i}
-              style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'space-between', marginLeft: '0', marginRight: '0'}}
-              control={
+          <FormControlLabel
+            key={i}
+            style={{display: 'flex', flexDirection: 'row-reverse', justifyContent: 'space-between', marginLeft: '0', marginRight: '0'}}
+            control={
               <Switch onChange={(e) => handleChange(e, feature)} inputProps={{ 'aria-label': 'controlled' }} checked={features[feature]} name={feature}/>
-              }
+            }
             label={
               <div style={{display: 'flex', alignItems: 'center'}}>
                 {React.createElement(icons[i], { style: { marginRight: '4px' } })}
@@ -115,9 +123,9 @@ const SearchHotelSidebar = ({ features, isSidebarShown, setSidebar, setFeatures 
               </div>
             }
             labelPlacement='start'
-            >
-              {features[feature] ? <Icon style={{ marginRight: '5px' }}><LocalParkingIcon /></Icon> : null}
-            </FormControlLabel>
+          >
+            {features[feature] ? <Icon style={{ marginRight: '5px' }}><LocalParkingIcon /></Icon> : null}
+          </FormControlLabel>
         ))}
       </div>
       <div className='accomodation-sidebar'>
@@ -167,9 +175,6 @@ const SearchHotelSidebar = ({ features, isSidebarShown, setSidebar, setFeatures 
           step={0.25}
           valueLabelDisplay='on'
         />
-      </div>
-      <div className='sidebar-search-btn'>
-        <button className='sidebar-search-apply'>Apply</button>
       </div>
     </motion.div>
   )

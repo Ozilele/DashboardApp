@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import './index.css';
+import './FilterBoxOptions.css';
 
 const FilterBoxOptions = ({ options, handleBtn }) => {
   return (

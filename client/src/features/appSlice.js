@@ -43,12 +43,13 @@ export const appSlice = createSlice({
     message: "",
     isModalOpen: false,
     currentLink: '',
-    isSidebarRolled: false,
+    appliedFilters: [],
+    isSidebarShown: false,
     modalData: null,
   },
   reducers: {
     toggleSidebar: (state, action) => {
-      state.isSidebarRolled = !state.isSidebarRolled;
+      state.isSidebarShown = !state.isSidebarShown;
     },
     toggleModalWindow: (state, action) => {
       state.isModalOpen = !state.isModalOpen;
@@ -59,6 +60,13 @@ export const appSlice = createSlice({
     resetSuccess: (state) => {
       state.message = "";
       state.isSuccess = false;
+    },
+    applyFilter: (state, action) => {
+      state.appliedFilters.push(action.payload);
+    },
+    deleteFilter: (state, action) => {
+      state.appliedFilters = state.appliedFilters.filter((item) => item !== action.payload)
+      console.log(state.appliedFilters);
     }
   },
   extraReducers: (builder) => {
@@ -82,10 +90,10 @@ export const appSlice = createSlice({
   }
 });
 
-export const { toggleSidebar, toggleModalWindow, setModalData, resetSuccess } = appSlice.actions;
+export const { toggleSidebar, applyFilter, deleteFilter, toggleModalWindow, setModalData, resetSuccess } = appSlice.actions;
 export const selectModal = (state) => state.app.isModalOpen;
 export const selectModalData = (state) => state.app.modalData;
-export const selectSidebar = (state) => state.app.isSidebarRolled;
-
+export const selectSidebar = (state) => state.app.isSidebarShown;
 export const selectApp = (state) => state.app;
+
 export default appSlice.reducer;

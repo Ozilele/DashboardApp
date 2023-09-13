@@ -1,49 +1,11 @@
-import React, { memo, useState, useRef, useEffect, useDebugValue } from 'react';
+import React, { memo, useState, useRef, useEffect } from 'react';
 import './TopOffers.css';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { IconButton } from '@mui/material';
 import { motion } from 'framer-motion';
-import TopOffer from './TopOffer';
-
-const offers = [
-  {
-    hotelName: "Mariott",
-    localization: {
-      city: "Warsaw",
-      address: "Aleje Jerozolimskie 12/a"
-    },
-    rating: 8.32,
-    features: {},
-  },
-  {
-    hotelName: "Miami",
-    localization: {
-      city: "Warsaw",
-      address: "Muszyńska 12/a"
-    },
-    rating: 6.2,
-    features: {},
-  },
-  {
-    hotelName: "Miami",
-    localization: {
-      city: "Warsaw",
-      address: "Muszyńska 12/a"
-    },
-    rating: 6.2,
-    features: {},
-  },
-  {
-    hotelName: "Miami",
-    localization: {
-      city: "Warsaw",
-      address: "Muszyńska 12/a"
-    },
-    rating: 6.2,
-    features: {},
-  },
-]
+import { offers } from "../../../utils/appDummyData.js"
+import TopOffer from '../items/TopOffer';
 
 const container = {
   hidden: { opacity: 0 },
@@ -51,7 +13,6 @@ const container = {
     opacity: 1,
     transition: {
       staggerChildren: 0.15,
-      // delay: 0.5,
       ease: [0.17, 0.67, 0.83, 0.67],
       staggerDirection: 1,
     }
@@ -64,7 +25,6 @@ const TopOffers = () => {
   const carousel = useRef();
 
   useEffect(() => {
-    console.log(carousel.current.scrollWidth, carousel.current.offsetWidth);
     setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
   }, []);
 

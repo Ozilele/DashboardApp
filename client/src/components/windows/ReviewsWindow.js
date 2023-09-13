@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, memo } from 'react';
 import "./ReviewsWindow.css";
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import ReviewItem from '../client/items/ReviewItem';
@@ -8,14 +8,17 @@ import Rating from '@mui/material/Rating';
 import Cookies from 'js-cookie';
 import { Avatar, Typography } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../../features/auth/authSlice';
+import { toggleModalWindow } from '../../features/appSlice';
 const API_URL = "/api/client/reviews";
 
-const ReviewsWindow = ({ hotelId, hotelName, localization, setReviewsVisibility }) => {
+const ReviewsWindow = ({ hotelId, hotelName, localization }) => {
+  
   const [reviews, setReviews] = useState([]);
   const [newReviewForm, setReviewForm] = useState(false);
   const [stars, setStars] = useState(5);
+  const dispatch = useDispatch();
   const [currSection, setCurrSection] = useState(1);
   const [totalReviews, setTotalReviews] = useState(0);
   const [reviewContent, setReviewContent] = useState("");
@@ -65,8 +68,8 @@ const ReviewsWindow = ({ hotelId, hotelName, localization, setReviewsVisibility 
   }
 
   return (
-    <div onClick={setReviewsVisibility} className='reviews-window-modal'>
-      <button onClick={setReviewsVisibility}>X</button>
+    <div onClick={(e) => dispatch(toggleModalWindow())} className='reviews-window-modal'>
+      <button onClick={(e) => dispatch(toggleModalWindow())}>X</button>
       <div onClick={(e) => e.stopPropagation()} className='reviews-window-content'>
         {!newReviewForm && 
         <>
@@ -149,4 +152,4 @@ const ReviewsWindow = ({ hotelId, hotelName, localization, setReviewsVisibility 
   )
 }
 
-export default ReviewsWindow;
+export default memo(ReviewsWindow);

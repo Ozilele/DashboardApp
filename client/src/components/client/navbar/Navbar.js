@@ -1,19 +1,19 @@
 import React from 'react'
 import './Navbar.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectUser, reset, logout } from '../../features/auth/authSlice';
+import { selectUser, reset, logout } from '../../../features/auth/authSlice';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { Link, useNavigate } from 'react-router-dom';
-import logoIcon from '../../img/iconLogo.png';
-import useAuth from '../../hooks/useAuth';
+import logoIcon from '../../../img/iconLogo.png';
+import useAuth from '../../../hooks/useAuth';
 
 const Navbar = () => {
 
-  // const { isAuthorized, isLoading } = useAuth("client");
-  const { user } = useSelector(selectUser);
+  const { isAuthorized, isLoading } = useAuth("client");
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,6 +21,10 @@ const Navbar = () => {
     dispatch(logout());
     dispatch(reset());
     navigate("/");
+  }
+
+  if(!isAuthorized) {
+    localStorage.removeItem("user");
   }
 
   const userSettingsLink = user ? `/user/${user._id}` : '';
@@ -32,7 +36,7 @@ const Navbar = () => {
       <Link to="/"><h2>BookNow</h2></Link>
     </div>
     <ul className="links">
-      {user ? 
+      {isAuthorized ? 
         <>
         <li>
           <Link to={userSettingsLink}>

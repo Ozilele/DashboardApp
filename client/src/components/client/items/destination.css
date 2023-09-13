@@ -9,6 +9,10 @@
 
 .destination-item-img {
     flex: 1;
+    background-image: url("../../../img/some_1_blurred.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .destination-item-img > img {
@@ -16,6 +20,7 @@
     height: 100%;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    transition: opacity 300ms ease-in-out;
 }
 
 .destination-item-box {

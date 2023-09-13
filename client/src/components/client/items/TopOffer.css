@@ -1,12 +1,9 @@
 .top-offer {
     flex-basis: 33.33%;
-    /* width: 33.33%; */
     min-width: 275px;
     pointer-events: none;
-    /* background-color: #F4F2DE; */
     background-color: #FCE9F1;
     border: 1px solid rgb(30, 26, 26);
-    /* background-color: grey; */
     border-radius: 6px;
     display: flex;
     flex-direction: column;
@@ -19,11 +16,15 @@
 
 .top-offer-img {
     flex: 1;
+    background-size: cover;
+    background-image: url('../../../img/some_1_blurred.png');
+    background-position: center;
 }
 
 .top-offer-img > img {
     width: 100%;
     height: 100%;
+    transition: opacity 300ms ease-in-out;
 }
 
 .top-offer-content {

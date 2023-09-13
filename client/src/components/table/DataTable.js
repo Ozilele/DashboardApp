@@ -5,14 +5,12 @@ import { userColumns } from '../../utils/datatablesrc';
 import { DataGrid } from '@mui/x-data-grid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getUserInfo } from '../../features/userSlice';
 import Cookies from 'js-cookie';
 
 const DataTable = () => {
 
   const [rows, setRows] = useState([]);
   const [error, setError] = useState(false);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const { accessToken } = Cookies.get();
@@ -45,18 +43,7 @@ const DataTable = () => {
       });
   }, []);
 
-  const handleViewUser = (e) => {
-    // const viewedUserId = e.target.parentNode.parentNode.getAttribute("id");
-    // const [user] = rows.filter(row => row.id === parseFloat(viewedUserId));
-    // dispatch(getUserInfo({
-    //   id: user.id,
-    //   fullName: user.fullName,
-    //   imgSrc: user.imgSrc,
-    //   email: user.email,
-    //   age: user.age,
-    //   status: user.status,
-    // }));
-  }
+  const handleViewUser = (e) => {}
 
   const handleDeleteUser = (e, userId) => {
     const { accessToken } = Cookies.get();
@@ -66,15 +53,15 @@ const DataTable = () => {
         Authorization: `Bearer ${accessToken}`
       }
     })
-      .then((res) => {
-        if(res.data.message === "User deleted successfully") {
-          const updatedUsers = rows.filter(row => row.id !== userId);
-          setRows(updatedUsers);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    .then((res) => {
+      if(res.data.message === "User deleted successfully") {
+        const updatedUsers = rows.filter(row => row.id !== userId);
+        setRows(updatedUsers);
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
   } 
 
   const actionColumn = [{
