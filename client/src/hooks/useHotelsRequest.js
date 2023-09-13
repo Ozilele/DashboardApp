@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useHotelsRequest = (endpoint, setIsLoading, limit, page, search, city = "", features, sortObj) => {
