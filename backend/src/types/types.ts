@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { ObjectId } from 'mongodb';
 import { HydratedDocument, Types } from 'mongoose';
 
 export interface User {
@@ -46,5 +47,10 @@ export type Verification = {
   valid: boolean,
   expired?: boolean,
   decoded: UserToken | null,
+}
+
+export type FavoriteHotel = {
+  userId: Types.ObjectId,
+  hotelId: Types.ObjectId,
 }
 

@@ -25,12 +25,12 @@ export const protect : (req: Req, res: Response, next: NextFunction) => Promise<
         }
       }
     } catch(error) {
-      return res.status(403).json({
+      return res.status(401).json({
         message: "Not authorized"
       });
     }
   } else {
-    return res.status(403).json({
+    return res.status(401).json({
       message: "Not authorized"
     });
   }
