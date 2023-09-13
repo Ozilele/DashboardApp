@@ -8,22 +8,27 @@ import TuneIcon from '@mui/icons-material/Tune';
 import SearchRow from '../../../components/searchResults/index.js';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import loader from "../../../img/hotels_client.svg";
+import CloseIcon from '@mui/icons-material/Close';
 import { countriesOptions } from '../../../utils/helpers';
 import Sort from '../../../components/sort';
 import { Box, IconButton, TextField } from '@mui/material';
+import { useDispatch, useSelector } from "react-redux";
 import SearchHotelSidebar from '../../../components/client/searchPage/SearchHotelSidebar';
 import useHotelsRequest from "../../../hooks/useHotelsRequest.js";
+import { deleteFilter, selectApp, toggleSidebar } from '../../../features/appSlice';
 
 const initialSortObj = {
   sort: "stars",
   order: "asc"
 }
 
-const popularFilters = ["Beautiful views", "Restaurant", "Free Wifi", "Room service", "Air conditioning", "Balcony", "Gym access"];
+const popularFilters = ["Beautiful views", "Restaurant", "Free Wifi", "Room service", "Air conditioning", "Balcony", "Gym access", "Boats", "Apartments", "Hotels"];
 
 const ClientSearchPage = () => {
+
+  const appState = useSelector(selectApp);
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
-  const [isSidebarShown, setSidebarShown] = useState(false);
   const [country, setCountry] = useState("");
   const [page, setPage] = useState(1);
   const [inputs, setInputs] = useState({
@@ -66,7 +71,7 @@ const ClientSearchPage = () => {
         </div>
         <div className='filters-row'>
           <div className='moreFilters-section'>
-            <IconButton onClick={(e) => setSidebarShown(!isSidebarShown)} className='moreFilters-btn'>
+            <IconButton onClick={(e) => dispatch(toggleSidebar())} className='moreFilters-btn'>
               <TuneIcon/>
               <span className='more-filters-span-btn'>More Filters</span>
               <KeyboardArrowLeftIcon/>
@@ -116,11 +121,14 @@ const ClientSearchPage = () => {
         <div className='filters-client'>
           <h4>Current filters</h4>
           <div className='client-current-filters'>
-            <button>Close to see</button>
-            <button>Close to see</button>
-            <button>Close to see</button>
-            <button>Close to see</button>
-            <button>Close to see</button>
+            {appState.appliedFilters.map((filter, i) => {
+              return (
+                <button key={i}>
+                  <span>{filter}</span>
+                  <CloseIcon onClick={(e) => dispatch(deleteFilter(filter))}/>
+                </button>  
+              )
+            })}
           </div>
           <div className='client-popular-filters'>
             <h4>Popular filters</h4>
@@ -154,8 +162,6 @@ const ClientSearchPage = () => {
       </div>
       <SearchHotelSidebar 
         features={features} 
-        isSidebarShown={isSidebarShown}
-        setSidebar={setSidebarShown}
         setFeatures={setFeatures}/>
     </div>
   )

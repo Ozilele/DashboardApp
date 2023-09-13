@@ -2,10 +2,10 @@ import React, {useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, reset, selectUser } from '../features/auth/authSlice';
+import { login, selectUser } from '../../features/auth/authSlice';
 import './Login.css';
-import loader from '../img/loader.svg';
-import loginImg from '../img/loginImg.jpg';
+import loader from '../../img/loader.svg';
+import loginImg from '../../img/loginImg.jpg';
 import Cookies from 'js-cookie';
 
 const Login = () => {
@@ -87,7 +87,8 @@ const Login = () => {
           <div className="loginImg">
             <img src={loginImg} alt="loginImg" className="imgLoginHotel"></img>
           </div>
-          {isLoading && <div className='loader-sec'>
+          {isLoading && 
+            <div className='loader-sec'>
               <img src={loader}/>
             </div>
           }

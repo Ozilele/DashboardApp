@@ -8,7 +8,7 @@
   .container {
     height: 100vh;
     width: 100vw;
-    background-image: url('../img/low-poly-grid-haikei.svg');
+    background-image: url('../../img/low-poly-grid-haikei.svg');
     /* background-image: linear-gradient(#4ca1af, #c4e0e5); */
     background-repeat: no-repeat;
     background-size: cover;

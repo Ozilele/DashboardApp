@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import './Register.css';
-import registerImg from '../img/registerImg.jpg';
+import registerImg from '../../img/registerImg.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { register, reset } from '../features/auth/authSlice';
+import { register, reset } from '../../features/auth/authSlice';
 import { Link, useNavigate } from 'react-router-dom';
-import { selectUser } from '../features/auth/authSlice';
+import { selectUser } from '../../features/auth/authSlice';
 import { useEffect } from 'react';
 
 const Register = () => {

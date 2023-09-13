@@ -141,6 +141,19 @@
 
 .client-current-filters > button {
     cursor: pointer;
+    border: 1px solid black;
+    background-color: #256295;
+    color: whitesmoke;
+    padding: 0.3rem 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    border-radius: 6px;
+}
+
+.client-current-filters > button > svg {
+    width: 16px !important;
+    height: 16px !important;
 }
 
 .client-popular-filters {

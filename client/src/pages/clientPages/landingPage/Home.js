@@ -10,14 +10,15 @@ import calendar from '../../../img/calendar.png';
 import { Link } from 'react-router-dom';
 import { IconButton } from '@mui/material';
 import { motion } from 'framer-motion';
-import TopOffers from '../../../components/client/home/TopOffers';
-import FilterBoxOptions from '../../../components/client/home/FilterBoxOptions';
+import TopOffers from '../../../components/client/landingPage/TopOffers';
+import FilterBoxOptions from '../../../components/client/landingPage/FilterBoxOptions';
 import Destinations from '../../../components/client/landingPage/Destinations';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 import HotelIcon from '@mui/icons-material/Hotel';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import FeatureItem from '../../../components/client/items/FeatureItem';
 import ClientReviewSlider from '../../../components/client/landingPage/ClientReviewSlider';
+import useImageLoaded from '../../../hooks/useImageLoaded';
 
 const features = [
   {
@@ -73,6 +74,8 @@ const Home = () => {
       key: 'selection'
     }
   ]);
+
+  const { ref, onLoad, loaded } = useImageLoaded();
   
   const formatDate = (date) => {
     let year = date.getFullYear();
@@ -107,8 +110,8 @@ const Home = () => {
             initial={{ y: "-20px", transform: "translateX(-100%)" }}
             animate={{ y: "0", transform: "translateX(0%)" }}
             transition={{ duration: 0.5 }}
-           className="homeContent">
-            <h2>Unlock your dreams with us<br></br>We are here for you!</h2>
+            className="homeContent">
+              <h2>Unlock your dreams with us<br></br>We are here for you!</h2>
           </motion.div>
           <button className='exploreNowBtn'>Explore Now</button>
           <div className="filterBox">
@@ -173,7 +176,7 @@ const Home = () => {
         </motion.div>
       </div>
       <div className='landingPage-Reviews'> 
-        <div className='reviews-div'></div>
+        {/* <div className='reviews-div'></div> */}
         <h3>Client Reviews</h3>
         <ClientReviewSlider/>
       </div>

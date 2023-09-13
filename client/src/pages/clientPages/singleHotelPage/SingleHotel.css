@@ -1,39 +1,102 @@
   .singleHotelPage {
     padding: 1.85rem 2.2rem;
     display: flex;
-    max-width: 1280px;
-    margin: 4.5rem auto 2.5rem auto;
+    max-width: 1350px;
+    margin: 3.5rem auto 2.5rem auto;
     flex-direction: column;
   }
 
   .singleHotelPageImg {
     min-width: 350px;
-    max-width: 770px;
+    width: 100%;
+    max-width: 1000px;
     margin: 0 auto;
   }
 
-  .singleHotelPageImg > img {
+  .image-container {
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+
+  .image-container > img {
     width: 100%;
     height: 100%;
-    min-height: 500px;
-    -webkit-box-shadow: 1px -1px 24px 3px rgba(153, 163, 163, 0.82);
-    -moz-box-shadow: 1px -1px 24px 3px rgba(153, 163, 163, 0.82);
-    box-shadow: 1px -1px 24px 3px rgba(153, 163, 163, 0.82);
-    object-fit: contain;
+    max-height: 800px;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: opacity 200ms ease-in-out;
   }
 
-  .singleHotel-firstSec {
+  .image-container:hover {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  }
+
+  .hotel-favorite-btn {
+    z-index: 2;
+    cursor: pointer;
+    position: absolute !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    top: 7px !important;
+    right: 7px !important;
+  }
+
+  .hotel-favorite-btn > svg {
+    color: whitesmoke;
+    width: 26px;
+    height: 26px;
+  }
+
+  .favorite-border-btn {
+    -webkit-box-shadow: 8px 8px 18px -10px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 8px 8px 18px -10px rgba(66, 68, 90, 1);
+    box-shadow: 8px 8px 18px -10px rgba(66, 68, 90, 1);
+  }
+
+  .singleHotel-firstSec-container {
+    width: 100%;
     display: flex;
-    margin-bottom: 0.7rem;
-    justify-content: space-between;
     align-items: center;
-    padding: 0.4rem 1.25rem;
+    justify-content: space-between;
   }
 
-  .singleHotel-firstSec > h2 {
-    text-align: center;
+  .singleHotel-firstSec-start {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    margin-bottom: 0.7rem;
+    padding: 0.4rem 0.95rem;
+  }
+
+  .singleHotel-firstSec-start > h2 {
     font-family: 'Quicksand', sans-serif;
     font-size: 2.1rem;
+  }
+
+  .singleHotel-firstSec-end {
+    margin-right: 0.65rem;
+    background-color: #337CCF;
+    /* background-color: #FFCC70; */
+    color: #EEEE;
+    padding: 0.8em 0.85rem;
+    border-radius: 10%;
+  }
+
+  .singleHotel-firstSec-end > h3 {
+    font-weight: 900;
+  }
+
+  .singleHotel-localization {
+    display: flex;
+    align-items: center;
+    color: #818384;
+  }
+
+  .singleHotel-localization > span {
+    font-size: 1.05rem;
   }
 
   .singleHotelContainer {
@@ -68,7 +131,7 @@
     align-items: center;
     color: #D6E1E9;
     background-color: #1771C2;
-    padding: 1.2rem 1.45rem;
+    padding: 1.2rem 1.3rem;
     font-size: 1.15rem;
     font-weight: 600;
     border-radius: 3px;
@@ -80,20 +143,25 @@
 
   .single-Hotel-Features {
     display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 1.1rem;
-    padding: 0.7rem;
+    padding: 0.8rem;
   }
 
   .single-Hotel-Features > div {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    padding: 0.8rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    gap: 0.4rem;
   }
 
   .single-Hotel-Features > div > svg {
     cursor: pointer;
     width: 28px;
     height: 28px;
+    padding: 2px;
     color: white;
     border-radius: 50%;
   }
@@ -114,7 +182,37 @@
     align-items: center;
     gap: 6px;
     border-radius: 6px;
-    background-color: #139fe4;
+    background-color: #137eb3;
     color: rgb(229, 223, 223);
-    padding: 1.2rem 1.35rem;
+    padding: 1.05rem 1.2rem;
+  }
+
+  @media(max-width: 780px) {
+    .singleHotelPage {
+      padding: 0.95rem 1.15rem;
+      width: 100%;
+      margin: 2.7rem 0 2.5rem 0;
+    }
+
+    .singleHotelPageImg {
+      min-width: 100%;
+    }
+
+    .singleHotel-firstSec-start {
+      padding: 0.25rem 0.45rem;
+    }
+
+    .singleHotel-firstSec-end {
+      padding: 0.55rem;
+    }
+
+    .image-container > img {
+      min-height: 525px;
+      object-fit: cover;
+    }
+
+    .singleHotelContainer {
+      padding: 1.25rem 0.4rem;
+    }
+
   }
