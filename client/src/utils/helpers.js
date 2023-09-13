@@ -1,17 +1,17 @@
-
-
 const colors = [
-    'red',
-    'orange',
-    'teal',
-    'yellow',
-    'green',
-    'blue',
-    'purple',
-    'pink',
-    'cyan',
-    'green'
+  'red',
+  'orange',
+  'teal',
+  'yellow',
+  'green',
+  'blue',
+  'purple',
+  'pink',
+  'cyan',
+  'green'
 ]
+
+export const URL_origin = "http://localhost:8000"
 
 export const pickRandomColor = () => {
     const colorIndex = Math.floor(Math.random() * colors.length);
