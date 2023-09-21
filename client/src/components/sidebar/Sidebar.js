@@ -19,7 +19,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { AiOutlineLineChart, AiOutlineAreaChart } from 'react-icons/ai';
 import ScatterPlotIcon from '@mui/icons-material/ScatterPlot';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectSidebar, toggleSidebar } from '../features/appSlice';
+import { selectSidebar, toggleSidebar } from '../../features/appSlice';
 
 const variants = {
   open: {

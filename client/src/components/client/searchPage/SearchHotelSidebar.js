@@ -10,9 +10,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slider from '@mui/material/Slider';
 import Rating from '@mui/material/Rating';
 import { motion } from 'framer-motion';
+import { searchPageMarks } from "../../../utils/appDummyData";
 import AccomodationInput from '../../inputs/AccomodationInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { applyFilter, deleteFilter, selectSidebar, toggleSidebar } from '../../../features/appSlice';
+import useUrlQueryString from '../../../hooks/useUrlQueryString';
 
 const icons = [WaterIcon, TerrainIcon, LocalParkingIcon];
 
@@ -33,28 +35,11 @@ function valuetext(value) {
 
 const accomodationRows = ["adults", "children", "rooms", "days"];
 
-const marks = [
-  {
-    value: 70,
-    label: '70zł',
-  },
-  {
-    value: 250,
-    label: '250zł',
-  },
-  {
-    value: 500,
-    label: '500zł',
-  },
-  {
-    value: 1000,
-    label: '1000zł'
-  }
-]
-
 const SearchHotelSidebar = ({ features, setFeatures }) => {
+
   const isSidebarShown = useSelector(selectSidebar);
   const dispatch = useDispatch();
+
   const [stars, setStars] = useState(5);
   const [priceSliderValue, setPriceSlider] = useState(1000);
   const [ratingSliderValue, setRatingSlider] = useState([0.0, 10.0]);
@@ -64,12 +49,17 @@ const SearchHotelSidebar = ({ features, setFeatures }) => {
     rooms: 0,
     days: 0,
   });
+  const { currSortParam, currOrderParam, currRatingParam, setParams, deleteParams } = useUrlQueryString();
 
   const handleChange = (e, feature) => {
     if(!features[feature]) {
       dispatch(applyFilter(feature));
+      setParams({
+        [feature]: true,
+      });
     } else {
       dispatch(deleteFilter(feature));
+      deleteParams([ feature ]);
     }
     setFeatures((prev) => {
       return {
@@ -151,7 +141,7 @@ const SearchHotelSidebar = ({ features, setFeatures }) => {
           onChange={handleSliderChange}
           getAriaValueText={valuetext}
           step={20}
-          marks={marks}
+          marks={searchPageMarks}
           valueLabelDisplay="on"
         />
       </div>

@@ -1,31 +1,47 @@
 import React, { memo } from 'react';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { useSearchParams } from 'react-router-dom';
 import './Sort.css';
+import useUrlQueryString from '../../hooks/useUrlQueryString';
 
 const Sort = ({ isClient, sort, setSort }) => {
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { currSortParam, currOrderParam, currRatingParam, setParams, deleteParams } = useUrlQueryString();
+
   const onSelectChange = (e) => {
-    setSort({ sort: e.target.value, order: sort.order });
+    setSort(prev => {
+      return {
+        ...prev,
+        sort: e.target.value,
+      }
+    });
+    setParams({
+      sort: e.target.value,
+      order: currOrderParam,
+    });
   }
 
-  const onBtnChange = () => {
+  const onOrderBtnChange = () => {
     if(sort.order === "asc") {
-      setSearchParams((prev) => {
-        const params = new URLSearchParams(prev);
-        params.set("sort", `${sort.sort},desc`);
-        return params;
+      setSort((prev) => {
+        return {
+          ...prev,
+          order: "desc"
+        }
       });
-      setSort({ sort: sort.sort, order: "desc" });
+      setParams({
+        order: "desc"
+      });
     } else {
-      setSearchParams((prev) => {
-        const params = new URLSearchParams(prev);
-        params.set("sort", `${sort.sort},asc`);
-        return params;
+      setSort((prev) => {
+        return {
+          ...prev,
+          order: "asc"
+        }
       });
-      setSort({ sort: sort.sort, order: "asc" });
+      setParams({
+        order: "asc"
+      });
     }
   }
   
@@ -42,7 +58,7 @@ const Sort = ({ isClient, sort, setSort }) => {
         <option value="rating">Rating</option>
         <option value="popularity">Popularity</option>
       </select>
-      <button onClick={onBtnChange} className='sort-btn-arrow'>
+      <button onClick={onOrderBtnChange} className='sort-btn-arrow'>
         {sort.order === "asc" && <ArrowUpwardIcon/>}
         {sort.order === "desc" && <ArrowDownwardIcon/>}
       </button>

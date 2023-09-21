@@ -1,7 +1,7 @@
 import React from 'react'
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
+import Sidebar from './components/sidebar/Sidebar';
+import Header from './components/header/Header';
 import './App.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

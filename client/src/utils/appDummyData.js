@@ -38,3 +38,22 @@ export const offers = [
     features: {},
   },
 ]
+
+export const searchPageMarks = [
+  {
+    value: 70,
+    label: '70zł',
+  },
+  {
+    value: 250,
+    label: '250zł',
+  },
+  {
+    value: 500,
+    label: '500zł',
+  },
+  {
+    value: 1000,
+    label: '1000zł'
+  }
+]

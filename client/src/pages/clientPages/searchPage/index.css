@@ -41,7 +41,6 @@
 
 .moreFilters-btn {
     background-color: #256295 !important;
-    /* background-color: #1A2C38; */
     border-radius: 7px !important;
     display: flex !important;
     gap: 3px !important;
@@ -62,23 +61,25 @@
 .css-on777r-MuiAutocomplete-root, .css-l3ln04-MuiAutocomplete-root {
     width: 280px !important;
     height: 55px !important;
-    box-shadow: -2px 4px 17px 1px rgba(85, 85, 93, 1) !important;
-    -webkit-box-shadow: -2px 4px 17px 1px rgba(85, 85, 93, 1);
-    -moz-box-shadow: -2px 4px 17px 1px rgba(85, 85, 93, 1);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 }
 
 .client-page-results {
     display: flex;
-    max-width: 1200px;
-    gap: 0.6rem;
+    max-width: 1235px;
+    gap: 0.75rem;
     margin: 1.2rem auto;
 }
 
 .filters-client {
     flex: 0.2;
     height: fit-content;
-    min-width: 250px;
-    border: 1px solid black;
+    min-width: 230px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    -moz-box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
     border-radius: 5px;
     padding: 1rem 1.5rem;
 }
@@ -88,22 +89,32 @@
     visibility: hidden;
 }
 
-@media(max-width: 800px) {
+.popular-filters-sm-button {
+    cursor: pointer;
+    border-radius: 8px !important;
+    font-size: 1.1rem !important;
+    display: flex !important;
+    align-items: center !important;
+    padding: 0.75rem !important;
+    background-color: #1A2C38 !important;
+    color: whitesmoke !important;
+}
+
+@media(max-width: 830px) {
     .client-page-results {
         flex-direction: column;
-        gap: 1rem;
-        margin: 1.2rem 0.8rem;
+        gap: 1.3rem;
+        margin: 1.35rem 0.85rem;
     } 
-
-    .filters-client {
-        visibility: hidden;
-        display: none;
-    }
     .popular-filters-sm {
         width: 100%;
         display: flex;
         visibility: visible;
         justify-content: center;
+    }
+    .filters-client {
+        visibility: hidden;
+        display: none;
     }
     .filters-row {
         padding: 0.65rem;
@@ -112,18 +123,16 @@
         display: none;   
         visibility: hidden;
     }
-
     .css-on777r-MuiAutocomplete-root, .css-l3ln04-MuiAutocomplete-root {
         width: 185px !important;
         height: 55px !important;
     }
-
-    .client-page-input {
-        margin: 1.25rem 1.5rem;
-    }
     .moreFilters-btn {
         gap: 0 !important;
         padding: 0.65rem 0.4rem !important;
+    }
+    .client-page-input {
+        margin-bottom: 1.45rem;
     }
 }
 
@@ -172,7 +181,7 @@
 .client-hotels-results {
     position: relative;
     flex: 1;
-    max-width: 900px;
+    max-width: 940px;
     margin-bottom: 3.75rem;
 }
 

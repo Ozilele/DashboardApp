@@ -5,7 +5,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import Autocomplete from '@mui/material/Autocomplete';
 import TuneIcon from '@mui/icons-material/Tune';
-import SearchRow from '../../../components/searchResults/index.js';
+import SearchRow from '../../../components/client/searchPage/searchRow.js';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import loader from "../../../img/hotels_client.svg";
 import CloseIcon from '@mui/icons-material/Close';
@@ -15,7 +15,9 @@ import { Box, IconButton, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import SearchHotelSidebar from '../../../components/client/searchPage/SearchHotelSidebar';
 import useHotelsRequest from "../../../hooks/useHotelsRequest.js";
-import { deleteFilter, selectApp, toggleSidebar } from '../../../features/appSlice';
+import { deleteFilter, selectApp, toggleModalWindow, toggleSidebar } from '../../../features/appSlice';
+import useUrlQueryString from '../../../hooks/useUrlQueryString';
+import SearchPageWindow from '../../../components/windows/SearchPageWindow';
 
 const initialSortObj = {
   sort: "stars",
@@ -25,7 +27,7 @@ const initialSortObj = {
 const popularFilters = ["Beautiful views", "Restaurant", "Free Wifi", "Room service", "Air conditioning", "Balcony", "Gym access", "Boats", "Apartments", "Hotels"];
 
 const ClientSearchPage = () => {
-
+  const [isFirstRender, setFirstRender] = useState(true);
   const appState = useSelector(selectApp);
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -48,9 +50,17 @@ const ClientSearchPage = () => {
     "hasParking": false,
   });
   const [sortObj, setSortObj] = useState(initialSortObj);
-  const { hotelsData, limitPages } = useHotelsRequest('/api/client', setIsLoading, 10, page, inputs.hotel_name, "", features, sortObj);
+  const { hotelsData, limitPages } = useHotelsRequest('/api/client', setIsLoading, 10, page, inputs.hotel_name, "", features, sortObj, isFirstRender, setFirstRender);
+  const { currSortParam, currOrderParam, currRatingParam, setParams, deleteParams } = useUrlQueryString();
 
   const handleInputChange = (e) => {
+    if(e.target.value === "") {
+      deleteParams([ "hotel" ]);
+    } else {
+      setParams({
+        hotel: e.target.value
+      });
+    }
     setInputs(prev=> ({
       ...prev,
       [e.target.name]: e.target.value // selected input change
@@ -113,7 +123,7 @@ const ClientSearchPage = () => {
       </div>
       <div className='client-page-results'>
         <div style={{ marginBottom: '1.75rem' }} className='popular-filters-sm'>
-          <IconButton style={{ backgroundColor: '#001dff', borderRadius: '8px', color: 'whitesmoke', fontSize: '1.1rem' }}>
+          <IconButton onClick={(e) => dispatch(toggleModalWindow())} className='popular-filters-sm-button'>
             <MoreVertIcon/>
             <span>Popular Filters</span>
           </IconButton>
@@ -125,7 +135,14 @@ const ClientSearchPage = () => {
               return (
                 <button key={i}>
                   <span>{filter}</span>
-                  <CloseIcon onClick={(e) => dispatch(deleteFilter(filter))}/>
+                  <CloseIcon onClick={(e) => {
+                    deleteParams([ filter ]);
+                    dispatch(deleteFilter(filter));
+                    setFeatures({
+                      ...features,
+                      [filter]: false
+                    });
+                  }}/>
                 </button>  
               )
             })}
@@ -152,6 +169,7 @@ const ClientSearchPage = () => {
                 country={hotel.country}
                 localization={hotel.localization}
                 stars={hotel.stars} 
+                rating={hotel.rating}
                 imgSrc={hotel?.hotelImage} 
                 base64String={hotel?.image?.img?.data?.data}
               />
@@ -162,7 +180,9 @@ const ClientSearchPage = () => {
       </div>
       <SearchHotelSidebar 
         features={features} 
-        setFeatures={setFeatures}/>
+        setFeatures={setFeatures}
+      />
+      {appState.isModalOpen && <SearchPageWindow/>}
     </div>
   )
 }

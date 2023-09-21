@@ -26,6 +26,7 @@ const SingleHotel = () => {
   const user = useSelector(selectUser);
   const isModalShown = useSelector(selectModal);
   const dispatch = useDispatch();
+
   const [hotel, setHotelData] = useState({});
   const params = useParams();
   const hotelID = useMemo(() => {
@@ -37,7 +38,7 @@ const SingleHotel = () => {
     userId: user?._id
   });
 
-  const { ref, onLoad, loaded } = useImageLoaded()
+  const { ref, onLoad, loaded } = useImageLoaded();
 
   const stars = Array.from({ length: hotel.stars }, (_, index) => index);
 
@@ -46,14 +47,15 @@ const SingleHotel = () => {
       .then((res) => {
         if(res.status === 201) {
           const hotelData = res.data.hotel[0];
-          const splitImgSrc = hotelData.hotelImage.split(".")
+          const splitImgSrc = hotelData?.hotelImage.split(".")
           setHotelData({
             country: hotelData.country,
             name: hotelData.name,
             localization: hotelData.localization,
             stars: hotelData.stars,
+            rating: hotelData.rating,
             imageSrc: hotelData.hotelImage,
-            blurredImgSrc: `${splitImgSrc[0]}_blurred.${splitImgSrc[1]}`,
+            blurredImgSrc: splitImgSrc ? `${splitImgSrc[0]}_blurred.${splitImgSrc[1]}` : "",
             features: hotelData.features,
           });
         }
@@ -92,7 +94,7 @@ const SingleHotel = () => {
               </div>
             </div>
             <div className="singleHotel-firstSec-end">
-              <h3>9.56</h3>
+              <h3>{hotel?.rating}</h3>
             </div>
           </div>
           <div 

@@ -6,9 +6,12 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import './index.css';
+import './searchRow.css';
+import useImageLoaded from '../../../hooks/useImageLoaded';
 
-const SearchRow = ({ id, name, features, country, localization, stars, imgSrc, base64String }) => {
+const SearchRow = ({ id, name, features, country, localization, stars, rating, imgSrc, base64String }) => {
+
+  const { ref, onLoad, loaded } = useImageLoaded();
 
   const base_64_string = btoa(
     new Uint8Array(base64String).reduce((data, byte) => data + String.fromCharCode(byte), '')
@@ -25,8 +28,17 @@ const SearchRow = ({ id, name, features, country, localization, stars, imgSrc, b
       transition={{ type: 'spring', duration: 1.3, bounce: 0.25 }}
       className='client-row-hotel'
     >
-      <div className='client-row-hotel-image'>
-        <img src={base64String ? `data:image/jpeg;base64,${base_64_string}` : `http://localhost:8000/uploads/hotels/${imgSrc}`} alt={id}/>
+      <div
+        style={{ backgroundImage: imgSrc ? `url(${`http://localhost:8000/uploads/hotels/${imgSrc.split(".")[0]}_blurred.${imgSrc.split(".")[1]}`})` : "" }} 
+        className='client-row-hotel-image'>
+        <img
+          ref={ref} 
+          loading='lazy'
+          style={{ opacity: loaded ? 1 : 0 }}
+          onLoad={onLoad}
+          src={base64String ? `data:image/jpeg;base64,${base_64_string}` : `http://localhost:8000/uploads/hotels/${imgSrc}`} 
+          alt={id}
+        />
       </div>
       <div className='client-row-hotel-data'>
         <div className='client-first-row'>
@@ -41,7 +53,7 @@ const SearchRow = ({ id, name, features, country, localization, stars, imgSrc, b
             </Typography>
           </div>
           <div className='client-row-rating'>
-            <span>8.6</span>
+            <span>{rating}</span>
           </div>
         </div>
         <div className='row-hotel-localization'>

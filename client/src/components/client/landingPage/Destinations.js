@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import './index.css';
 import DestinationItem from '../items/DestinationItem';
 
@@ -26,11 +26,14 @@ const destinations = [
 ]
 
 const Destinations = () => {
+
   return (
     <div className='popular-destinations'>
       <h3>Popular Destinations</h3>
       <p>From historical cities to natural specteculars, come see the best of the world!</p>
-      <div className='destinations-results'>
+      <div 
+        className='destinations-results'
+      >
         {destinations.map((destination, i) => {
           return (
             <DestinationItem

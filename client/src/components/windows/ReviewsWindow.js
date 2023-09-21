@@ -24,7 +24,7 @@ const ReviewsWindow = ({ hotelId, hotelName, localization }) => {
   const [reviewContent, setReviewContent] = useState("");
 
   const { isAuthorized, isLoading } = useAuth("client");
-  const { user } = useSelector(selectUser);
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     axios.get(`${API_URL}?hotelID=${hotelId}&section=${currSection}`)

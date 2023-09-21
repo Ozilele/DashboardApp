@@ -4,8 +4,8 @@
     top: 0;
     left: 0;
     width: 25%;
-    min-width: 245px;
-    max-width: 375px;
+    min-width: 255px;
+    max-width: 355px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -15,7 +15,6 @@
     transform: translateX(0%);
     border-right: 1px solid white;
     background-color: #1A2C38;
-    /* transition: transform 0.27ms ease-in; */
 }
 
 .delete-search-sidebar-btn {

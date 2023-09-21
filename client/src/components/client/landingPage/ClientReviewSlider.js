@@ -4,6 +4,8 @@ import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import CircleIcon from '@mui/icons-material/Circle';
 import { AnimatePresence, motion } from "framer-motion";
 import { IconButton } from '@mui/material';
+import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowLeftRounded';
+import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
 import image from "../../../img/person_.png";
 import image2 from "../../../img/person_1.png";
 import useImageLoaded from '../../../hooks/useImageLoaded';
@@ -39,7 +41,21 @@ const ClientReviewSlider = () => {
     setCurrentSlide(newSlide);
   } 
 
-  console.log(`${initialReviews[currentSlide - 1].blurredImgSrc}`);
+  const goToNextSlide = () => {
+    if(currentSlide === initialReviews.length) {
+      setCurrentSlide(1);
+    } else {
+      setCurrentSlide(currentSlide + 1);
+    }
+  }
+
+  const goToPreviousSlide = () => {
+    if(currentSlide === 1) {
+      setCurrentSlide(initialReviews.length);
+    } else {
+      setCurrentSlide(currentSlide - 1);
+    }
+  }
 
   return (
     <div className='review-slider-box'>
@@ -47,14 +63,17 @@ const ClientReviewSlider = () => {
         <motion.div
           key={initialReviews[currentSlide - 1].key}
           viewport={{ once: true }}
-          initial={{ x: 40, opacity: 0 }}
+          initial={{ x: 10, opacity: 0 }}
           whileInView={{ x: 0, opacity: 1 }}
           transition={{ 
-            x: { type: "spring", stiffness: 150, damping: 20 },
-            opacity: { duration: 0.2, ease: "easeIn" }
+            type: "spring",
+            duration: 0.5
           }}
           className='review-item'>
-          <div style={{ backgroundImage: `url('${initialReviews[currentSlide - 1].blurredImgSrc}')` }} className='review-item-image'>
+          <div 
+            style={{ backgroundImage: `url('${initialReviews[currentSlide - 1].blurredImgSrc}')` }} 
+            className='review-item-image'
+          >
             <img 
               ref={ref}
               onLoad={onLoad}
@@ -63,6 +82,24 @@ const ClientReviewSlider = () => {
               alt="foto"
               loading='lazy'
             />
+            <div className='review-item-left-btn-item-image'>
+              <motion.button 
+                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.2, transition: { duration: 0.35 } }}
+                onClick={goToPreviousSlide}
+              >
+                <KeyboardArrowLeftRoundedIcon/>
+              </motion.button>
+            </div>
+            <div className='review-item-right-btn-item-image'>
+              <motion.button 
+                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.2, transition: { duration: 0.35 } }}
+                onClick={goToNextSlide}
+              >
+                <KeyboardArrowRightRoundedIcon/>
+              </motion.button>
+            </div>
           </div>
           <div className='review-item-content'>
             <FormatQuoteIcon className='quote-left'/>
@@ -70,12 +107,30 @@ const ClientReviewSlider = () => {
             <p>{initialReviews[currentSlide - 1].content}</p>
             <FormatQuoteIcon className='quote-right'/>
           </div>
+          <div className='review-item-left-btn'>
+            <motion.button 
+              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.2, transition: { duration: 0.35 } }}
+              onClick={goToPreviousSlide}
+            >
+              <KeyboardArrowLeftRoundedIcon/>
+            </motion.button>
+          </div>
+          <div className='review-item-right-btn'>
+            <motion.button 
+              whileTap={{ scale: 0.9 }}
+              whileHover={{ scale: 1.2, transition: { duration: 0.35 } }}
+              onClick={goToNextSlide}
+            >
+              <KeyboardArrowRightRoundedIcon/>
+            </motion.button>
+          </div>
         </motion.div>
       </AnimatePresence>
       <div className="review-slider-dots">
         {initialReviews.map((review, i) => (
           <IconButton key={i} onClick={(e) => goToSlide(e, i + 1)}>
-            <CircleIcon/>
+            <CircleIcon style={{ color: currentSlide === i + 1 ? '#FFB000' : ''}}/>
           </IconButton>
         ))}
       </div>

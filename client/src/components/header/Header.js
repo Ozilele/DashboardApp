@@ -10,7 +10,7 @@ import Logout from '@mui/icons-material/Logout';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import { useDispatch } from 'react-redux';
-import { toggleSidebar } from '../features/appSlice';
+import { toggleSidebar } from '../../features/appSlice';
 
 const Header = () => {
 

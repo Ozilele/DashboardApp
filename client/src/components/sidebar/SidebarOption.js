@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useDispatch } from 'react-redux';
-import { toggleSidebar } from '../features/appSlice';
+import { toggleSidebar } from '../../features/appSlice';
 import './SidebarOption.css';
 
 const variants = {

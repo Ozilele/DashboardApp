@@ -1,8 +1,8 @@
-import React from 'react';
 import { memo } from 'react';
 import './Pagination.css';
 
 const Pagination = ({ totalPages, page, setPage }) => {
+  
   return (
     <div className='pagination-section'>  
       {totalPages > 0 && [...Array(totalPages)].map((val, index) => (

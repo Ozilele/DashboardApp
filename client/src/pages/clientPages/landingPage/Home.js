@@ -74,8 +74,6 @@ const Home = () => {
       key: 'selection'
     }
   ]);
-
-  const { ref, onLoad, loaded } = useImageLoaded();
   
   const formatDate = (date) => {
     let year = date.getFullYear();
@@ -155,18 +153,16 @@ const Home = () => {
           viewport={{ once: true }}
           transition={{ delay: 0.28, type: "spring", bounce: 0.25 }}
         >
-          Why Us?</motion.h3>
+          Why Us?
+        </motion.h3>
         <div className='landingPage-Features-box'></div>
         <motion.div
-          variants={featuresSecVariants} 
-          initial="hidden"
-          whileInView="shown"
-          viewport={{ once: true }}
           className='landingPage-Features-Content'>
           {features.map((feature, i) => {
             return (
               <FeatureItem
                 key={i}
+                index={i}
                 title={feature.title}
                 icon={feature.icon}
                 desc={feature.desc}
@@ -176,7 +172,6 @@ const Home = () => {
         </motion.div>
       </div>
       <div className='landingPage-Reviews'> 
-        {/* <div className='reviews-div'></div> */}
         <h3>Client Reviews</h3>
         <ClientReviewSlider/>
       </div>

@@ -31,7 +31,6 @@ export const deleteEvent = createAsyncThunk("app/deleteEvent", async(id, thunkAP
   }
   catch(err) {
     const message = (err.response && err.response.data && err.response.data.message) || err.message || err.toString();
-    console.log(message); 
     return thunkAPI.rejectWithValue(message); // send a message as a payload
   }
 });
@@ -65,8 +64,7 @@ export const appSlice = createSlice({
       state.appliedFilters.push(action.payload);
     },
     deleteFilter: (state, action) => {
-      state.appliedFilters = state.appliedFilters.filter((item) => item !== action.payload)
-      console.log(state.appliedFilters);
+      state.appliedFilters = state.appliedFilters.filter((item) => item !== action.payload);
     }
   },
   extraReducers: (builder) => {
@@ -90,7 +88,7 @@ export const appSlice = createSlice({
   }
 });
 
-export const { toggleSidebar, applyFilter, deleteFilter, toggleModalWindow, setModalData, resetSuccess } = appSlice.actions;
+export const { toggleSidebar, applyFilter, deleteFilter, toggleModalWindow, setModalData, resetSuccess, resetFirstRender } = appSlice.actions;
 export const selectModal = (state) => state.app.isModalOpen;
 export const selectModalData = (state) => state.app.modalData;
 export const selectSidebar = (state) => state.app.isSidebarShown;
