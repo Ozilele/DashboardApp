@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import { Request, Response } from 'express';
 import { hotel_model as HotelModel } from "../../model/hotelModel.js";
 import { uploadFile } from "../../utils/helpers.js";

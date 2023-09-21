@@ -36,12 +36,11 @@ const hotelModel = new Schema<Hotel>({
     type: Number,
     required: [true, "Please add a number of stars"]
   },
+  rating: {
+    type: Number,
+  },
   image: imgSchema,
   features: featuresSchema
 });
-
-// hotelModel.statics.findByCountry = function(countryName) { // static method for a model
-//   return this.find({ country: new RegExp(countryName, "i") }) // where query to get country and to have case insensitive query 
-// }
 
 export const hotel_model = model<Hotel>("hotels", hotelModel);

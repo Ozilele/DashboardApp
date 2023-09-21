@@ -8,6 +8,7 @@ export interface Hotel {
   },
   hotelImage: string,
   stars: number,
+  rating: number,
   image?: {
     name: string,
     img: {

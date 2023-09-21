@@ -86,7 +86,7 @@ export const getFavorites = async (req: Request, res: Response) => {
 }
 
 export const addToFavorites = async (req: Request, res: Response) => {
-  const { userId, hotelId } = req.body
+  const { userId, hotelId } = req.body;
   try {
     if(userId && hotelId) {
       const favoriteHotel = await FavoriteHotelModel.create({
@@ -111,9 +111,9 @@ export const addToFavorites = async (req: Request, res: Response) => {
 }
 
 export const deleteFromFavorites = async (req: Request, res: Response) => {
-  const id = req.params.hotelId
+  const id = req.params.hotelId;
   try {
-    const isDeleted = await FavoriteHotelModel.deleteOne({ hotelId: id })
+    const isDeleted = await FavoriteHotelModel.deleteOne({ hotelId: id });
     console.log(isDeleted);
     if(isDeleted) {
       return res.status(201).json({
@@ -127,7 +127,7 @@ export const deleteFromFavorites = async (req: Request, res: Response) => {
   } catch(err) {
     return res.status(500).json({
       message: "Network error"
-    })
+    });
   }
 }
 
