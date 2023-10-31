@@ -34,6 +34,7 @@ const allCities = [
 const Hotels = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isFirstRender, setFirstRender] = useState(true);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [filterNameToggled, setFilterNameToggled] = useState(false);
@@ -44,7 +45,7 @@ const Hotels = () => {
     order: "desc"
   });
   const [appliedFeatures, setAppliedFeatures] = useState({});
-  const { hotelsData, limitPages } = useHotelsRequest('/admin', setIsLoading, 6, page, nameValInput, city, appliedFeatures, sortObj);
+  const { hotelsData, limitPages } = useHotelsRequest('/admin', setIsLoading, 6, page, nameValInput, city, appliedFeatures, sortObj, isFirstRender, setFirstRender);
 
   const filterToggle = useCallback((e) => {
     setFilterNameToggled(!filterNameToggled);
@@ -167,9 +168,9 @@ const Hotels = () => {
                 whileHover={{ scale: 1.05, transition: { duration: 0.3 } }} 
                 whileTap={{ scale: 0.95 }} 
                 className="hotels_grid-item" 
-                xl={3} lg={3} md={4} sm={6} xs={12}>
-                  <HotelCard id={hotel._id} name={hotel.name} localization={hotel.localization} stars={hotel.stars} imgSrc={hotel?.hotelImage} base64String={hotel?.image?.img?.data?.data}/>
-                  {/* makeRequest={makeRequest} */}
+                xl={3} lg={3} md={4} sm={6} xs={12}
+              >
+                <HotelCard id={hotel._id} name={hotel.name} localization={hotel.localization} stars={hotel.stars} imgSrc={hotel?.hotelImage} base64String={hotel?.image?.img?.data?.data}/>
               </Grid>
             </AnimatePresence>
           )

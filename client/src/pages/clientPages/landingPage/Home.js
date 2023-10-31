@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Home.css';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import { useState } from "react";
 import { DateRange } from 'react-date-range'; // external component for selecting the date
 import SearchIcon from '@mui/icons-material/Search';
 import accomodationIcon from '../../../img/search_1_icon.png';
@@ -18,7 +17,6 @@ import HotelIcon from '@mui/icons-material/Hotel';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import FeatureItem from '../../../components/client/items/FeatureItem';
 import ClientReviewSlider from '../../../components/client/landingPage/ClientReviewSlider';
-import useImageLoaded from '../../../hooks/useImageLoaded';
 
 const features = [
   {
@@ -59,7 +57,7 @@ const Home = () => {
 
   const [input, setInput] = useState({
     country: '',
-  })
+  });
   const [openOptions, setOpenOptions] = useState(false);
   const [options, setOptions] = useState({
     adult: 1,
@@ -132,7 +130,7 @@ const Home = () => {
             <div className="filterSearchItem">
               <img src={calendar} alt="options"></img>
               <span onClick={()=>setOpenOptions(!openOptions)} className="searchtxt">{`${options.adult} adult • ${options.children} children • ${options.room} room`}</span>
-                {openOptions && <FilterBoxOptions options={options} handleBtn={handleBtn}/>}
+              {openOptions && <FilterBoxOptions options={options} handleBtn={handleBtn}/>}
             </div>
             <div className="filterSearchItem filterSearchItemBtn">
               <Link to="/hotels">

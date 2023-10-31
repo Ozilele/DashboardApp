@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import './SingleHotel.css';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Typography } from '@mui/material';
 import WaterIcon from '@mui/icons-material/Water';
@@ -10,7 +10,6 @@ import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
 import axios from 'axios';
 import BookIcon from '@mui/icons-material/Book';
 import ReviewsWindow from '../../../components/windows/ReviewsWindow';
-import Cookies from 'js-cookie';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import { IconButton } from '@mui/material';
 import Favorite from '@mui/icons-material/Favorite';
@@ -20,36 +19,35 @@ import { selectUser } from '../../../features/auth/authSlice';
 import { URL_origin } from '../../../utils/helpers';
 import { selectModal, toggleModalWindow } from '../../../features/appSlice';
 import useImageLoaded from '../../../hooks/useImageLoaded';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 
 const SingleHotel = () => {
 
-  const user = useSelector(selectUser);
-  const isModalShown = useSelector(selectModal);
-  const dispatch = useDispatch();
-
   const [hotel, setHotelData] = useState({});
+  const isModalShown = useSelector(selectModal);
+  const { ref, onLoad, loaded } = useImageLoaded();
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const params = useParams();
   const hotelID = useMemo(() => {
     return params?.id;
-  }, [params]); 
-
+  }, [params]);
+  const axiosPrivate = useAxiosPrivate();
   const { isFavorite, toggleFavorite } = useFavoriteHotel({
     hotelId: hotelID,
-    userId: user?._id
   });
 
-  const { ref, onLoad, loaded } = useImageLoaded();
-
+  const navigate = useNavigate();
   const stars = Array.from({ length: hotel.stars }, (_, index) => index);
 
   useEffect(() => {
     axios.get(`${URL_origin}/api/client/hotel/${hotelID}`)
       .then((res) => {
-        if(res.status === 201) {
-          const hotelData = res.data.hotel[0];
+        if(res.status === 200) {
+          const hotelData = res.data.hotel;
           const splitImgSrc = hotelData?.hotelImage.split(".")
           setHotelData({
-            country: hotelData.country,
+            country: hotelData?.country,
             name: hotelData.name,
             localization: hotelData.localization,
             stars: hotelData.stars,
@@ -62,21 +60,22 @@ const SingleHotel = () => {
       })
       .catch(err => {
         console.log(err);
-      })
+      });
   }, []);
 
   const handlePaymentCheckout = useCallback(async (e) => {
-    const { accessToken } = Cookies.get();
-    const config = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
+    try {
+      const response = await axiosPrivate.post(`/api/client/checkout?price=${Math.floor((Math.random() * 100))}`, {
+        price: Math.floor(Math.random() * 100),
+        hotelID,
+        user,
+      });
+      if(response.data.url) {
+        window.location.assign(response.data.url);
       }
-    }
-    const response = await axios.post(`${URL_origin}/api/client/checkout?price=price_1NZ0tnJ1TgaWBK1fzlqTSrWD`, {
-      data: 'Test data'
-    }, config);
-    if(response.data.url) {
-      window.location.assign(response.data.url); // Forward user to the Stripe Checkout
+    } catch(err) {
+      console.log(err);
+      navigate("/login", { replace: false });
     }
   }, []);
 
@@ -156,7 +155,7 @@ const SingleHotel = () => {
           </div>
         </div>
       </div>
-      {isModalShown && <ReviewsWindow hotelId={hotelID} hotelName={hotel.name} localization={hotel.localization}/>}
+      {isModalShown && <ReviewsWindow hotelId={hotelID} hotelName={hotel.name} localization={hotel.localization} rating={hotel?.rating} />}
     </>
   )
 }

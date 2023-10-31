@@ -1,28 +1,28 @@
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, selectUser } from '../../features/auth/authSlice';
+import { login, selectAuth } from '../../features/auth/authSlice';
 import './Login.css';
 import loader from '../../img/loader.svg';
 import loginImg from '../../img/loginImg.jpg';
-import Cookies from 'js-cookie';
 
 const Login = () => {
+  const emailRef = useRef();
+  const errorRef = useRef();
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { user, isError, isSuccess, isLoading, message } = useSelector(selectUser);
+  const { user, isError, isSuccess, isLoading, message } = useSelector(selectAuth);
+  
+  useEffect(() => {
+    emailRef.current.focus();
+  }, []);
 
   useEffect(() => {
-    const { accessToken } = Cookies.get();
-    if(!accessToken) {
-      return;
-    }
     if(isError) { // error message
       toast.error(message, {
         position: "top-center",
@@ -33,10 +33,14 @@ const Login = () => {
       });
     }
     if((isSuccess || user) && !user.role) { // normal user
-      navigate("/");
+      if(user.accessToken) {
+        navigate("/");
+      }
     }
-    if((isSuccess || user) && user.role == "admin") { // admin user
-      navigate("/dashboard");
+    if((isSuccess || user) && user.role === "admin") { // admin user
+      if(user.accessToken) {
+        navigate("/dashboard");
+      }
     }
   }, [user, isError, isSuccess, message, navigate, dispatch]);
 
@@ -49,6 +53,10 @@ const Login = () => {
 
   const handleLoginAttempt = async (e) => {
     e.preventDefault();
+    setInputs({
+      email: "",
+      password: "",
+    });
     const data = {
       email: inputs.email,
       password: inputs.password,
@@ -68,11 +76,28 @@ const Login = () => {
             <form onSubmit={handleLoginAttempt} className="loginForm">
               <div className="input">
                 <span>EMAIL</span>
-                <input type="text" placeholder="e.g. andreasxyz@gmail.com" name="email" onChange={handleChange}/>
+                <input
+                  ref={emailRef} 
+                  type="text" 
+                  placeholder="e.g. andreasxyz@gmail.com" 
+                  name="email"
+                  value={inputs.email} 
+                  autoComplete="off"
+                  onChange={handleChange}
+                  required
+                />
               </div>
               <div className="input">
                 <span>PASSWORD</span>
-                <input type="password" placeholder="Your password..." name="password" onChange={handleChange}/>
+                <input 
+                  type="password" 
+                  placeholder="Your password..." 
+                  name="password"
+                  value={inputs.password}  
+                  autoComplete="off"
+                  onChange={handleChange}
+                  required
+                />
               </div>
               {isError && <p className="errorMsg">Invalid email or password</p>}
               <div className="formBtns">

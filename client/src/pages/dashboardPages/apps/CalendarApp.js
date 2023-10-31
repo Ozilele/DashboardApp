@@ -7,15 +7,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import loader from '../../../img/loader.svg';
 import ModalWindow from '../../../components/windows/ModalWindow';
 import { resetSuccess, selectApp, selectModal, selectModalData } from '../../../features/appSlice';
-import axios from 'axios';
 import { toast } from 'react-toastify';
-import Cookies from 'js-cookie';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 
 const CalendarApp = () => {
   const dispatch = useDispatch();
   const modal = useSelector(selectModal);
   const { isSuccess, message } = useSelector(selectApp);
   const modalData = useSelector(selectModalData);
+  const axiosPrivate = useAxiosPrivate();
 
   const [isLoading, setIsLoading] = useState(true);
   const [eventsData, setEventsData] = useState([]);
@@ -25,27 +25,30 @@ const CalendarApp = () => {
   const calendarClassName = modal ? 'calendar__section__blurred' : 'calendar__section';
   const validDate = new Date(date.toISOString()).toLocaleDateString("pl-PL");
   
-  const API_URL = `/admin/calendar/date?currDate=${validDate}`;
-
-  const getEvents = async() => {
-    const { accessToken } = Cookies.get();
+  const getEvents = async(signal) => {
     try {
-      const response = await axios.get(API_URL, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
+      const response = await axiosPrivate.get(`/admin/calendar/date?currDate=${validDate}`, {
+        signal: signal
       });
-      setEventsData(response.data.events);
+      console.log(response);
+      setEventsData(response?.data?.events);
       setIsLoading(false); // stop loading
     } catch(err) {
       console.log(err);
+      console.log(err?.status);
+      setIsLoading(false);
     }
   }
 
   useEffect(() => {
+    const controller = new AbortController();
     setEventsData([]);
     setIsLoading(true);
-    getEvents();
+    getEvents(controller.signal);
+
+    return () => {
+      controller.abort();
+    }
   }, [date]);
 
   if(isSuccess) {
@@ -96,14 +99,16 @@ const CalendarApp = () => {
           })}
         </div>
       </div>
-      {modal && <ModalWindow 
-                  name={modalData.name} 
-                  date={modalData.date}
-                  time={modalData.time}
-                  meetingName={modalData.meetingName}
-                  localization={modalData.localization}
-                  desc={modalData.desc}
-      />}
+      {modal && 
+        <ModalWindow 
+          name={modalData.name} 
+          date={modalData.date}
+          time={modalData.time}
+          meetingName={modalData.meetingName}
+          localization={modalData.localization}
+          desc={modalData.desc}
+        />
+      }
     </div>
   )
 }

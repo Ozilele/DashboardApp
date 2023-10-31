@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import './index.css';
 import Pagination from '../../../components/pagination/Pagination';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
@@ -15,7 +15,7 @@ import { Box, IconButton, TextField } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import SearchHotelSidebar from '../../../components/client/searchPage/SearchHotelSidebar';
 import useHotelsRequest from "../../../hooks/useHotelsRequest.js";
-import { deleteFilter, selectApp, toggleModalWindow, toggleSidebar } from '../../../features/appSlice';
+import { applyFilter, deleteFilter, selectApp, toggleModalWindow, toggleSidebar } from '../../../features/appSlice';
 import useUrlQueryString from '../../../hooks/useUrlQueryString';
 import SearchPageWindow from '../../../components/windows/SearchPageWindow';
 
@@ -27,10 +27,8 @@ const initialSortObj = {
 const popularFilters = ["Beautiful views", "Restaurant", "Free Wifi", "Room service", "Air conditioning", "Balcony", "Gym access", "Boats", "Apartments", "Hotels"];
 
 const ClientSearchPage = () => {
-  const [isFirstRender, setFirstRender] = useState(true);
   const appState = useSelector(selectApp);
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
   const [country, setCountry] = useState("");
   const [page, setPage] = useState(1);
   const [inputs, setInputs] = useState({
@@ -50,16 +48,43 @@ const ClientSearchPage = () => {
     "hasParking": false,
   });
   const [sortObj, setSortObj] = useState(initialSortObj);
-  const { hotelsData, limitPages } = useHotelsRequest('/api/client', setIsLoading, 10, page, inputs.hotel_name, "", features, sortObj, isFirstRender, setFirstRender);
-  const { currSortParam, currOrderParam, currRatingParam, setParams, deleteParams } = useUrlQueryString();
+  const { hotelsData, limitPages, isLoading, error } = useHotelsRequest('/api/client', 10, page, inputs.hotel_name, "", features, sortObj);
+  const { currSortParam, currOrderParam, currFeaturesParam, setParams, deleteParams } = useUrlQueryString();
+
+  useEffect(() => {
+    // Loading url params for getting data specific for url
+    if(currSortParam != initialSortObj.sort) {
+      setSortObj((prev) => {
+        return {
+          ...prev,
+          sort: currSortParam
+        }
+      });
+    } 
+    if(currOrderParam != initialSortObj.order) {
+      setSortObj((prev) => {
+        return {
+          ...prev,
+          order: currOrderParam
+        }
+      });
+    }
+    if(currFeaturesParam.length > 0) {
+      currFeaturesParam.forEach((featureParam) => {
+        dispatch(applyFilter(featureParam));
+        setFeatures((prevFeatures) => ({
+          ...prevFeatures,
+          [featureParam]: true,
+        }));
+      });
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     if(e.target.value === "") {
-      deleteParams([ "hotel" ]);
+      deleteParams("hotel");
     } else {
-      setParams({
-        hotel: e.target.value
-      });
+      setParams("hotel", e.target.value);
     }
     setInputs(prev=> ({
       ...prev,
@@ -136,7 +161,7 @@ const ClientSearchPage = () => {
                 <button key={i}>
                   <span>{filter}</span>
                   <CloseIcon onClick={(e) => {
-                    deleteParams([ filter ]);
+                    deleteParams("features", filter);
                     dispatch(deleteFilter(filter));
                     setFeatures({
                       ...features,
@@ -159,7 +184,7 @@ const ClientSearchPage = () => {
         </div>
         <div className='client-hotels-results'>
           {isLoading && <img className='client_hotels-loader' src={loader} alt="Loader_hotel"/>}
-          {!isLoading && hotelsData.map((hotel) => {
+          {!isLoading && hotelsData?.map((hotel) => {
             return (
               <SearchRow
                 key={hotel._id}
@@ -175,7 +200,13 @@ const ClientSearchPage = () => {
               />
             )
           })}
-          {!isLoading && <Pagination totalPages={limitPages} page={page} setPage={setPage} />}
+          {(!isLoading && !error?.status) && <Pagination totalPages={limitPages} page={page} setPage={setPage} />}
+          {(!isLoading && error?.status) && 
+            <div className='not-found-err'>
+              <h3>Unable to receive hotels data</h3>
+              <p>{error?.status}{" "}{error?.statusText}</p>
+            </div>
+          }
         </div>
       </div>
       <SearchHotelSidebar 
