@@ -1,5 +1,6 @@
 import { Request } from 'express';
-import { HydratedDocument, Types } from 'mongoose';
+import { Date, HydratedDocument, Types } from 'mongoose';
+import { createClient } from 'redis';
 
 export interface User {
   firstName: string,
@@ -8,6 +9,7 @@ export interface User {
   password: string,
   imageFile?: string,
   role?: string, // optional property
+  refreshToken?: string[],
 }
 
 export interface UserToken {
@@ -23,6 +25,18 @@ export interface Event {
     localization: string,
     description: string,
   }
+}
+
+export interface Booking {
+  hotel: Types.ObjectId,
+  user: Types.ObjectId,
+  isPaid: boolean,
+  paymentMethod?: string,
+  duration: {
+    from: Date,
+    to: Date,
+  },
+  amount: number,
 }
 
 export type UserInfo = {
@@ -53,3 +67,8 @@ export type FavoriteHotel = {
   hotelId: Types.ObjectId,
 }
 
+export type RedisClient = ReturnType<typeof createClient>;
+
+export type HotelData = {
+  count: number,
+}
