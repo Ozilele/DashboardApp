@@ -24,6 +24,7 @@ const userSchema = new Schema<User>({
     type: String,
   },
   role: String,
+  refreshToken: [String],
 });
 
 export const mongoose_model = model<User>('users', userSchema);
