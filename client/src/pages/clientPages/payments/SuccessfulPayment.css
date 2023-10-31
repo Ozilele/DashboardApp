@@ -1,0 +1,14 @@
+.Successful-Payment-Box {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.Successful-Payment-Box > a {
+  font-size: 1.3rem;
+  color: #232D3F;
+}
