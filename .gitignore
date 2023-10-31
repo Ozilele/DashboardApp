@@ -4,3 +4,4 @@ node_modules
 backend/dist
 backend/src/config/private_key.pem
 backend/src/config/public_key.pem
+backend/src/.env
