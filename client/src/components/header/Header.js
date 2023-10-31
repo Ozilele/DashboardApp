@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Header.css';
-import { Divider, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { Divider, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
@@ -11,29 +11,46 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
 import { useDispatch } from 'react-redux';
 import { toggleSidebar } from '../../features/appSlice';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { resetToken } from '../../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
 
   const dispatch = useDispatch();
   const [anchorElClicked, setAnchorEl] = useState(null);
   const open = Boolean(anchorElClicked);
-
-  const handleToggle = (e) => {
-    dispatch(toggleSidebar());
-  }
-
-  const handleClick = (e) => {
-    setAnchorEl(e.currentTarget);
-  } 
+  const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
 
   const handleClose = (e) => {
     setAnchorEl(null);
   }
 
+  const handleLogout = async (e) => {
+    const controller = new AbortController();
+    dispatch(resetToken());
+    try {
+      const response = await axiosPrivate.get("/auth/logout", {
+        signal: controller.signal
+      });
+      if(response.status === 204) {
+        navigate("/", {
+          replace: true,
+        });
+      }
+    } catch(err) {
+      console.log(err);
+    }
+    return () => {
+      controller.abort();
+    }
+  }
+
   return (
     <div className="header__section">
       <div className="header__left__section">
-        <IconButton onClick={handleToggle} className="toggle__btn">
+        <IconButton onClick={() => dispatch(toggleSidebar())} className="toggle__btn">
           <MenuIcon/>
         </IconButton>
         <div className="input__sec">
@@ -44,21 +61,23 @@ const Header = () => {
       <div className="header__right__section">
         <ChatBubbleOutlineOutlinedIcon/>
         <NotificationsOutlinedIcon/>
-        <IconButton
-          onClick={handleClick}
-          size="small"
-          aria-controls={open ? 'user-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? "true" : undefined}
-        >
-          <Avatar className="avatar__icon">B</Avatar>
-        </IconButton>
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={(e) => setAnchorEl(e.currentTarget)}
+            size="small"
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}
+          >
+            <Avatar className="avatar__icon">B</Avatar>
+          </IconButton>
+        </Tooltip>
         <Menu
           anchorEl={anchorElClicked}
-          id="user-menu"
+          id="account-menu"
           open={open}
           onClose={handleClose}
-          onClick={handleClick}
+          onClick={handleClose}
           PaperProps={{
             elevation: 0,
             sx: {
@@ -83,33 +102,33 @@ const Header = () => {
                 transform: 'translateY(-50%) rotate(45deg)',
                 zIndex: 0,
               },
-            }
+            },
           }}
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          >
-            <MenuItem onClick={handleClose}>
-              <Avatar/> My account
-            </MenuItem>
-            <Divider/>
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <Settings fontSize="small" />
-              </ListItemIcon>
-                Settings
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              Logout
-            </MenuItem>
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        >
+          <MenuItem onClick={handleClose}>
+            <Avatar/> My account
+          </MenuItem>
+          <Divider/>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+          <MenuItem onClick={handleLogout}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
         </Menu>
         <p>Hi, Bartek</p>
         <ArrowDropDownOutlinedIcon/>
-
       </div>
     </div>
   )
 }
 
-export default Header
+export default Header;

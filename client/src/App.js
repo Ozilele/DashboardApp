@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import Sidebar from './components/sidebar/Sidebar';
 import Header from './components/header/Header';
-import './App.css';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Dashboard from './pages/dashboardPages/home/Dashboard';
 import Users from './pages/dashboardPages/users/Users';
 import User from './pages/dashboardPages/user/User';
@@ -27,11 +27,14 @@ import UserSettings from './pages/clientPages/userPages/UserSettings';
 import SingleHotel from './pages/clientPages/singleHotelPage/SingleHotel';
 import NewHotel from './pages/dashboardPages/hotels/NewHotel';
 import ProtectedRoute from './components/ProtectedRoute';
+import useRefreshToken from './hooks/useRefreshToken';
+import SuccessfulPayment from './pages/clientPages/payments/SuccessfulPayment';
+import CanceledPayment from './pages/clientPages/payments/CanceledPayment';
+
 
 const AdminRouteLayout = () => {
-  
   return (
-    <div className="App">
+    <div className="App dark">
       <Sidebar/>
       <div className="App__content">
         <Header/>
@@ -41,15 +44,27 @@ const AdminRouteLayout = () => {
   );
 }
 
-const Layout = () => {
+const CLientLayout = () => {
+  const { refresh } = useRefreshToken();
+
+  useEffect(() => {
+    const getToken = async () => {
+      try { 
+        const response = await refresh();
+      } catch(err) {
+        console.log(err);
+      }
+    }
+    getToken();
+  }, []);
+
   return (
     <>
-      <Navbar />
-      <Outlet />
+      <Navbar/>
+      <Outlet/>
     </>
-  )
+  );
 }
-
 
 const router = createBrowserRouter([
   {
@@ -119,8 +134,8 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element:<Layout />,
-    children:[
+    element: <CLientLayout/>,
+    children: [
       {
         path: "/",
         element: <Home/>
@@ -136,6 +151,14 @@ const router = createBrowserRouter([
       {
         path: "/hotel/:id",
         element: <SingleHotel />,
+      },
+      {
+        path: "/payments/success",
+        element: <SuccessfulPayment/>
+      },
+      {
+        path: "/payments/cancel",
+        element: <CanceledPayment/>
       }
     ]
   },
@@ -152,7 +175,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <>
-      <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router}/>
       <ToastContainer/>
     </>
   )

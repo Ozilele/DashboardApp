@@ -39,6 +39,8 @@ export const offers = [
   },
 ]
 
+export const accessTokenExpirationTime = 1000 * 60; // 1 min accessTokenExpirationTime
+
 export const searchPageMarks = [
   {
     value: 70,

@@ -19,25 +19,31 @@ const container = {
   }
 }
 
-const TopOffers = () => {
+const TopOffers = () => { 
 
   const [width, setWidth] = useState(0);
   const carousel = useRef();
 
+  console.log(width);
   useEffect(() => {
+    console.log("Carousel current scrollWidth is " + carousel.current.scrollWidth);
+    console.log("Carousel current offsetWidth is " + carousel.current.offsetWidth);
     setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
   }, []);
 
   return (
-    <motion.div className='top-offers'>
+    <div className='top-offers'>
       <motion.h3
         initial={{ x: "-100%", opacity: 0 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
         transition={{ type: 'tween', duration: 0.4, delay: 0.32 }}>Top Offers</motion.h3>
-      <motion.div ref={carousel} className='top-offers-carousel'>
+      <motion.div 
+        ref={carousel} 
+        className='top-offers-carousel'
+      >
         <div className='top-offers-left'>
-          <IconButton>
+          <IconButton onClick={(e) => setWidth(((prev) => prev + 50))}>
             <KeyboardArrowLeftIcon/>
           </IconButton>
         </div>
@@ -64,12 +70,12 @@ const TopOffers = () => {
             })}
         </motion.div>
         <div className='top-offers-right'>
-          <IconButton onClick={() => setWidth((prev) => prev + 200)}>
+          <IconButton>
             <KeyboardArrowRightIcon/>
           </IconButton>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   )
 }
 

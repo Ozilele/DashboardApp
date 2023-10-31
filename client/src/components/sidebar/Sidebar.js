@@ -53,10 +53,6 @@ const Sidebar = () => {
   return (
     <motion.div 
       ref={sidebarRef}
-      // initial={{ opacity: 0, x: '-100%' }}
-      // animate={{ opacity: 1, x: 0 }}
-      // exit={{ opacity: 0, x: '-100%' }}
-      // transition={{ ease: [0.17, 0.67, 0.83, 0.67] }}
       initial={"closed"}
       animate={sidebarRolled ? "closed" : "open"} 
       className={sidebarRolled ? 'sidebar__section hidden' : 'sidebar__section'}>
@@ -67,13 +63,13 @@ const Sidebar = () => {
         transition={{ ease: [0.17, 0.67, 0.83, 0.67] }} 
         className="sidebar__logo">
         <IconButton onClick={() => dispatch(toggleSidebar())}>
-          <ApartmentIcon/>
+          <ApartmentIcon className='apartment-icon'/>
         </IconButton>
         <h2>BookNow</h2>
       </motion.div>
       <div className="dashboard__section">
         <h3>Dashboard</h3>
-        <SidebarOption name="Booking" Icon={DashboardIcon} path="/dashboard"/>
+        <SidebarOption name="Home" Icon={DashboardIcon} path="/dashboard"/>
       </div>
       <div className="pages__section">
         <h3>Pages</h3>

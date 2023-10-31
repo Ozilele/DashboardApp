@@ -5,7 +5,7 @@
     min-width: 300px;
     -webkit-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);;
     -moz-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
-    box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
+    box-shadow: var(--dashboard-chart-box-shadow);
     color: gray;
     overflow: hidden;
 }

@@ -3,9 +3,10 @@
     flex: 2;
     max-width: 450px;
     min-width: 240px;
-    -webkit-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);;
-    -moz-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
-    box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
+    background-color: var(--widget-featured-chart-color);
+    -webkit-box-shadow: 2px 6px 19px 1px var(--widget-featured-chart-shadow-color);
+    -moz-box-shadow: 2px 6px 19px 1px var(--widget-featured-chart-shadow-color);
+    box-shadow: 2px 6px 19px 1px var(--widget-featured-chart-shadow-color);
     padding: 10px;
 }
 

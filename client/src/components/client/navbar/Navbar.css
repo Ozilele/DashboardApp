@@ -1,4 +1,5 @@
 .navbar_client {
+    position: relative; 
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -6,7 +7,6 @@
     padding: 0.9rem 1rem;
     border-bottom: 1px solid slategray;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    /* background-color:#0B2239; */
     height: 5rem;
     width: 100%;
   }
@@ -31,7 +31,6 @@
   }
   
   .links button {
-    position: relative;
     height: 100%;
     cursor: pointer;
     padding: 0.6rem 1rem;
@@ -44,17 +43,26 @@
   }
 
   .links button > span {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   
   .navbar_loginBtn, .user__btn {
     background: transparent;
     color: white;
     border: 1px solid transparent;
+  }
+
+  .navbar_loginBtn {
     margin-right: 12px;
   }
 
-  .navbar_loginBtn:hover, .user__btn:hover {
+  .user__btn {
+    border: 1px solid #213555;
+    padding: 0.45rem 0.6rem !important;
+    margin-right: 4px;
+  }
+
+  .navbar_loginBtn:hover {
     border: 1px solid whitesmoke;
   }
 

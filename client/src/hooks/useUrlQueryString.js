@@ -18,33 +18,47 @@ const useUrlQueryString = () => {
     currOrderParam = orderParam;
   }
 
-  let currRatingParam = null;
-  const ratingParam = searchParams.get("rating")?.toLowerCase();
-  if(ratingParam) {
-    const rating = parseInt(ratingParam);
-    if(!isNaN(rating) && rating >= 0 && rating <= 10) {
-      currRatingParam = rating;
+  let currFeaturesParam = [];
+  const featuresParam = searchParams.get("features");
+  if(featuresParam) {
+    const features = featuresParam.split(","); // [closeToSee,closeToMountains,hasParking]
+    if(features.length > 0) {
+      currFeaturesParam = features;
     }
   }
   
-  const setParams = (paramObj) => {
-    for(const [key, value] of Object.entries(paramObj)) {
-      searchParams.set(key.toString(), value.toString());
+  const setParams = (paramName, paramValue) => {
+    if(searchParams.has(paramName)) {
+      const currParamValue = searchParams.get(paramName);
+      const newParamValue = `${currParamValue},${paramValue}`;
+      searchParams.set(paramName, newParamValue);
+      setSearchParams(searchParams);
+    } else {
+      searchParams.set(paramName, paramValue);
+      setSearchParams(searchParams);
     }
-    setSearchParams(searchParams);
   }
 
-  const deleteParams = (arrayOfKeys) => {
-    arrayOfKeys.map((key, i) => {
-      searchParams.delete(key.toString());
-    });
+  const deleteParams = (paramName, paramValue = "") => {
+    if(paramValue !== "") {
+      const arrOfValues = searchParams.getAll(paramName)[0].split(',');
+      const paramValueToRemove = paramValue;
+      const newArrOfValues = arrOfValues.filter((val) => val !== paramValueToRemove);
+      if(newArrOfValues.length === 0) {
+        searchParams.delete(paramName);
+      } else {
+        searchParams.set(paramName, newArrOfValues.join(","));
+      }
+    } else {
+      searchParams.delete(paramName);
+    }
     setSearchParams(searchParams);
   }
 
   return {
     currSortParam,
     currOrderParam,
-    currRatingParam,
+    currFeaturesParam,
     setParams,
     deleteParams
   }

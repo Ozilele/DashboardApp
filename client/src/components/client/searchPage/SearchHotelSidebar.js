@@ -2,7 +2,7 @@ import React, { memo, useState} from 'react';
 import './sidebar_index.css';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { Icon, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import WaterIcon from '@mui/icons-material/Water';
 import TerrainIcon from '@mui/icons-material/Terrain';
@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { applyFilter, deleteFilter, selectSidebar, toggleSidebar } from '../../../features/appSlice';
 import useUrlQueryString from '../../../hooks/useUrlQueryString';
 
-const icons = [WaterIcon, TerrainIcon, LocalParkingIcon];
+const icons = [ WaterIcon, TerrainIcon, LocalParkingIcon ];
 
 const variants = {
   hidden: { opacity: 0, transform: 'translateX(-100%)' },
@@ -49,17 +49,15 @@ const SearchHotelSidebar = ({ features, setFeatures }) => {
     rooms: 0,
     days: 0,
   });
-  const { currSortParam, currOrderParam, currRatingParam, setParams, deleteParams } = useUrlQueryString();
+  const { currSortParam, currOrderParam, currFeaturesParam, setParams, deleteParams } = useUrlQueryString();
 
   const handleChange = (e, feature) => {
     if(!features[feature]) {
       dispatch(applyFilter(feature));
-      setParams({
-        [feature]: true,
-      });
+      setParams("features", feature);
     } else {
       dispatch(deleteFilter(feature));
-      deleteParams([ feature ]);
+      deleteParams("features", feature);
     }
     setFeatures((prev) => {
       return {
@@ -107,15 +105,13 @@ const SearchHotelSidebar = ({ features, setFeatures }) => {
               <Switch onChange={(e) => handleChange(e, feature)} inputProps={{ 'aria-label': 'controlled' }} checked={features[feature]} name={feature}/>
             }
             label={
-              <div style={{display: 'flex', alignItems: 'center'}}>
+              <div style={{ display: 'flex', alignItems: 'center'}}>
                 {React.createElement(icons[i], { style: { marginRight: '4px' } })}
                 {feature}
               </div>
             }
             labelPlacement='start'
-          >
-            {features[feature] ? <Icon style={{ marginRight: '5px' }}><LocalParkingIcon /></Icon> : null}
-          </FormControlLabel>
+          />
         ))}
       </div>
       <div className='accomodation-sidebar'>
@@ -128,7 +124,7 @@ const SearchHotelSidebar = ({ features, setFeatures }) => {
               inputs={inputs}
               handleInputChange={handleInputChange}
             />
-          )
+          );
         })}
       </div>
       <div className='search-sidebar-price'>

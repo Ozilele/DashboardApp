@@ -1,0 +1,128 @@
+.review-form-user-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.review-form-user-top {
+    padding: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.review-form-user-top > h3 {
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.review-form-rating {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.review-form-rating > span {
+    /* text-align: center; */
+    font-size: 1.85rem;
+}
+
+.review-form-content {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    max-width: 650px;
+    margin: 1.85rem auto 0 auto;
+}
+
+.review-form-content > label {
+    font-size: 1.1rem;   
+}
+
+.review-form-content > textarea {
+    padding: 0.85rem;
+    /* max-width: 650px; */
+}
+
+.review-form-btns {
+    padding: 0 0.65rem;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.review-form-btns > button {
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1.02rem;
+    color: whitesmoke;
+    padding: 0.75rem 0.95rem;
+    transition: all 300ms ease-in;
+}
+
+.review-form-btns-cancel {
+    background-color: #C70039;
+}
+
+.review-form-btns-publish {
+    background-color: #1771C2;
+}
+
+.review-form-btns-cancel:hover {
+    background-color: rgb(199, 0, 57, 0.85);
+}
+
+.review-form-btns-publish:hover {
+    background-color: rgb(23, 113, 194, 0.85);
+}
+
+.add-review-not-authorized {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-review-not-authorized > a {
+    text-decoration: none;
+}
+
+.add-review-not-authorized > a > button {
+    cursor: pointer;
+    border: none;
+    padding: 1rem 1.2rem;
+    display: flex;
+    color: #D6E1E9;
+    background-color: #1771C2;
+    gap: 4px;
+    align-items: center;
+}
+
+.already-posted-div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.already-posted-div > button {
+    cursor: pointer;
+    padding: 0.65rem 0.85rem;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+

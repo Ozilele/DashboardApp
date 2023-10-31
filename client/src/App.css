@@ -2,9 +2,51 @@
     display: flex;
     max-width: 100vw;
     height: 100vh;
-    background-color: aliceblue;
-    overflow: hidden;
+    --color-background: aliceblue;
+    --sidebar-color: white;
+    --sidebar-app-logo-color: black;
+    --sidebar-box-shadow: 5px 4px 6px -1px rgba(169, 169, 177, 1);
+    --sidebar-option-color: rgba(20, 9, 9, 0.632);
+    --sidebar-option-heading-color: #7B8FA1;
+    --sidebar-option-active-color: #ADA2FF;
+    --widget-color: white;
+    --widget-data-color: rgba(3, 13, 14, 1);
+    --widget-bg-image-color: none;
+    --widget-up-color: #658864;
+    --widget-heading-color: rgba(160,160, 160); 
+    --widget-paragraph-color: black;
+    --featured-chart-color: white;
+    --dashboard-chart-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
+    --dashboard-latest-bookings-bg-color: #FFFFFF;
+    --dashboard-latest-bookings-color: rgba(0, 0, 0, 0.87);
+    --dashboard-bookings-box-shadow: 2px 6px 19px 1px rgb(183, 171, 164);
+    --widget-box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+    --widget-featured-chart-shadow-color: rgb(183, 171, 164);
     overflow-x: hidden;
+}
+
+.App.dark {
+    --color-background: #272727;
+    --sidebar-color: #2E2E48;
+    --sidebar-app-logo-color: whitesmoke;
+    --sidebar-box-shadow: none;
+    --sidebar-option-color: #B4B4B3;
+    --sidebar-option-heading-color: whitesmoke;
+    --sidebar-option-active-color: #9400FF;
+    background-color: #272727;
+    --widget-bg-image-color: linear-gradient(90deg, rgba(160, 41, 221, 1) 0%, rgba(106, 112, 210, 1) 64%);
+    --widget-color: rgba(160, 41, 221, 1);
+    --widget-data-color: rgb(225, 221, 221);
+    --widget-up-color: #A6FF96;
+    --widget-heading-color: whitesmoke; 
+    --widget-paragraph-color: white;
+    --featured-chart-color: #2E2E47;
+    --dashboard-chart-box-shadow: 2px 6px 19px 1px rgb(53, 50, 49);
+    --dashboard-latest-bookings-bg-color: #191717;
+    --dashboard-latest-bookings-color: #F0F0F0;
+    --dashboard-bookings-box-shadow: rgba(240, 238, 238, 0.16) 0px 2px 8px 0px;
+    --widget-box-shadow: none;
+    --widget-featured-chart-shadow-color: none;
 }
 
 .App__content {
@@ -13,11 +55,5 @@
     flex-direction: column;
     max-width: 100%;
     min-width: calc(100% - 240px);
+    background-color: var(--color-background);
 }
-
-/* .App__content__sm {
-    flex: 0.8;
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-} */

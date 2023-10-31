@@ -1,11 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginUser, logoutUser, registerUser } from "./authService";
 
-// Getting user from local Storage
-const user = JSON.parse(localStorage.getItem('user'));
-
 const initialState = {
-  user: user ? user : null, // just for getting data about the user
+  user: null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -48,6 +45,12 @@ export const authSlice = createSlice({
       state.isError = false;
       state.isSuccess = false;
       state.message = "";
+    },
+    setCredentials: (state, action) => {
+      state.user = action.payload;
+    },
+    resetToken: (state) => {
+      state.user = null;
     }
   },
   extraReducers: (builder) => { // holding couple functions to handle the return from the API call, handling actions created by asyncThunk
@@ -90,5 +93,6 @@ export const authSlice = createSlice({
 });
 
 export const selectUser = (state) => state.auth.user;
-export const { reset } = authSlice.actions;
+export const selectAuth = (state) => state.auth;
+export const { reset, setCredentials, resetToken } = authSlice.actions;
 export default authSlice.reducer;

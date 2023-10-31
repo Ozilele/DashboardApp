@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "/auth";
+const API_URL = "http://localhost:8000/auth";
 
 // Register user
 export const registerUser = async (userData) => {
@@ -9,12 +9,11 @@ export const registerUser = async (userData) => {
 }
 
 export const loginUser = async (loginData) => {
-  const response = await axios.post(`${API_URL}/login`, loginData);
-  console.log(response);
-  if(response.data && response.status === 200) {
-    localStorage.setItem('user', JSON.stringify(response.data));
-  }
-  return response.data;
+  const response = await axios.post(`${API_URL}/login`, loginData, {
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: true,
+  });
+  return response?.data;
 }
 
 export const logoutUser = async () => {

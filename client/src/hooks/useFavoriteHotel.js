@@ -1,21 +1,20 @@
-import axios from "axios";
-import Cookies from 'js-cookie';
-import { URL_origin } from "../utils/helpers.js";
 import { useCallback, useEffect, useState } from "react";
+import useAxiosPrivate from "./useAxiosPrivate.js";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/auth/authSlice.js";
 
-const useFavoriteHotel = ({ hotelId, userId = null }) => {
+const useFavoriteHotel = ({ hotelId }) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const { accessToken } = Cookies.get();
+  const user = useSelector(selectUser);
+  const axiosPrivate = useAxiosPrivate();
 
   useEffect(() => {
-    if(userId === null) {
+    console.log("UserID from useFavorite hook is", user?.id);
+    if(user?.id === null) {
       return;
     }
-    axios.get(`${URL_origin}/api/client/favorite?userId=${userId}&hotelId=${hotelId}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    }).then((res) => {
+    axiosPrivate.get(`/api/client/favorite/${hotelId}`)
+    .then((res) => {
       if(res.data.hotel) {
         setIsFavorite(true);
       } else {
@@ -23,37 +22,31 @@ const useFavoriteHotel = ({ hotelId, userId = null }) => {
       }
     }).catch(err => {
       console.log(err);
-    }) 
-  }, []);
+      setIsFavorite(false);
+    }); 
+  }, [user]);
 
   const toggleFavorite = useCallback(() => {
-    if(userId == null) {
+    if(user.id == null) {
       return;
     }
     if(isFavorite) {
-      axios.delete(`${URL_origin}/api/client/favorite/${hotelId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      }).then((res) => {
+      axiosPrivate.delete(`/api/client/favorite/${hotelId}`)
+      .then((res) => {
         console.log(res);
-        if(res.status === 201) {
+        if(res.status === 200) {
           setIsFavorite(false);
         }
       }).catch(err => {
         console.log(err);
       });
     } else {
-      axios.post(`${URL_origin}/api/client/favorite`, {
-        userId,
+      axiosPrivate.post(`/api/client/favorite`, {
         hotelId
-      }, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      }).then((res) => {
+      })
+      .then((res) => {
         console.log(res);
-        if(res.status == 201) {
+        if(res.status == 200) {
           setIsFavorite(true);
         }
       }).catch(err => {

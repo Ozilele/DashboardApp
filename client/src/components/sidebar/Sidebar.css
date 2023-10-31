@@ -6,13 +6,13 @@
     min-width: 220px;
     padding: 12px 4px;
     height: 100%;
-    background-color: white;
-    -webkit-box-shadow: 5px 4px 6px -1px rgba(169, 169, 177, 1);
-    -moz-box-shadow: 5px 4px 6px -1px rgba(169, 169, 177, 1);
-    box-shadow: 5px 4px 6px -1px rgba(169, 169, 177, 1);
+    background-color: var(--sidebar-color);
+    -webkit-box-shadow: var(--sidebar-box-shadow);
+    -moz-box-shadow: var(--sidebar-box-shadow);
+    box-shadow: var(--sidebar-box-shadow);
     display: flex;
     flex-direction: column;
-    color: #7B8FA1;
+    color: var(--sidebar-option-heading-color);
     font-weight: 400;
     line-height: 1.5;
     transform: translateX(0%);
@@ -28,6 +28,10 @@
     min-width: none;
     max-width: none;
     transform: translateX(-100%);
+}
+
+.apartment-icon {
+    color: var(--sidebar-app-logo-color) !important;
 }
 
 .visually_hidden {

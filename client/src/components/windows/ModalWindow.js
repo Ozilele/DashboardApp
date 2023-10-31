@@ -8,6 +8,7 @@ import { TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch } from 'react-redux';
 import { toggleModalWindow, addNewEvent } from '../../features/appSlice';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const ModalWindow = ({ name, date, time, meetingName, localization, desc }) => {
 
@@ -18,6 +19,7 @@ const ModalWindow = ({ name, date, time, meetingName, localization, desc }) => {
     description: ''
   });
   const dispatch = useDispatch();
+  const axiosPrivate = useAxiosPrivate();
 
   const closeModal = () => {
     dispatch(toggleModalWindow());
@@ -32,7 +34,7 @@ const ModalWindow = ({ name, date, time, meetingName, localization, desc }) => {
     });
   }
 
-  const handleNewEvent = (e) => {
+  const handleNewEvent = async (e) => {
     e.preventDefault();
     const newEventObj = {
       date: date,
@@ -43,7 +45,8 @@ const ModalWindow = ({ name, date, time, meetingName, localization, desc }) => {
         description: inputs.description,
       }
     }
-    dispatch(addNewEvent(newEventObj));
+    const response = await axiosPrivate.post("/admin/calendar", newEventObj);
+    console.log(response.data);
     closeModal();
   };
 

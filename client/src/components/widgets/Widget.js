@@ -1,21 +1,29 @@
 import React from 'react'
 import './Widget.css';
-import Grid from '@mui/material/Grid';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useSelector } from 'react-redux';
+import { selectAppTheme } from '../../features/appSlice';
+
+const darkThemeWidgetColors = [
+  "#35D7E3",
+  "#4C96F6",
+  "#8B61FB",
+  "#FBAEB9"
+]
 
 const Widget = ({ title, percent, Icon, message, number, isUp, iconColor }) => {
 
-  const color = isUp ? "#658864" : "red";
+  const theme = useSelector(selectAppTheme);
 
   return (
     <div className="widget">
       <div className="widget__first__sec">
         <h3>{title}</h3>
         <div className="percent__sec">
-          {isUp && <KeyboardArrowUpIcon style={{ color: color }}/>}
-          {!isUp && <KeyboardArrowDownIcon style={{ color: color }}/> }
-          <span style={{ color: color }}>{percent} %</span>
+          {isUp && <KeyboardArrowUpIcon style={{ color: '#658864' }}/>}
+          {!isUp && <KeyboardArrowDownIcon style={{ color: 'red' }}/> }
+          <span style={{ color: 'red' }}>{percent}%</span>
         </div>
       </div>
       <div className="widget__second__sec">

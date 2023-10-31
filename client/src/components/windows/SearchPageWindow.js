@@ -22,12 +22,7 @@ const SearchPageWindow = () => {
             <button key={i}>
               <span>{filter}</span>
               <CloseIcon onClick={(e) => {
-                // deleteParams([ filter ]);
                 dispatch(deleteFilter(filter));
-                // setFeatures({
-                //   ...features,
-                //   [filter]: false
-                // });
               }}/>
             </button>  
           )

@@ -9,4 +9,5 @@ export const store = configureStore({
     user: userReducer,
     app: appReducer,
   },
+  // devTools: false // disable redux toolkit in production
 });

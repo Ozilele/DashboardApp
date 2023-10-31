@@ -1,17 +1,18 @@
 .top-offer {
     flex-basis: 33.33%;
     min-width: 275px;
+    margin-bottom: 1.2rem;
     pointer-events: none;
-    background-color: #FCE9F1;
-    border: 1px solid rgb(30, 26, 26);
+    background-color: #F5F7F8;
+    /* border: 1px solid rgb(30, 26, 26); */
     border-radius: 6px;
     display: flex;
     flex-direction: column;
     padding: 0.75rem;
-    gap: 10px;
-    -webkit-box-shadow: 8px 9px 19px -12px rgba(40, 40, 45, 1);
-    -moz-box-shadow: 8px 9px 19px -12px rgba(40, 40, 45, 1);
-    box-shadow: 8px 9px 19px -12px rgba(40, 40, 45, 1);
+    gap: 0.7rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    -webkit-box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    -moz-box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .top-offer-img {
@@ -31,6 +32,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.5rem 0.25rem;
 }
 
 .top-offer-rating {

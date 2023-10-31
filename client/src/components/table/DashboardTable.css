@@ -1,6 +1,15 @@
 
 .table__row {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+    background-color: var(----dashboard-latest-bookings-bg-color) !important;
+    color: var(--dashboard-latest-bookings-color) !important;
+}
+
+th, td {
+    color: var(--dashboard-latest-bookings-color) !important;
 }
 
 
