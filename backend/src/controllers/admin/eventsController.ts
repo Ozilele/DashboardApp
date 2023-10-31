@@ -1,17 +1,17 @@
 import { event_model as EventModel } from "../../model/eventModel.js";
 import { Request, Response } from "express";
 import { Event } from "../../types/types.js";
+
 // Req. like /admin/calendar/date?currDate=30.04.2022
 // Get Events For a Date
 export const getEventsForDate = async (req : Request, res : Response) => {
-  const date : string = req.query.currDate.toString();
+  const date: string = req.query.currDate.toString();
   if(!date) {
     return res.status(400).json({
       message: "Invalid request query string"
     });
   }
-  const events : Event[] = await EventModel.find({ date: date });
-
+  const events: Event[] = await EventModel.find({ date: date });
   if(events) {
     return res.status(201).json({
       events: events,

@@ -29,6 +29,21 @@ export const getUsers = async (req : Request, res : Response) => {
   }
 }
 
+export const getUsersCount = async (req: Request, res: Response) => {
+  try { 
+    const usersCount: number = await UserModel.where({ role: { $not: { $eq: "admin" } } }).countDocuments();
+    console.log(usersCount);
+    return res.status(201).json({
+      message: "Found users",
+      count: usersCount
+    });
+  } catch(err) {
+    return res.status(500).json({
+      message: "Network error",
+    });
+  }
+}
+
 // Add new User
 export const addUser = async (req : Request, res : Response) => {
   const { firstName, secondName, email, password, imageData, imageName } = req.body;
