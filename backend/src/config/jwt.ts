@@ -17,6 +17,13 @@ export const signJWT = (object : UserToken, options: any) => {
   return token;
 }
 
+export const signRefreshToken = (object: UserToken, options: any) => {
+  const token : string = jwt.sign(object, process.env.REFRESH_TOKEN_SECRET, {
+    ...(options && options),
+  });
+  return token;
+}
+
 export const verifyJWT : (token : string) => Verification = (token : string) => {
   try {
     const decoded : UserToken = jwt.verify(token, publicKey, { algorithms: ['RS256'] });
